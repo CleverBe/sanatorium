@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { TanstackQueryProvider } from "./providers/QueryClient";
-import { router } from "./routes/privateRoutes";
-import { Toaster } from "./components/ui/toaster";
+import { Toaster } from "sonner";
+import { router } from "./routes/PrivateRoutes";
 
 function App() {
   return (

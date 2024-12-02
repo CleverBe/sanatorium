@@ -11,10 +11,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginInput, loginSchema } from "./LoginSchema";
-import { toast } from "sonner";
+import { LoginInput, loginSchema } from "./schemas/LoginSchema";
+import { useNavigate } from "react-router-dom";
+import { useLoginUser } from "./api/useLoginUser";
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -23,9 +26,10 @@ export const LoginPage = () => {
     },
   });
 
-  const onSubmit = (data: LoginInput) => {
-    toast.success("Ingresaste con exito");
-    console.log(data);
+  const { mutateAsync: loginMutation, isPending } = useLoginUser();
+
+  const onSubmit = async (data: LoginInput) => {
+    loginMutation(data).then(() => navigate("/"));
   };
 
   return (
@@ -45,7 +49,7 @@ export const LoginPage = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Correo electrónico</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="carlos@gmail.com"
@@ -63,7 +67,7 @@ export const LoginPage = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Contraseña</FormLabel>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
@@ -71,7 +75,7 @@ export const LoginPage = () => {
                   </FormItem>
                 )}
               />
-              <Button disabled={form.formState.isSubmitting} className="w-full">
+              <Button className="w-full" disabled={isPending}>
                 Ingresar
               </Button>
             </form>
