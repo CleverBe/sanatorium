@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { useGetUsers } from "./api/useGetUsers";
+import { UsersTable } from "./Components/UsersTable";
+import { SkeletonTable } from "@/components/SkeletonTable";
+import { useUserModal } from "./hooks/useUserModal";
+import { UserModal } from "./Components/UserModal";
 
 export const UsersPage = () => {
+  const { data: users = [], isLoading } = useGetUsers();
+  const modalUser = useUserModal();
+
   return (
     <div>
       <h1 className="text-2xl font-bold">Administrar usuarios</h1>
@@ -17,43 +17,19 @@ export const UsersPage = () => {
       <div className="mt-4 flex justify-between">
         <Input type="text" placeholder="Buscar..." className="max-w-xs" />
 
-        <Button>Agregar</Button>
+        <Button
+          onClick={() => {
+            modalUser.onOpen();
+          }}
+        >
+          Agregar
+        </Button>
       </div>
 
       <div className="mt-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">INV001</TableCell>
-              <TableCell>Paid</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        {isLoading ? <SkeletonTable /> : <UsersTable users={users} />}
       </div>
+      <UserModal />
     </div>
   );
 };

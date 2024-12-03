@@ -71,7 +71,8 @@ export const Header = ({
               <div
                 className={cn(
                   "z-50 my-4 list-none divide-y divide-gray-100 rounded bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700",
-                  showDropdown ? "hidden" : "block",
+                  // showDropdown ? "hidden" : "block",
+                  "hidden",
                 )}
                 id="dropdown-user"
               >
