@@ -30,6 +30,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useGetUsers } from "@/pages/Users/api/useGetUsers"
 import { RoleEnum } from "@/pages/Users/types"
 import { localToUTC, utcToLocal } from "@/helpers/dates"
+import { MultiSelect } from "@/components/ui/multiselect"
 
 export const ProjectForm = () => {
   const modalProject = useProjectModal()
@@ -211,6 +212,31 @@ export const ProjectForm = () => {
             </FormItem>
           )}
         />
+        <div className="col-span-6">
+          <MultiSelect
+            options={[
+              { label: "Example 1", value: "1" },
+              { label: "Example 2", value: "2" },
+              { label: "Example 3", value: "3" },
+              { label: "Example 4", value: "4" },
+              { label: "Example 5", value: "5" },
+              { label: "Example 6", value: "6" },
+              { label: "Example 7", value: "7" },
+              { label: "Example 8", value: "8" },
+              { label: "Example 9", value: "9" },
+              { label: "Example 10", value: "10" },
+              { label: "Example 11", value: "11" },
+              { label: "Example 12", value: "12" },
+              { label: "Example 13", value: "13" },
+              { label: "Example 14", value: "14" },
+              { label: "Example 15", value: "15" },
+              { label: "Example 16", value: "16" },
+            ]}
+            defaultValue={["1", "2"]}
+            onValueChange={() => {}}
+            placeholder="Seleccione un encargado"
+          />
+        </div>
 
         <div className="col-span-12 flex w-full items-center justify-end">
           <Button disabled={isPending} type="submit">
