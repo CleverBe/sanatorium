@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -7,16 +7,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginInput, loginSchema } from "./schemas/LoginSchema";
-import { useNavigate } from "react-router-dom";
-import { useLoginUser } from "./api/useLoginUser";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { LoginInput, loginSchema } from "./schemas/LoginSchema"
+import { useNavigate } from "react-router-dom"
+import { useLoginUser } from "./api/useLoginUser"
 
 export const LoginPage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -24,13 +24,13 @@ export const LoginPage = () => {
       email: "",
       password: "",
     },
-  });
+  })
 
-  const { mutateAsync: loginMutation, isPending } = useLoginUser();
+  const { mutateAsync: loginMutation, isPending } = useLoginUser()
 
   const onSubmit = async (data: LoginInput) => {
-    loginMutation(data).then(() => navigate("/"));
-  };
+    loginMutation(data).then(() => navigate("/"))
+  }
 
   return (
     <div className="flex h-[calc(100vh-210px)] items-center justify-center">
@@ -83,5 +83,5 @@ export const LoginPage = () => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )
+}

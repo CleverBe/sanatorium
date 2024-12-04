@@ -1,11 +1,11 @@
-import { sleepAppWithData } from "@/helpers/sleep";
-import { LoginInput } from "../schemas/LoginSchema";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { sleepAppWithData } from "@/helpers/sleep"
+import { LoginInput } from "../schemas/LoginSchema"
+import { useMutation } from "@tanstack/react-query"
+import { toast } from "sonner"
 
 export interface ILoginResponse {
-  status: string;
-  accessToken: string;
+  status: string
+  accessToken: string
 }
 
 export const loginUserFn = async (user: LoginInput) => {
@@ -21,23 +21,23 @@ export const loginUserFn = async (user: LoginInput) => {
       return {
         status: "success",
         accessToken: "1234",
-      };
+      }
     } else {
-      throw new Error("Credenciales incorrectas");
+      throw new Error("Credenciales incorrectas")
     }
-  });
-};
+  })
+}
 
 export const useLoginUser = () => {
   return useMutation({
     mutationFn: loginUserFn,
     onSuccess: (data) => {
       if (data.status === "success") {
-        toast.success("Ingresaste con exito");
+        toast.success("Ingresaste con exito")
       }
     },
     onError: () => {
-      toast.error("Credenciales incorrectas");
+      toast.error("Credenciales incorrectas")
     },
-  });
-};
+  })
+}

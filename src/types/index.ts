@@ -1,6 +1,6 @@
 export type ModalT<ItemType> = {
-  item: null | ItemType;
-  isOpen: boolean;
-  onOpen: (item?: ItemType) => void;
-  onClose: () => void;
-};
+  item: null | ItemType
+  isOpen: boolean
+  onOpen: (item?: ItemType) => void
+  onClose: () => void
+}

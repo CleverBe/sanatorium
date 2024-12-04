@@ -5,9 +5,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { User } from "../Types";
-import { UserTableActions } from "./UserTableActions";
+} from "@/components/ui/table"
+import { User } from "../types"
+import { UserTableActions } from "./UserTableActions"
+import { Badge } from "@/components/ui/badge"
 
 export const UsersTable = ({ users }: { users: User[] }) => {
   return (
@@ -27,7 +28,13 @@ export const UsersTable = ({ users }: { users: User[] }) => {
             <TableCell className="font-medium">{user.firstname}</TableCell>
             <TableCell>{user.lastname}</TableCell>
             <TableCell>{user.email}</TableCell>
-            <TableCell>{user.status}</TableCell>
+            <TableCell>
+              {user.status ? (
+                <Badge variant="outline">Activo</Badge>
+              ) : (
+                <Badge variant="destructive">Inactivo</Badge>
+              )}
+            </TableCell>
             <TableCell className="text-right">
               <UserTableActions user={user} />
             </TableCell>
@@ -35,5 +42,5 @@ export const UsersTable = ({ users }: { users: User[] }) => {
         ))}
       </TableBody>
     </Table>
-  );
-};
+  )
+}

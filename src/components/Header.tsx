@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 export const Header = ({
   showDropdown,
@@ -6,10 +6,10 @@ export const Header = ({
   showSidebar,
   setShowSidebar,
 }: {
-  showDropdown: boolean;
-  setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
-  showSidebar: boolean;
-  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+  showDropdown: boolean
+  setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>
+  showSidebar: boolean
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   return (
     <nav className="sticky top-0 z-50 mx-auto w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -134,5 +134,5 @@ export const Header = ({
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}

@@ -1,4 +1,4 @@
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "./ui/skeleton"
 
 export const SkeletonTable = () => {
   return (
@@ -36,5 +36,5 @@ export const SkeletonTable = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}

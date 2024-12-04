@@ -1,11 +1,11 @@
-import { Header } from "@/components/Header";
-import { Sidebar } from "@/components/Sidebar";
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Header } from "@/components/Header"
+import { Sidebar } from "@/components/Sidebar"
+import { useState } from "react"
+import { Outlet } from "react-router-dom"
 
 export const AppLayout = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false)
+  const [showSidebar, setShowSidebar] = useState(false)
 
   return (
     <main className="">
@@ -22,5 +22,5 @@ export const AppLayout = () => {
         </div>
       </div>
     </main>
-  );
-};
+  )
+}

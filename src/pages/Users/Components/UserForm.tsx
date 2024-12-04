@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -6,30 +6,30 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useUserModal } from "../hooks/useUserModal";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { useUserModal } from "../hooks/useUserModal"
 import {
   CreateUserInput,
   createUserSchema,
   updateUserSchema,
-} from "../schemas/UserSchema";
-import { Role } from "../Types";
-import { useCreateUser } from "../api/useCreateUser";
+} from "../schemas/UserSchema"
+import { RoleEnum } from "../types"
+import { useCreateUser } from "../api/useCreateUser"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { useUpdateUser } from "../api/useUpdateUser";
+} from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
+import { useUpdateUser } from "../api/useUpdateUser"
 
 export const UserForm = () => {
-  const modalUser = useUserModal();
+  const modalUser = useUserModal()
 
   const form = useForm<CreateUserInput>({
     resolver: zodResolver(modalUser.item ? updateUserSchema : createUserSchema),
@@ -39,24 +39,26 @@ export const UserForm = () => {
       email: modalUser.item?.email ?? "",
       password: "",
       status: modalUser.item?.status ?? true,
-      role: modalUser.item?.role ?? Role.ADMIN,
+      role: modalUser.item?.role ?? RoleEnum.ADMIN,
     },
-  });
+  })
 
   const { mutateAsync: mutateCreate, isPending: isPendingCreate } =
-    useCreateUser();
+    useCreateUser()
   const { mutateAsync: mutateUpdate, isPending: isPendingUpdate } =
-    useUpdateUser();
+    useUpdateUser()
 
-  const isPending = isPendingCreate || isPendingUpdate;
+  const isPending = isPendingCreate || isPendingUpdate
 
   const onSubmit: SubmitHandler<CreateUserInput> = async (values) => {
     if (modalUser.item) {
-      mutateUpdate({ data: values }).then(() => modalUser.onClose());
+      mutateUpdate({ data: { ...values, id: modalUser.item.id } }).then(() =>
+        modalUser.onClose(),
+      )
     } else {
-      mutateCreate({ data: values }).then(() => modalUser.onClose());
+      mutateCreate({ data: values }).then(() => modalUser.onClose())
     }
-  };
+  }
 
   return (
     <Form {...form}>
@@ -115,7 +117,7 @@ export const UserForm = () => {
             <FormItem className="col-span-12">
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -155,9 +157,9 @@ export const UserForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {Object.values(Role).map((role) => (
-                    <SelectItem key={role} value={role}>
-                      {role}
+                  {Object.values(RoleEnum).map((val) => (
+                    <SelectItem key={val} value={val}>
+                      {val}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -169,10 +171,10 @@ export const UserForm = () => {
 
         <div className="col-span-12 flex w-full items-center justify-end">
           <Button disabled={isPending} type="submit">
-            Crear
+            {modalUser.item ? "Actualizar" : "Crear"}
           </Button>
         </div>
       </form>
     </Form>
-  );
-};
+  )
+}

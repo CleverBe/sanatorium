@@ -1,3 +1,3 @@
 export const ReportsPage = () => {
-  return <div>ReportsPage</div>;
-};
+  return <div>ReportsPage</div>
+}

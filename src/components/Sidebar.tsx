@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
-import { AxeIcon, BanIcon, BoxIcon, LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils"
+import { AxeIcon, BanIcon, BoxIcon, LucideIcon } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const menuItems = [
   {
@@ -18,16 +18,16 @@ const menuItems = [
     LucideIc: BoxIcon,
     url: "/reportes",
   },
-];
+]
 
 const SidebarItem = ({
   title,
   Icon,
   url,
 }: {
-  title: string;
-  Icon: LucideIcon;
-  url: string;
+  title: string
+  Icon: LucideIcon
+  url: string
 }) => {
   return (
     <li>
@@ -39,8 +39,8 @@ const SidebarItem = ({
         <span className="ms-3">{title}</span>
       </Link>
     </li>
-  );
-};
+  )
+}
 
 export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
   return (
@@ -65,5 +65,5 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
         </ul>
       </div>
     </aside>
-  );
-};
+  )
+}

@@ -4,14 +4,14 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
+} from "../ui/dialog"
 
 interface Props {
-  title: string;
-  description: string;
-  isOpen: boolean;
-  onClose: () => void;
-  children?: React.ReactNode;
+  title: string
+  description: string
+  isOpen: boolean
+  onClose: () => void
+  children?: React.ReactNode
 }
 
 export const ConfirmModal = ({
@@ -23,9 +23,9 @@ export const ConfirmModal = ({
 }: Props) => {
   const onChange = (open: boolean) => {
     if (!open) {
-      onClose();
+      onClose()
     }
-  };
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
@@ -37,5 +37,5 @@ export const ConfirmModal = ({
         {children}
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

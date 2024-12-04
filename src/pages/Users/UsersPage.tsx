@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useGetUsers } from "./api/useGetUsers";
-import { UsersTable } from "./Components/UsersTable";
-import { SkeletonTable } from "@/components/SkeletonTable";
-import { useUserModal } from "./hooks/useUserModal";
-import { UserModal } from "./Components/UserModal";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useGetUsers } from "./api/useGetUsers"
+import { UsersTable } from "./Components/UsersTable"
+import { SkeletonTable } from "@/components/SkeletonTable"
+import { useUserModal } from "./hooks/useUserModal"
+import { UserModal } from "./Components/UserModal"
 
 export const UsersPage = () => {
-  const { data: users = [], isLoading } = useGetUsers();
-  const modalUser = useUserModal();
+  const { data: users = [], isLoading } = useGetUsers()
+  const modalUser = useUserModal()
 
   return (
     <div>
@@ -19,7 +19,7 @@ export const UsersPage = () => {
 
         <Button
           onClick={() => {
-            modalUser.onOpen();
+            modalUser.onOpen()
           }}
         >
           Agregar
@@ -31,5 +31,5 @@ export const UsersPage = () => {
       </div>
       <UserModal />
     </div>
-  );
-};
+  )
+}

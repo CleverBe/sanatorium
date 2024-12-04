@@ -1,30 +1,30 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useUserModal } from "../hooks/useUserModal";
-import { AlertModal } from "@/components/modals/alertModal";
-import { useState } from "react";
-import { useDeleteUser } from "../api/useDeleteUser";
-import { User } from "../Types";
+} from "@/components/ui/dropdown-menu"
+import { Edit, MoreHorizontal, Trash } from "lucide-react"
+import { useUserModal } from "../hooks/useUserModal"
+import { AlertModal } from "@/components/modals/alertModal"
+import { useState } from "react"
+import { useDeleteUser } from "../api/useDeleteUser"
+import { User } from "../types"
 
 export const UserTableActions = ({ user }: { user: User }) => {
-  const modalUser = useUserModal();
+  const modalUser = useUserModal()
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
-  const { mutateAsync, isPending } = useDeleteUser();
+  const { mutateAsync, isPending } = useDeleteUser()
 
   const onDelete = async () => {
     mutateAsync({ id: user.id }).then(() => {
-      setOpen(false);
-    });
-  };
+      setOpen(false)
+    })
+  }
 
   return (
     <>
@@ -45,7 +45,7 @@ export const UserTableActions = ({ user }: { user: User }) => {
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => {
-              modalUser.onOpen(user);
+              modalUser.onOpen(user)
             }}
           >
             <Edit className="mr-2 size-4" />
@@ -53,7 +53,7 @@ export const UserTableActions = ({ user }: { user: User }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
-              setOpen(true);
+              setOpen(true)
             }}
           >
             <Trash className="mr-2 size-4" />
@@ -62,5 +62,5 @@ export const UserTableActions = ({ user }: { user: User }) => {
         </DropdownMenuContent>
       </DropdownMenu>
     </>
-  );
-};
+  )
+}

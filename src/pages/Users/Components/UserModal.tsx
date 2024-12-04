@@ -3,12 +3,12 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { UserForm } from "./UserForm";
-import { useUserModal } from "../hooks/useUserModal";
+} from "@/components/ui/dialog"
+import { UserForm } from "./UserForm"
+import { useUserModal } from "../hooks/useUserModal"
 
 export const UserModal = () => {
-  const modalUser = useUserModal();
+  const modalUser = useUserModal()
 
   return (
     <Dialog open={modalUser.isOpen} onOpenChange={modalUser.onClose}>
@@ -21,5 +21,5 @@ export const UserModal = () => {
         <UserForm />
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
