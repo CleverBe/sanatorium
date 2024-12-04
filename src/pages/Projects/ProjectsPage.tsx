@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input"
 import { useGetProjects } from "./api/useGetProjects"
 import { useProjectModal } from "./hooks/useProjectModal"
 import { Button } from "@/components/ui/button"
@@ -15,23 +14,22 @@ export const ProjectsPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Administrar proyectos</h1>
-
-      <div className="mt-4 flex justify-between">
-        <Input type="text" placeholder="Buscar..." className="max-w-xs" />
+      <div className="mt-4 flex flex-wrap items-center justify-between space-y-2">
+        <h1 className="text-2xl font-bold">Administrar proyectos</h1>
 
         <Button
           onClick={() => {
             modalProject.onOpen()
           }}
+          className="max-w-xs"
         >
-          Agregar
+          Agregar usuario
         </Button>
       </div>
 
       <div className="mt-4">
         {isLoading ? (
-          <SkeletonTable />
+          <SkeletonTable withSearchInput />
         ) : (
           <ProjectsTable projects={projects} users={users} />
         )}

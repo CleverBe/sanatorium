@@ -1,46 +1,70 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
 import { User } from "../types"
-import { UserTableActions } from "./UserTableActions"
+import { CellActions } from "./CellActions"
 import { Badge } from "@/components/ui/badge"
+import { ColumnDef } from "@tanstack/react-table"
+import { DataTable } from "@/components/ui/data-table"
+import { Button } from "@/components/ui/button"
+import { ArrowUpDown } from "lucide-react"
 
 export const UsersTable = ({ users }: { users: User[] }) => {
+  const columns: ColumnDef<User>[] = [
+    {
+      accessorKey: "fullname",
+      filterFn: (row, _, value) => {
+        const fullname = `${row.original.firstname} ${row.original.lastname}`
+        return fullname.toLowerCase().includes(value.toLowerCase())
+      },
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Nombre Completo
+            <ArrowUpDown className="ml-2 size-4" />
+          </Button>
+        )
+      },
+      cell: ({ row }) => `${row.original.firstname} ${row.original.lastname}`,
+      sortingFn: (rowA, rowB) => {
+        return rowA.original.firstname.localeCompare(rowB.original.firstname)
+      },
+    },
+    {
+      accessorKey: "email",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Correo electrónico
+            <ArrowUpDown className="ml-2 size-4" />
+          </Button>
+        )
+      },
+    },
+    {
+      accessorKey: "status",
+      header: "Estado",
+      cell: ({ row }) => (
+        <Badge variant={`${row.original.status ? "default" : "destructive"}`}>
+          {row.original.status ? "Activo" : "Inactivo"}
+        </Badge>
+      ),
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => <CellActions user={row.original} />,
+    },
+  ]
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Nombre</TableHead>
-          <TableHead>Apellido</TableHead>
-          <TableHead>Correo electrónico</TableHead>
-          <TableHead>Estado</TableHead>
-          <TableHead className="text-right">Acciones</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {users.map((user) => (
-          <TableRow key={user.id}>
-            <TableCell className="font-medium">{user.firstname}</TableCell>
-            <TableCell>{user.lastname}</TableCell>
-            <TableCell>{user.email}</TableCell>
-            <TableCell>
-              {user.status ? (
-                <Badge variant="outline">Activo</Badge>
-              ) : (
-                <Badge variant="destructive">Inactivo</Badge>
-              )}
-            </TableCell>
-            <TableCell className="text-right">
-              <UserTableActions user={user} />
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <DataTable
+      columns={columns}
+      data={users}
+      filterInputPlaceholder="Buscar por nombre"
+      filterInputValue="fullname"
+    />
   )
 }

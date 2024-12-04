@@ -7,21 +7,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
-import { useUserModal } from "../hooks/useUserModal"
+import { useProjectModal } from "../hooks/useProjectModal"
 import { AlertModal } from "@/components/modals/alertModal"
 import { useState } from "react"
-import { useDeleteUser } from "../api/useDeleteUser"
-import { User } from "../types"
+import { useDeleteProject } from "../api/useDeleteProject"
+import { Project } from "../types"
 
-export const UserTableActions = ({ user }: { user: User }) => {
-  const modalUser = useUserModal()
+export const CellActions = ({ project }: { project: Project }) => {
+  const modalProject = useProjectModal()
 
   const [open, setOpen] = useState(false)
 
-  const { mutateAsync, isPending } = useDeleteUser()
+  const { mutateAsync, isPending } = useDeleteProject()
 
   const onDelete = async () => {
-    mutateAsync({ id: user.id }).then(() => {
+    mutateAsync({ id: project.id }).then(() => {
       setOpen(false)
     })
   }
@@ -45,7 +45,7 @@ export const UserTableActions = ({ user }: { user: User }) => {
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => {
-              modalUser.onOpen(user)
+              modalProject.onOpen(project)
             }}
           >
             <Edit className="mr-2 size-4" />
