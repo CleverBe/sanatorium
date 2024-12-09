@@ -1,21 +1,21 @@
 import { cn } from "@/lib/utils"
-import { AxeIcon, BanIcon, BoxIcon, LucideIcon } from "lucide-react"
-import { Link } from "react-router-dom"
+import { BookCheck, Clipboard, LucideIcon, Users } from "lucide-react"
+import { Link, useLocation } from "react-router-dom"
 
 const menuItems = [
   {
     title: "Usuarios",
-    LucideIc: AxeIcon,
+    LucideIc: Users,
     url: "/usuarios",
   },
   {
     title: "Proyectos",
-    LucideIc: BanIcon,
+    LucideIc: BookCheck,
     url: "/proyectos",
   },
   {
     title: "Reportes",
-    LucideIc: BoxIcon,
+    LucideIc: Clipboard,
     url: "/reportes",
   },
 ]
@@ -29,14 +29,23 @@ const SidebarItem = ({
   Icon: LucideIcon
   url: string
 }) => {
+  const location = useLocation()
+
+  const isActive = location.pathname.startsWith(url)
+
   return (
     <li>
       <Link
         to={url}
-        className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        className={cn(
+          "group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700",
+          isActive && "bg-gray-100 dark:bg-gray-700",
+        )}
       >
         <Icon className="size-5" />
-        <span className="ms-3">{title}</span>
+        <span className={cn("ms-3", isActive && "font-extrabold")}>
+          {title}
+        </span>
       </Link>
     </li>
   )

@@ -11,4 +11,5 @@ export interface User {
   email: string
   status: boolean
   role: RoleEnum
+  image: string
 }

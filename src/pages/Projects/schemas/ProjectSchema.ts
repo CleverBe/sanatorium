@@ -20,22 +20,25 @@ export const createProjectSchema = z.object({
     z.literal(""),
   ]),
   status: z.nativeEnum(ProjectStatusEnum),
-  inCharge: z.string({
-    required_error: "inCharge is required",
-    invalid_type_error: "inCharge must be a string",
-  }),
+  inCharge: z
+    .string({
+      required_error: "inCharge is required",
+      invalid_type_error: "inCharge must be a string",
+    })
+    .uuid("Selecciona un encargado"),
   startDate: z
     .string({
       required_error: "startDate is required",
       invalid_type_error: "startDate must be a string",
     })
-    .datetime("Debe ser una fecha valida"),
+    .datetime("Selecciona una fecha"),
   endDate: z
     .string({
       required_error: "endDate is required",
       invalid_type_error: "endDate must be a string",
     })
-    .datetime("Debe ser una fecha valida"),
+    .datetime("Selecciona una fecha"),
+  employees: z.array(z.string()).min(1, "Selecciona al menos un empleado"),
 })
 
 export type CreateProjectInput = z.infer<typeof createProjectSchema>

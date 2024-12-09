@@ -161,7 +161,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
             onClick={handleTogglePopover}
             className={cn(
               "flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm hover:bg-transparent [&_svg]:pointer-events-auto",
-              selectedValues.length > 1 ? "h-full" : "h-9",
+              selectedValues.length > 1 ? "h-fit" : "h-9",
               className,
             )}
           >

@@ -85,7 +85,7 @@ export const ProjectsTable = ({
       columns={columns}
       data={projects}
       filterInputPlaceholder="Buscar por nombre"
-      filterInputValue="fullname"
+      filterInputValue="name"
     />
   )
 }

@@ -31,11 +31,13 @@ import { useGetUsers } from "@/pages/Users/api/useGetUsers"
 import { RoleEnum } from "@/pages/Users/types"
 import { localToUTC, utcToLocal } from "@/helpers/dates"
 import { MultiSelect } from "@/components/ui/multiselect"
+import { getProjectStatus } from "../helpers"
 
 export const ProjectForm = () => {
   const modalProject = useProjectModal()
   const { data: users = [] } = useGetUsers()
   const managers = users.filter((user) => user.role === RoleEnum.MANAGER)
+  const employees = users.filter((user) => user.role === RoleEnum.EMPLOYEE)
 
   const form = useForm<CreateProjectInput>({
     resolver: zodResolver(
@@ -48,6 +50,7 @@ export const ProjectForm = () => {
       inCharge: modalProject.item?.inCharge ?? "",
       startDate: modalProject.item?.startDate ?? "",
       endDate: modalProject.item?.endDate ?? "",
+      employees: modalProject.item?.employees ?? [],
     },
   })
 
@@ -92,9 +95,13 @@ export const ProjectForm = () => {
           name="description"
           render={({ field }) => (
             <FormItem className="col-span-12">
-              <FormLabel>Apellido</FormLabel>
+              <FormLabel>Descripción</FormLabel>
               <FormControl>
-                <Textarea {...field} className="resize-none" />
+                <Textarea
+                  {...field}
+                  className="resize-none"
+                  placeholder="Descripción del proyecto"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,7 +130,7 @@ export const ProjectForm = () => {
                 <SelectContent>
                   {Object.values(ProjectStatusEnum).map((val) => (
                     <SelectItem key={val} value={val}>
-                      {val}
+                      {getProjectStatus(val)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -212,31 +219,27 @@ export const ProjectForm = () => {
             </FormItem>
           )}
         />
-        <div className="col-span-6">
-          <MultiSelect
-            options={[
-              { label: "Example 1", value: "1" },
-              { label: "Example 2", value: "2" },
-              { label: "Example 3", value: "3" },
-              { label: "Example 4", value: "4" },
-              { label: "Example 5", value: "5" },
-              { label: "Example 6", value: "6" },
-              { label: "Example 7", value: "7" },
-              { label: "Example 8", value: "8" },
-              { label: "Example 9", value: "9" },
-              { label: "Example 10", value: "10" },
-              { label: "Example 11", value: "11" },
-              { label: "Example 12", value: "12" },
-              { label: "Example 13", value: "13" },
-              { label: "Example 14", value: "14" },
-              { label: "Example 15", value: "15" },
-              { label: "Example 16", value: "16" },
-            ]}
-            defaultValue={["1", "2"]}
-            onValueChange={() => {}}
-            placeholder="Seleccione un encargado"
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="employees"
+          render={({ field }) => (
+            <FormItem className="col-span-12">
+              <FormLabel>Empleados</FormLabel>
+              <FormControl>
+                <MultiSelect
+                  options={employees.map((user) => ({
+                    label: `${user.firstname} ${user.lastname}`,
+                    value: user.id,
+                  }))}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                  placeholder="Seleccione los empleados"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div className="col-span-12 flex w-full items-center justify-end">
           <Button disabled={isPending} type="submit">

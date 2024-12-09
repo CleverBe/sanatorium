@@ -12,6 +12,7 @@ export interface Project {
   inCharge: string
   startDate: string
   endDate: string
+  employees: string[]
   createdAt: string
   updatedAt: string
 }

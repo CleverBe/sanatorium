@@ -2,9 +2,11 @@ import axios from "axios"
 
 const BASE_URL = "http://localhost:4000/api/"
 
-export const myAxios = axios.create({
+const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 })
 
-myAxios.defaults.headers.common["Content-Type"] = "application/json"
+api.defaults.headers.common["Content-Type"] = "application/json"
+
+export default api
