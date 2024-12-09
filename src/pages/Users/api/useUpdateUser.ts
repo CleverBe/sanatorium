@@ -1,10 +1,10 @@
 import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { UpdateUserInput } from "../schemas/UserSchema"
+import { UpdateUserApiInput } from "../schemas/UserSchema"
 import { usersKeys } from "./querykeys"
 
-export const updateUserFn = ({ data }: { data: UpdateUserInput }) => {
+export const updateUserFn = ({ data }: { data: UpdateUserApiInput }) => {
   return sleepAppWithData(1000, data).then((data) => {
     return data
   })
@@ -23,7 +23,7 @@ export const useUpdateUser = () => {
       )
     },
     onError: () => {
-      toast.error("Error al crear")
+      toast.error("Error al actualizar")
     },
   })
 }

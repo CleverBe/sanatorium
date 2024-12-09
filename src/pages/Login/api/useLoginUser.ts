@@ -18,10 +18,6 @@ export const refreshAccessTokenFn = async () => {
 }
 
 export const loginUserFn = async (user: LoginInput) => {
-  //   const response = await api.post<ILoginResponse>("auth/login", user);
-
-  //   return response.data;
-
   return sleepAppWithData(1000, user).then((user) => {
     const foundUser = mockedUsers.find((u) => u.email === user.email)
 
@@ -30,13 +26,6 @@ export const loginUserFn = async (user: LoginInput) => {
         status: "success",
         accessToken:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-        user: {
-          id: foundUser.id,
-          name: `${foundUser.firstname} ${foundUser.lastname}`,
-          email: foundUser.email,
-          role: foundUser.role,
-          image: foundUser.image,
-        },
       }
     } else {
       throw new Error("Credenciales incorrectas")
@@ -45,13 +34,13 @@ export const loginUserFn = async (user: LoginInput) => {
 }
 
 export const useLoginUser = () => {
-  const { setUser } = useAuth()
+  const { setAccessToken } = useAuth()
   return useMutation({
     mutationFn: loginUserFn,
     onSuccess: (data) => {
       localStorage.setItem("token", data.accessToken)
 
-      setUser(data.user)
+      setAccessToken(data.accessToken)
 
       toast.success("Ingresaste con exito")
     },

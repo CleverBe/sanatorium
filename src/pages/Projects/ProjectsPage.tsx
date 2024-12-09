@@ -23,7 +23,7 @@ export const ProjectsPage = () => {
           }}
           className="max-w-xs"
         >
-          Agregar usuario
+          Agregar proyecto
         </Button>
       </div>
 

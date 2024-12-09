@@ -21,7 +21,7 @@ export const useUpdateProject = () => {
       toast.success(`Proyecto ${data.name} actualizado con exito`)
     },
     onError: () => {
-      toast.error("Error al crear")
+      toast.error("Error al actualizar")
     },
   })
 }

@@ -1,5 +1,5 @@
 import { SanatoriumIcon } from "./icons/sanatoriumIcon"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Menu } from "lucide-react"
 import {
   DropdownMenu,
@@ -12,6 +12,7 @@ import {
 } from "./ui/dropdown-menu"
 import { Button } from "./ui/button"
 import { useAuth } from "@/hooks/useLoggedUser"
+import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 
 export const Header = ({
   showSidebar,
@@ -20,7 +21,9 @@ export const Header = ({
   showSidebar: boolean
   setShowSidebar: (showSidebar: boolean) => void
 }) => {
-  const { user, setUser } = useAuth()
+  const { setAccessToken } = useAuth()
+  const { data: user } = useGetCurrentUser()
+  const navigate = useNavigate()
 
   return (
     <nav className="sticky top-0 z-50 mx-auto w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -68,16 +71,20 @@ export const Header = ({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="center">
-                  <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+                  <DropdownMenuLabel>{`${user?.firstname} ${user?.lastname}`}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem onClick={() => {}}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        navigate("/perfil")
+                      }}
+                    >
                       Mi perfil
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => {
                         localStorage.removeItem("token")
-                        setUser(null)
+                        setAccessToken(null)
                       }}
                     >
                       Cerrar sesión

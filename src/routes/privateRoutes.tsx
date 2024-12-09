@@ -2,6 +2,7 @@ import { AppLayout } from "@/layouts/AppLayout"
 import { Dashboard } from "@/pages/Dashboard/Dashboard"
 import { ErrorPage } from "@/pages/Error/ErrorPage"
 import { LoginPage } from "@/pages/Login/LoginPage"
+import { ProfilePage } from "@/pages/Profile/ProfilePage"
 import { ProjectsPage } from "@/pages/Projects/ProjectsPage"
 import { ReportsPage } from "@/pages/Reports/ReportsPage"
 import { UsersPage } from "@/pages/Users/UsersPage"
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "reportes",
         element: <ReportsPage />,
+      },
+      {
+        path: "perfil",
+        element: <ProfilePage />,
       },
     ],
   },

@@ -1,10 +1,10 @@
 import { User } from "../types"
-import { CellActions } from "./CellActions"
 import { Badge } from "@/components/ui/badge"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
+import { CellActions } from "./CellActions"
 
 export const UsersTable = ({ users }: { users: User[] }) => {
   const columns: ColumnDef<User>[] = [
@@ -43,6 +43,11 @@ export const UsersTable = ({ users }: { users: User[] }) => {
           </Button>
         )
       },
+    },
+    {
+      accessorKey: "role",
+      header: "Rol",
+      cell: ({ row }) => row.original.role,
     },
     {
       accessorKey: "status",

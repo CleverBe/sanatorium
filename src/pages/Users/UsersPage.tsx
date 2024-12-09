@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { useGetUsers } from "./api/useGetUsers"
-import { UsersTable } from "./Components/UsersTable"
+import { UsersTable } from "./components/UsersTable"
 import { SkeletonTable } from "@/components/SkeletonTable"
 import { useUserModal } from "./hooks/useUserModal"
-import { UserModal } from "./Components/UserModal"
+import { UserModal } from "./components/UserModal"
 
 export const UsersPage = () => {
   const { data: users = [], isLoading } = useGetUsers()

@@ -130,7 +130,7 @@ export const UserForm = () => {
             <FormItem className="col-span-6">
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <Input placeholder="****" {...field} />
+                <Input autoComplete="off" placeholder="****" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

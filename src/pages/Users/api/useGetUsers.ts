@@ -6,7 +6,7 @@ import { RoleEnum, User } from "../types"
 export const defaultImageUrl =
   "https://res.cloudinary.com/dldf8bt5g/image/upload/v1686697003/Users/default_user_jr8kfs.png"
 
-export const mockedUsers: User[] = [
+export const managerUsers: User[] = [
   {
     id: "550e8400-e29b-41d4-a716-446655440000",
     firstname: "John",
@@ -25,6 +25,9 @@ export const mockedUsers: User[] = [
     role: RoleEnum.MANAGER,
     image: defaultImageUrl,
   },
+]
+
+export const adminUsers: User[] = [
   {
     id: "ef7bb557-da54-4da0-b917-2376012654d1",
     firstname: "John",
@@ -43,6 +46,9 @@ export const mockedUsers: User[] = [
     role: RoleEnum.ADMIN,
     image: defaultImageUrl,
   },
+]
+
+export const employeeUsers: User[] = [
   {
     id: "6c16ad98-91e9-4639-a5b4-6b841036b78b",
     firstname: "Pepito",
@@ -61,6 +67,12 @@ export const mockedUsers: User[] = [
     role: RoleEnum.EMPLOYEE,
     image: defaultImageUrl,
   },
+]
+
+export const mockedUsers: User[] = [
+  ...managerUsers,
+  ...adminUsers,
+  ...employeeUsers,
 ]
 
 export const getUsersFn = async (): Promise<User[]> => {
