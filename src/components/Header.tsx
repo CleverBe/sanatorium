@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
 import { Button } from "./ui/button"
-import { useAuth } from "@/hooks/useLoggedUser"
+import { useAuth } from "@/hooks/useAuth"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 
 export const Header = ({

@@ -1,34 +1,16 @@
 import { cn } from "@/lib/utils"
+import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
+import { RoleEnum } from "@/pages/Users/types"
 import { BookCheck, Clipboard, LucideIcon, Users } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 
-const menuItems = [
-  {
-    title: "Usuarios",
-    LucideIc: Users,
-    url: "/usuarios",
-  },
-  {
-    title: "Proyectos",
-    LucideIc: BookCheck,
-    url: "/proyectos",
-  },
-  {
-    title: "Reportes",
-    LucideIc: Clipboard,
-    url: "/reportes",
-  },
-]
-
-const SidebarItem = ({
-  title,
-  Icon,
-  url,
-}: {
+interface SidebarItemProps {
   title: string
   Icon: LucideIcon
   url: string
-}) => {
+}
+
+const SidebarItem = ({ title, Icon, url }: SidebarItemProps) => {
   const location = useLocation()
 
   const isActive = location.pathname.startsWith(url)
@@ -52,6 +34,49 @@ const SidebarItem = ({
 }
 
 export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
+  const { data: user } = useGetCurrentUser()
+
+  const adminRoutes: SidebarItemProps[] = [
+    {
+      title: "Usuarios",
+      Icon: Users,
+      url: "/usuarios",
+    },
+  ]
+
+  const managerRoutes: SidebarItemProps[] = [
+    {
+      title: "Empleados",
+      Icon: Users,
+      url: "/empleados",
+    },
+  ]
+
+  const employeeRoutes: SidebarItemProps[] = []
+
+  const roleBasedRoutes =
+    user?.role === RoleEnum.ADMIN
+      ? adminRoutes
+      : user?.role === RoleEnum.MANAGER
+        ? managerRoutes
+        : user?.role === RoleEnum.EMPLOYEE
+          ? employeeRoutes
+          : []
+
+  const menuItems: SidebarItemProps[] = [
+    ...roleBasedRoutes,
+    {
+      title: "Proyectos",
+      Icon: BookCheck,
+      url: "/proyectos",
+    },
+    {
+      title: "Reportes",
+      Icon: Clipboard,
+      url: "/reportes",
+    },
+  ]
+
   return (
     <aside
       id="logo-sidebar"
@@ -67,7 +92,7 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
             <SidebarItem
               key={item.title}
               title={item.title}
-              Icon={item.LucideIc}
+              Icon={item.Icon}
               url={item.url}
             />
           ))}

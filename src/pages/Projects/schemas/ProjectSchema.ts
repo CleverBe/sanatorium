@@ -47,6 +47,4 @@ export const updateProjectSchema = z.object({
   ...createProjectSchema.shape,
 })
 
-export type UpdateProjectInput = z.infer<typeof updateProjectSchema> & {
-  id: string
-}
+export type UpdateProjectInput = z.infer<typeof updateProjectSchema>

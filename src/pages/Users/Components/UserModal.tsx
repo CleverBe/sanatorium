@@ -4,8 +4,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { UserForm } from "./UserForm"
 import { useUserModal } from "../hooks/useUserModal"
+import { UserForm } from "./UserForm"
 
 export const UserModal = () => {
   const modalUser = useUserModal()

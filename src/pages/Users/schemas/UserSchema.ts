@@ -55,9 +55,4 @@ export const updateUserSchema = z.object({
   ),
 })
 
-export type UpdateUserInput = z.infer<typeof updateUserSchema> & { id: string }
-
-export type UpdateUserApiInput = Partial<z.infer<typeof updateUserSchema>> & {
-  id: string
-  newPassword?: string
-}
+export type UpdateUserInput = z.infer<typeof updateUserSchema>

@@ -29,7 +29,7 @@ export const LoginPage = () => {
   const { mutateAsync: loginMutation, isPending } = useLoginUser()
 
   const onSubmit = async (data: LoginInput) => {
-    loginMutation(data).then(() => navigate("/"))
+    loginMutation(data).then(() => navigate("/dashboard"))
   }
 
   return (

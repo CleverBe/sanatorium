@@ -4,7 +4,11 @@ import { toast } from "sonner"
 import { UpdateProjectInput } from "../schemas/ProjectSchema"
 import { projectsKeys } from "./querykeys"
 
-export const updateProjectFn = ({ data }: { data: UpdateProjectInput }) => {
+export type UpdateProjectApiInput = Partial<UpdateProjectInput> & {
+  id: string
+}
+
+export const updateProjectFn = ({ data }: { data: UpdateProjectApiInput }) => {
   return sleepAppWithData(1000, data).then((data) => {
     return data
   })

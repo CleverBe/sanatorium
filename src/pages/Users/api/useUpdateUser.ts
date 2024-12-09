@@ -1,8 +1,13 @@
 import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { UpdateUserApiInput } from "../schemas/UserSchema"
+import { UpdateUserInput } from "../schemas/UserSchema"
 import { usersKeys } from "./querykeys"
+
+export type UpdateUserApiInput = Partial<UpdateUserInput> & {
+  id: string
+  newPassword?: string
+}
 
 export const updateUserFn = ({ data }: { data: UpdateUserApiInput }) => {
   return sleepAppWithData(1000, data).then((data) => {
