@@ -1,8 +1,7 @@
 import { sleepApp } from "@/helpers/sleep"
-import { mockedProjects } from "@/pages/Projects/api/useGetProjects"
-import { employeeUsers } from "@/pages/Users/api/useGetUsers"
 import { useQuery } from "@tanstack/react-query"
 import { userUserProjectsKeys } from "./querykeys"
+import { employeeUsers, mockedProjects } from "@/db/db"
 
 export const getUserProjectsFn = async () => {
   return await sleepApp(1000).then(() => {

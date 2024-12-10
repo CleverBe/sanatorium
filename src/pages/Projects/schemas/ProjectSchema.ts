@@ -25,7 +25,7 @@ export const createProjectSchema = z.object({
       required_error: "inCharge is required",
       invalid_type_error: "inCharge must be a string",
     })
-    .uuid("Selecciona un encargado"),
+    .min(1, "Seleccione un encargado"),
   startDate: z
     .string({
       required_error: "startDate is required",
