@@ -4,7 +4,7 @@ import { projectsKeys } from "./querykeys"
 import { ProjectStatusEnum, Project } from "../types"
 import { mockedUsers } from "@/pages/Users/api/useGetUsers"
 
-const mockedProjects: Project[] = [
+export const mockedProjects: Project[] = [
   {
     id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
     name: "Proyecto 1",

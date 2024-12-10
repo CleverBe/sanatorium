@@ -1,5 +1,5 @@
 import { sleepApp } from "@/helpers/sleep"
-import { managerUsers } from "@/pages/Users/api/useGetUsers"
+import { employeeUsers } from "@/pages/Users/api/useGetUsers"
 import {
   useQuery,
   UseQueryOptions,
@@ -10,7 +10,7 @@ import { User } from "@/pages/Users/types"
 
 export const getCurrentUserFn = async () => {
   return await sleepApp(1000).then(() => {
-    return managerUsers[0]
+    return employeeUsers[0]
   })
 }
 
