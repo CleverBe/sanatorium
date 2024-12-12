@@ -1,19 +1,27 @@
 import { sleepApp } from "@/helpers/sleep"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, UseQueryOptions } from "@tanstack/react-query"
 import { userUserProjectsKeys } from "./querykeys"
-import { employeeUsers, mockedProjects } from "@/db/db"
+import { mockedProjects } from "@/db/db"
+import { Project } from "@/pages/Projects/types"
 
-export const getUserProjectsFn = async () => {
+export const getUserProjectsFn = async ({ userId }: { userId: string }) => {
   return await sleepApp(1000).then(() => {
     return mockedProjects.filter((project) =>
-      project.employees.includes(employeeUsers[0].id),
+      project.employees.includes(userId),
     )
   })
 }
 
-export const useGetUserProjects = () => {
+export const useGetUserProjects = ({
+  userId,
+  options,
+}: {
+  userId: string
+  options?: Partial<UseQueryOptions<Project[]>>
+}) => {
   return useQuery({
-    queryKey: userUserProjectsKeys.all(),
-    queryFn: getUserProjectsFn,
+    queryKey: userUserProjectsKeys.list(userId),
+    queryFn: () => getUserProjectsFn({ userId }),
+    ...options,
   })
 }

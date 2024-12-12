@@ -1,4 +1,4 @@
 export const userUserProjectsKeys = {
-  all: () => ["userProjects"],
-  lists: () => [...userUserProjectsKeys.all(), "list"],
+  all: ["userProjects"],
+  list: (userId: string) => [...userUserProjectsKeys.all, userId],
 }

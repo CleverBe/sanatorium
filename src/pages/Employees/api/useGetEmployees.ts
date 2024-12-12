@@ -1,8 +1,8 @@
 import { sleepApp } from "@/helpers/sleep"
-import { employeeUsers } from "@/pages/Users/api/useGetUsers"
 import { useQuery } from "@tanstack/react-query"
 import { employeesKeys } from "./querykeys"
 import { Employee } from "../types"
+import { employeeUsers } from "@/db/db"
 
 export const getEmployeesFn = async (): Promise<Employee[]> => {
   return sleepApp(1000).then(() => {

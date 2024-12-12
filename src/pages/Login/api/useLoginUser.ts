@@ -2,9 +2,9 @@ import { sleepAppWithData } from "@/helpers/sleep"
 import { LoginInput } from "../schemas/LoginSchema"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { mockedUsers } from "@/pages/Users/api/useGetUsers"
 import { useAuth } from "@/hooks/useAuth"
 import api from "@/lib/axios"
+import { mockedUsers } from "@/db/db"
 
 export interface ILoginResponse {
   status: string

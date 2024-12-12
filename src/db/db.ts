@@ -111,3 +111,71 @@ export const mockedProjects: Project[] = [
     updatedAt: "2022-01-01T21:30:00.000Z",
   },
 ]
+
+export enum TaskStatusEnum {
+  PENDING = "PENDING",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+}
+
+export enum TaskPriorityEnum {
+  LOW = "LOW",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
+}
+
+export interface Task {
+  id: string
+  name: string
+  description: string
+  status: TaskStatusEnum
+  priority: TaskPriorityEnum
+  expectedCompletionDate: string
+  projectId: string
+  project: Project
+  userId: string
+  createdAt: string
+  updatedAt: string
+}
+
+export const mockedTasks: Task[] = [
+  {
+    id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
+    name: "Tarea 1",
+    description: "Descripcion 1",
+    status: TaskStatusEnum.PENDING,
+    priority: TaskPriorityEnum.LOW,
+    expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    projectId: mockedProjects[0].id,
+    project: mockedProjects[0],
+    userId: employeeUsers[0].id,
+    createdAt: "2022-01-01T21:30:00.000Z",
+    updatedAt: "2022-01-01T21:30:00.000Z",
+  },
+  {
+    id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
+    name: "Tarea 2",
+    description: "Descripcion 2",
+    status: TaskStatusEnum.IN_PROGRESS,
+    priority: TaskPriorityEnum.MEDIUM,
+    expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    projectId: mockedProjects[0].id,
+    project: mockedProjects[0],
+    userId: employeeUsers[0].id,
+    createdAt: "2022-01-01T21:30:00.000Z",
+    updatedAt: "2022-01-01T21:30:00.000Z",
+  },
+  {
+    id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
+    name: "Tarea 3",
+    description: "Descripcion 3",
+    status: TaskStatusEnum.COMPLETED,
+    priority: TaskPriorityEnum.HIGH,
+    expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    projectId: mockedProjects[0].id,
+    project: mockedProjects[0],
+    userId: employeeUsers[0].id,
+    createdAt: "2022-01-01T21:30:00.000Z",
+    updatedAt: "2022-01-01T21:30:00.000Z",
+  },
+]

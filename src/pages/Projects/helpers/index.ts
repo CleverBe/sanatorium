@@ -12,3 +12,16 @@ export const getProjectStatus = (status: ProjectStatusEnum) => {
       return ""
   }
 }
+
+export const getTaskPriority = (priority: string) => {
+  switch (priority) {
+    case "HIGH":
+      return "Alta"
+    case "MEDIUM":
+      return "Media"
+    case "LOW":
+      return "Baja"
+    default:
+      return ""
+  }
+}

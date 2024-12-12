@@ -24,7 +24,7 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
 
   return (
     <main className="">
-      <div className="container relative mx-auto bg-background">
+      <div className="relative mx-auto bg-background lg:container">
         <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <Sidebar showSidebar={showSidebar} />
         <div className="p-4 sm:ml-64">
