@@ -13,6 +13,19 @@ export const getProjectStatus = (status: ProjectStatusEnum) => {
   }
 }
 
+export const getTaskStatus = (status: string) => {
+  switch (status) {
+    case "PENDING":
+      return "Pendiente"
+    case "IN_PROGRESS":
+      return "En progreso"
+    case "COMPLETED":
+      return "Completado"
+    default:
+      return ""
+  }
+}
+
 export const getTaskPriority = (priority: string) => {
   switch (priority) {
     case "HIGH":

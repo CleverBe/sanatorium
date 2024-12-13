@@ -104,7 +104,7 @@ export const DashboardEmployee = () => {
               onClick={() => navigate(`/myprojects/${task.projectId}`)}
             >
               <CardHeader className="p-4">
-                <CardTitle>{task.name}</CardTitle>
+                <CardTitle>{task.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex flex-col text-sm md:flex-row">
                 <div className="w-full md:w-[65%]">

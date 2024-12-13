@@ -18,6 +18,10 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        index: true,
+        element: <LoginPage />,
+      },
+      {
         element: <AppLayout allowedRoles={[RoleEnum.ADMIN]} />,
         children: [
           {

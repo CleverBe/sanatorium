@@ -77,7 +77,7 @@ export const mockedProjects: Project[] = [
   {
     id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
     name: "Proyecto 1",
-    description: "Descripcion 1",
+    description: "descripción 1",
     status: ProjectStatusEnum.PENDING,
     inCharge: managerUsers[0].id,
     startDate: "2024-12-01T21:30:00.000Z",
@@ -89,7 +89,7 @@ export const mockedProjects: Project[] = [
   {
     id: "fb406199-5c02-4409-bf33-1624367511f8",
     name: "Proyecto 2",
-    description: "Descripcion 2",
+    description: "descripción 2",
     status: ProjectStatusEnum.IN_PROGRESS,
     inCharge: managerUsers[0].id,
     startDate: "2024-12-01T21:30:00.000Z",
@@ -101,7 +101,7 @@ export const mockedProjects: Project[] = [
   {
     id: "17e863dd-82eb-4f32-bf5c-e8b8b8bd9e9d",
     name: "Proyecto 3",
-    description: "Descripcion 3",
+    description: "descripción 3",
     status: ProjectStatusEnum.COMPLETED,
     inCharge: managerUsers[1].id,
     startDate: "2024-11-01T21:30:00.000Z",
@@ -126,7 +126,7 @@ export enum TaskPriorityEnum {
 
 export interface Task {
   id: string
-  name: string
+  title: string
   description: string
   status: TaskStatusEnum
   priority: TaskPriorityEnum
@@ -141,8 +141,8 @@ export interface Task {
 export const mockedTasks: Task[] = [
   {
     id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
-    name: "Tarea 1",
-    description: "Descripcion 1",
+    title: "Tarea 1",
+    description: "descripción 1",
     status: TaskStatusEnum.PENDING,
     priority: TaskPriorityEnum.LOW,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
@@ -154,8 +154,8 @@ export const mockedTasks: Task[] = [
   },
   {
     id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
-    name: "Tarea 2",
-    description: "Descripcion 2",
+    title: "Tarea 2",
+    description: "descripción 2",
     status: TaskStatusEnum.IN_PROGRESS,
     priority: TaskPriorityEnum.MEDIUM,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
@@ -167,8 +167,8 @@ export const mockedTasks: Task[] = [
   },
   {
     id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d8",
-    name: "Tarea 3",
-    description: "Descripcion 3",
+    title: "Tarea 3",
+    description: "descripción 3",
     status: TaskStatusEnum.COMPLETED,
     priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
