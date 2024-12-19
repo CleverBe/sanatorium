@@ -23,11 +23,12 @@ import {
   createTaskSchema,
   updateTaskSchema,
 } from "../schemas/TaskSchema"
-import { TaskPriorityEnum, TaskStatusEnum } from "@/db/db"
+import { TaskPriorityEnum } from "@/db/db"
 import { Textarea } from "@/components/ui/textarea"
 import { useCreateTask } from "../api/useCreateTask"
 import { useUpdateTask } from "../api/useUpdateTask"
-import { getTaskPriority, getTaskStatus } from "../../helpers"
+import { getTaskPriority } from "../../helpers"
+import { utcToLocalDateYYYYMMDD } from "@/helpers/dates"
 
 export const TaskForm = () => {
   const modalTask = useTaskModal()
@@ -37,9 +38,10 @@ export const TaskForm = () => {
     defaultValues: {
       title: modalTask.item?.title || "",
       description: modalTask.item?.description || "",
-      status: modalTask.item?.status || TaskStatusEnum.PENDING,
       priority: modalTask.item?.priority || TaskPriorityEnum.MEDIUM,
-      expectedCompletionDate: modalTask.item?.expectedCompletionDate || "",
+      expectedCompletionDate: modalTask.item?.expectedCompletionDate
+        ? utcToLocalDateYYYYMMDD(modalTask.item.expectedCompletionDate)
+        : "",
     },
   })
 
@@ -92,38 +94,6 @@ export const TaskForm = () => {
                   placeholder="Descripción de la tarea"
                 />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="status"
-          render={({ field }) => (
-            <FormItem className="col-span-6">
-              <FormLabel>Estado</FormLabel>
-              <Select
-                disabled={isPending}
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      defaultValue={field.value}
-                      placeholder="Seleccione un estado"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.values(TaskStatusEnum).map((val) => (
-                    <SelectItem key={val} value={val}>
-                      {getTaskStatus(val)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
               <FormMessage />
             </FormItem>
           )}

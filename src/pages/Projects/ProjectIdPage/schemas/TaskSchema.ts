@@ -1,4 +1,4 @@
-import { TaskPriorityEnum, TaskStatusEnum } from "@/db/db"
+import { TaskPriorityEnum } from "@/db/db"
 import { z } from "zod"
 
 export const createTaskSchema = z.object({
@@ -19,7 +19,6 @@ export const createTaskSchema = z.object({
       .min(4, "La descripción debe tener al menos 4 caracteres"),
     z.literal(""),
   ]),
-  status: z.nativeEnum(TaskStatusEnum),
   priority: z.nativeEnum(TaskPriorityEnum),
   expectedCompletionDate: z.string().date("Selecciona una fecha"),
 })

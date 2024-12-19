@@ -12,3 +12,7 @@ export const localToUTC = (localDate: string) => {
 export const utcToLocalDate = (utcDate: string) => {
   return format(parseISO(utcDate), "dd-MM-yyyy")
 }
+
+export const utcToLocalDateYYYYMMDD = (utcDate: string) => {
+  return format(parseISO(utcDate), "yyyy-MM-dd")
+}

@@ -4,9 +4,16 @@ import { useGetProject } from "../api/useGetProject"
 import { Button } from "@/components/ui/button"
 import { TaskModal } from "./components/TaskModal"
 import { useTaskModal } from "./hooks/useTaskModal"
+import { TaskStatusEnum } from "@/db/db"
+import { TaskColumn } from "./components/TaskColumn"
+import { DragDropContext, DropResult } from "@hello-pangea/dnd"
+import { useState } from "react"
 
 export const ProjectIdPage = () => {
   const params = useParams()
+
+  const [isDragging, setIsDragging] = useState(false)
+
   const modalTask = useTaskModal()
 
   const projectId = params.projectId as string
@@ -30,6 +37,18 @@ export const ProjectIdPage = () => {
     },
   })
 
+  const pendingTasks = projectTasks.filter(
+    (task) => task.status === TaskStatusEnum.PENDING,
+  )
+
+  const inProgressTasks = projectTasks.filter(
+    (task) => task.status === TaskStatusEnum.IN_PROGRESS,
+  )
+
+  const completedTasks = projectTasks.filter(
+    (task) => task.status === TaskStatusEnum.COMPLETED,
+  )
+
   const isLoading = isLoadingProject || isLoadingProjectTasks
 
   if (isErrorProject || isErrorProjectTasks) {
@@ -38,6 +57,28 @@ export const ProjectIdPage = () => {
 
   if (isLoading) {
     return <div>Loading...</div>
+  }
+
+  const handleDragEnd = (result: DropResult) => {
+    setIsDragging(false)
+
+    const { destination, source } = result
+
+    if (!destination) {
+      return
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return
+    }
+
+    console.log({
+      source,
+      destination,
+    })
   }
 
   return (
@@ -52,25 +93,28 @@ export const ProjectIdPage = () => {
           Agregar tarea
         </Button>
       </div>
-      <div className="mt-4 flex flex-col space-y-2">
-        {projectTasks.map((task) => (
-          <div
-            key={task.id}
-            className="flex justify-between rounded bg-primary/10 px-4 py-2 text-lg text-primary"
-          >
-            <div className="font-bold">{task.title}</div>
-            <div className="flex space-x-2">
-              <Button
-                onClick={() => modalTask.onOpen(task)}
-                variant="secondary"
-              >
-                Editar
-              </Button>
-              <Button variant="destructive">Eliminar</Button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <DragDropContext
+        onDragEnd={handleDragEnd}
+        onDragStart={() => setIsDragging(true)}
+      >
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <TaskColumn
+            title={TaskStatusEnum.PENDING}
+            items={pendingTasks}
+            isDragging={isDragging}
+          />
+          <TaskColumn
+            title={TaskStatusEnum.IN_PROGRESS}
+            items={inProgressTasks}
+            isDragging={isDragging}
+          />
+          <TaskColumn
+            title={TaskStatusEnum.COMPLETED}
+            items={completedTasks}
+            isDragging={isDragging}
+          />
+        </div>
+      </DragDropContext>
       <TaskModal />
     </div>
   )

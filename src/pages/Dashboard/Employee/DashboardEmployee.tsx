@@ -69,7 +69,7 @@ export const DashboardEmployee = () => {
                   <Badge
                     variant={
                       project.status === ProjectStatusEnum.COMPLETED
-                        ? "secondary"
+                        ? "tertiary"
                         : project.status === ProjectStatusEnum.IN_PROGRESS
                           ? "destructive"
                           : "default"
@@ -123,7 +123,7 @@ export const DashboardEmployee = () => {
                         ? "destructive"
                         : task.priority === TaskPriorityEnum.MEDIUM
                           ? "default"
-                          : "secondary"
+                          : "tertiary"
                     }
                   >
                     {getTaskPriority(task.priority)}
