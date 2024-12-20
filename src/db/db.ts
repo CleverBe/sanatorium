@@ -131,6 +131,7 @@ export interface Task {
   status: TaskStatusEnum
   priority: TaskPriorityEnum
   expectedCompletionDate: string
+  estimatedHours: number
   projectId: string
   project: Project
   userId: string
@@ -146,6 +147,7 @@ export const mockedTasks: Task[] = [
     status: TaskStatusEnum.PENDING,
     priority: TaskPriorityEnum.LOW,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    estimatedHours: 8,
     projectId: mockedProjects[0].id,
     project: mockedProjects[0],
     userId: employeeUsers[0].id,
@@ -159,6 +161,7 @@ export const mockedTasks: Task[] = [
     status: TaskStatusEnum.IN_PROGRESS,
     priority: TaskPriorityEnum.MEDIUM,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    estimatedHours: 4,
     projectId: mockedProjects[0].id,
     project: mockedProjects[0],
     userId: employeeUsers[0].id,
@@ -172,6 +175,7 @@ export const mockedTasks: Task[] = [
     status: TaskStatusEnum.COMPLETED,
     priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    estimatedHours: 12,
     projectId: mockedProjects[0].id,
     project: mockedProjects[0],
     userId: employeeUsers[0].id,
@@ -185,6 +189,7 @@ export const mockedTasks: Task[] = [
     status: TaskStatusEnum.PENDING,
     priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    estimatedHours: 8,
     projectId: mockedProjects[0].id,
     project: mockedProjects[0],
     userId: employeeUsers[0].id,
@@ -198,6 +203,7 @@ export const mockedTasks: Task[] = [
     status: TaskStatusEnum.PENDING,
     priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    estimatedHours: 8,
     projectId: mockedProjects[0].id,
     project: mockedProjects[0],
     userId: employeeUsers[0].id,
@@ -211,9 +217,24 @@ export const mockedTasks: Task[] = [
     status: TaskStatusEnum.IN_PROGRESS,
     priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    estimatedHours: 8,
     projectId: mockedProjects[0].id,
     project: mockedProjects[0],
     userId: employeeUsers[0].id,
+    createdAt: "2022-01-01T21:30:00.000Z",
+    updatedAt: "2022-01-01T21:30:00.000Z",
+  },
+  {
+    id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d7",
+    title: "Tarea 7 otro usuario",
+    description: "descripción 7 otro usuario",
+    status: TaskStatusEnum.IN_PROGRESS,
+    priority: TaskPriorityEnum.HIGH,
+    expectedCompletionDate: "2024-12-01T21:30:00.000Z",
+    estimatedHours: 8,
+    projectId: mockedProjects[0].id,
+    project: mockedProjects[0],
+    userId: employeeUsers[1].id,
     createdAt: "2022-01-01T21:30:00.000Z",
     updatedAt: "2022-01-01T21:30:00.000Z",
   },

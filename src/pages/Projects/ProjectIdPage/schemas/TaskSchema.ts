@@ -21,6 +21,7 @@ export const createTaskSchema = z.object({
   ]),
   priority: z.nativeEnum(TaskPriorityEnum),
   expectedCompletionDate: z.string().date("Selecciona una fecha"),
+  estimatedHours: z.number().int().positive(),
 })
 
 export type CreateTaskInput = z.infer<typeof createTaskSchema>

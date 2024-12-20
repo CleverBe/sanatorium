@@ -42,6 +42,7 @@ export const TaskForm = () => {
       expectedCompletionDate: modalTask.item?.expectedCompletionDate
         ? utcToLocalDateYYYYMMDD(modalTask.item.expectedCompletionDate)
         : "",
+      estimatedHours: modalTask.item?.estimatedHours || 0,
     },
   })
 
@@ -130,19 +131,34 @@ export const TaskForm = () => {
             </FormItem>
           )}
         />
+        {modalTask.item && (
+          <FormField
+            control={form.control}
+            name="expectedCompletionDate"
+            render={({ field }) => (
+              <FormItem className="col-span-6">
+                <FormLabel>Fecha de entrega estimada</FormLabel>
+                <FormControl>
+                  <Input
+                    type="date"
+                    {...field}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         <FormField
           control={form.control}
-          name="expectedCompletionDate"
+          name="estimatedHours"
           render={({ field }) => (
             <FormItem className="col-span-6">
-              <FormLabel>Fecha de entrega estimada</FormLabel>
+              <FormLabel>Horas estimadas</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  {...field}
-                  value={field.value}
-                  onChange={field.onChange}
-                />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

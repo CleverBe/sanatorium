@@ -1,7 +1,7 @@
 import { sleepApp } from "@/helpers/sleep"
 import { useQuery, UseQueryOptions } from "@tanstack/react-query"
 
-import { mockedTasks, Task } from "@/db/db"
+import { employeeUsers, mockedTasks, Task } from "@/db/db"
 import { myProjectTasksKeys } from "./querykeys"
 
 export const getMyProjectTasksFn = async ({
@@ -10,7 +10,9 @@ export const getMyProjectTasksFn = async ({
   projectId: string
 }): Promise<Task[]> => {
   return sleepApp(1000).then(() => {
-    return mockedTasks.filter((task) => task.projectId === projectId)
+    return mockedTasks
+      .filter((task) => task.projectId === projectId)
+      .filter((task) => task.userId === employeeUsers[0].id)
   })
 }
 
