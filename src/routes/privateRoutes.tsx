@@ -4,6 +4,7 @@ import { EmployeesPage } from "@/pages/Employees/EmployeesPage"
 import { ErrorPage } from "@/pages/Error/ErrorPage"
 import { LoginPage } from "@/pages/Login/LoginPage"
 import { ProfilePage } from "@/pages/Profile/ProfilePage"
+import { EmployeeProjects } from "@/pages/Projects/EmployeeProjects/EmployeeProjects"
 import { ProjectIdPage } from "@/pages/Projects/ProjectIdPage/ProjectIdPage"
 import { ProjectsPage } from "@/pages/Projects/ProjectsPage"
 import { ReportsPage } from "@/pages/Reports/ReportsPage"
@@ -83,7 +84,7 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <Dashboard />,
+                element: <EmployeeProjects />,
               },
               {
                 path: ":projectId",

@@ -38,6 +38,11 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
 
   const adminRoutes: SidebarItemProps[] = [
     {
+      title: "Proyectos",
+      Icon: BookCheck,
+      url: "/proyectos",
+    },
+    {
       title: "Usuarios",
       Icon: Users,
       url: "/usuarios",
@@ -46,13 +51,24 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
 
   const managerRoutes: SidebarItemProps[] = [
     {
+      title: "Proyectos",
+      Icon: BookCheck,
+      url: "/proyectos",
+    },
+    {
       title: "Empleados",
       Icon: Users,
       url: "/empleados",
     },
   ]
 
-  const employeeRoutes: SidebarItemProps[] = []
+  const employeeRoutes: SidebarItemProps[] = [
+    {
+      title: "Proyectos",
+      Icon: BookCheck,
+      url: "/myprojects",
+    },
+  ]
 
   const roleBasedRoutes =
     user?.role === RoleEnum.ADMIN
@@ -65,11 +81,7 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
 
   const menuItems: SidebarItemProps[] = [
     ...roleBasedRoutes,
-    {
-      title: "Proyectos",
-      Icon: BookCheck,
-      url: "/proyectos",
-    },
+
     {
       title: "Reportes",
       Icon: Clipboard,
@@ -81,7 +93,7 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
     <aside
       id="logo-sidebar"
       className={cn(
-        "absolute left-0 top-0 z-40 h-screen w-64 -translate-x-full border-r border-gray-200 bg-white pt-20 transition-transform dark:border-gray-700 dark:bg-gray-800 sm:translate-x-0",
+        "absolute left-0 top-0 z-40 h-screen w-60 -translate-x-full border-r border-gray-200 bg-white pt-20 transition-transform dark:border-gray-700 dark:bg-gray-800 sm:translate-x-0",
         showSidebar && "transform-none",
       )}
       aria-label="Sidebar"

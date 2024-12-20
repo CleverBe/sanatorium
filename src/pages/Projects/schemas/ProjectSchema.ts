@@ -31,13 +31,13 @@ export const createProjectSchema = z.object({
       required_error: "startDate is required",
       invalid_type_error: "startDate must be a string",
     })
-    .datetime("Selecciona una fecha"),
+    .date("Selecciona una fecha"),
   endDate: z
     .string({
       required_error: "endDate is required",
       invalid_type_error: "endDate must be a string",
     })
-    .datetime("Selecciona una fecha"),
+    .date("Selecciona una fecha"),
   employees: z.array(z.string()).min(1, "Selecciona al menos un empleado"),
 })
 

@@ -1,20 +1,22 @@
-import { Project, ProjectStatusEnum } from "../types"
-import { CellActions } from "./CellActions"
 import { User } from "@/pages/Users/types"
 import { utcToLocalDate } from "@/helpers/dates"
-import { getProjectStatus } from "../helpers"
 import { DataTable } from "@/components/ui/data-table"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, CheckCircle, Circle, Timer } from "lucide-react"
+import { Project, ProjectStatusEnum } from "../../types"
+import { getProjectStatus } from "../../helpers"
+import { useNavigate } from "react-router-dom"
 
-export const ProjectsTable = ({
+export const EmployeeProjectsTable = ({
   projects,
   managers,
 }: {
   projects: Project[]
   managers: User[]
 }) => {
+  const navigate = useNavigate()
+
   const getUserName = (id: string) => {
     const manager = managers.find((manager) => manager.id === id)
 
@@ -33,6 +35,18 @@ export const ProjectsTable = ({
             Nombre
             <ArrowUpDown className="ml-2 size-4" />
           </Button>
+        )
+      },
+      cell: ({ row }) => {
+        return (
+          <div
+            className="cursor-pointer text-left hover:underline"
+            onClick={() => {
+              navigate(`/myprojects/${row.original.id}`)
+            }}
+          >
+            {row.original.name}
+          </div>
         )
       },
     },
@@ -73,10 +87,6 @@ export const ProjectsTable = ({
       accessorKey: "endDate",
       header: "Fecha de fin",
       cell: ({ row }) => utcToLocalDate(row.original.endDate),
-    },
-    {
-      id: "actions",
-      cell: ({ row }) => <CellActions project={row.original} />,
     },
   ]
 

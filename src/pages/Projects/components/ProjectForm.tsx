@@ -29,9 +29,9 @@ import { ProjectStatusEnum } from "../types"
 import { Textarea } from "@/components/ui/textarea"
 import { useGetUsers } from "@/pages/Users/api/useGetUsers"
 import { RoleEnum } from "@/pages/Users/types"
-import { localToUTC, utcToLocal } from "@/helpers/dates"
 import { MultiSelect } from "@/components/ui/multiselect"
 import { getProjectStatus } from "../helpers"
+import { CustomSelect } from "@/components/ui/customSelect"
 
 export const ProjectForm = () => {
   const modalProject = useProjectModal()
@@ -145,28 +145,18 @@ export const ProjectForm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6">
               <FormLabel>Encargado</FormLabel>
-              <Select
-                disabled={isPending}
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      defaultValue={field.value}
-                      placeholder="Seleccione un encargado"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {managers.map((user) => (
-                    <SelectItem key={user.id} value={user.id}>
-                      {user.firstname} {user.lastname}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <CustomSelect
+                  options={managers.map((user) => ({
+                    label: `${user.firstname} ${user.lastname}`,
+                    value: user.id,
+                  }))}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                  placeholder="Seleccione un encargado"
+                  showSearch
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -178,18 +168,7 @@ export const ProjectForm = () => {
             <FormItem className="col-span-6">
               <FormLabel>Fecha inicio</FormLabel>
               <FormControl>
-                <Input
-                  type="datetime-local"
-                  {...field}
-                  value={field.value ? utcToLocal(field.value) : ""}
-                  onChange={(e) => {
-                    const localDate = e.target.value
-
-                    const utcDate = localToUTC(localDate)
-
-                    field.onChange(utcDate)
-                  }}
-                />
+                <Input type="date" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -202,18 +181,7 @@ export const ProjectForm = () => {
             <FormItem className="col-span-6">
               <FormLabel>Fecha fin</FormLabel>
               <FormControl>
-                <Input
-                  type="datetime-local"
-                  {...field}
-                  value={field.value ? utcToLocal(field.value) : ""}
-                  onChange={(e) => {
-                    const localDate = e.target.value
-
-                    const utcDate = localToUTC(localDate)
-
-                    field.onChange(utcDate)
-                  }}
-                />
+                <Input type="date" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -234,6 +202,7 @@ export const ProjectForm = () => {
                   defaultValue={field.value}
                   onValueChange={field.onChange}
                   placeholder="Seleccione los empleados"
+                  showSearch
                 />
               </FormControl>
               <FormMessage />

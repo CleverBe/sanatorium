@@ -83,6 +83,24 @@ interface MultiSelectProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * Optional, can be used to add custom styles.
    */
   className?: string
+
+  /**
+   * If true, a "Select All" option will be available to select or deselect all options at once.
+   * Optional, defaults to false.
+   */
+  showSelectAll?: boolean
+
+  /**
+   * If true, a "Delete All" option will be available to delete all selected options at once.
+   * Optional, defaults to false.
+   */
+  showDeleteAll?: boolean
+
+  /**
+   * If true, a search input will be displayed to filter options.
+   * Optional, defaults to false.
+   */
+  showSearch?: boolean
 }
 
 export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
@@ -94,6 +112,10 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
       placeholder = "Select options",
       maxCount = 3,
       className,
+      showSelectAll = false,
+      showDeleteAll = false,
+      showSearch = false,
+      // ref,
       ...props
     },
     // ref,
@@ -104,11 +126,6 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
     const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {
         setIsPopoverOpen(true)
-      } else if (event.key === "Backspace" && !event.currentTarget.value) {
-        const newSelectedValues = [...selectedValues]
-        newSelectedValues.pop()
-        setSelectedValues(newSelectedValues)
-        onValueChange(newSelectedValues)
       }
     }
 
@@ -210,23 +227,27 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
           style={{ width: triggerWidth }}
         >
           <Command>
-            <CommandInput
-              placeholder="Buscar..."
-              onKeyDown={handleInputKeyDown}
-            />
+            {showSearch && (
+              <CommandInput
+                placeholder="Buscar..."
+                onKeyDown={handleInputKeyDown}
+              />
+            )}
             <CommandList>
               <CommandEmpty>Sin resultados.</CommandEmpty>
               <CommandGroup className="max-h-[200px] overflow-y-auto">
-                <CommandItem
-                  key="all"
-                  onSelect={toggleAll}
-                  className="flex cursor-pointer items-center justify-between"
-                >
-                  <span className="font-semibold">Todos</span>
-                  {selectedValues.length === options.length && (
-                    <Check className="h-4 w-4" />
-                  )}
-                </CommandItem>
+                {showSelectAll && (
+                  <CommandItem
+                    key="all"
+                    onSelect={toggleAll}
+                    className="flex cursor-pointer items-center justify-between"
+                  >
+                    <span className="font-semibold">Todos</span>
+                    {selectedValues.length === options.length && (
+                      <Check className="h-4 w-4" />
+                    )}
+                  </CommandItem>
+                )}
                 {options.map((option) => {
                   const isSelected = selectedValues.includes(option.value)
                   return (
@@ -244,7 +265,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
                   )
                 })}
               </CommandGroup>
-              {selectedValues.length > 0 && (
+              {selectedValues.length > 0 && showDeleteAll && (
                 <>
                   <CommandSeparator />
                   <CommandGroup>

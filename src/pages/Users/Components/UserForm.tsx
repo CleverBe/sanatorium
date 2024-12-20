@@ -31,6 +31,8 @@ import { useUpdateUser } from "../api/useUpdateUser"
 export const UserForm = () => {
   const modalUser = useUserModal()
 
+  const isEditing = !!modalUser.item
+
   const form = useForm<CreateUserInput>({
     resolver: zodResolver(modalUser.item ? updateUserSchema : createUserSchema),
     defaultValues: {
@@ -136,38 +138,44 @@ export const UserForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field }) => (
-            <FormItem className="col-span-6">
-              <FormLabel>Rol</FormLabel>
-              <Select
-                disabled={isPending}
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      defaultValue={field.value}
-                      placeholder="Seleccione un rol"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.values(RoleEnum).map((val) => (
-                    <SelectItem key={val} value={val}>
-                      {val}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {!isEditing && (
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem className="col-span-6">
+                <FormLabel>Rol</FormLabel>
+                <Select
+                  disabled={isPending}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Seleccione un rol"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.values(RoleEnum).map((val) => {
+                      if (val === RoleEnum.EMPLOYEE) return null
+
+                      return (
+                        <SelectItem key={val} value={val}>
+                          {val}
+                        </SelectItem>
+                      )
+                    })}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
 
         <div className="col-span-12 flex w-full items-center justify-end">
           <Button disabled={isPending} type="submit">

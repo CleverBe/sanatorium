@@ -13,6 +13,7 @@ import {
 import { Button } from "./ui/button"
 import { useAuth } from "@/hooks/useAuth"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
+import { useQueryClient } from "@tanstack/react-query"
 
 export const Header = ({
   showSidebar,
@@ -24,6 +25,15 @@ export const Header = ({
   const { setAccessToken } = useAuth()
   const { data: user } = useGetCurrentUser()
   const navigate = useNavigate()
+
+  const queryClient = useQueryClient()
+
+  const handleLogout = () => {
+    queryClient.clear()
+    localStorage.removeItem("token")
+    setAccessToken(null)
+    navigate("/login")
+  }
 
   return (
     <nav className="sticky top-0 z-50 mx-auto w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -41,7 +51,7 @@ export const Header = ({
               <span className="sr-only">Open sidebar</span>
               <Menu className="h-6 w-6" />
             </button>
-            <Link to="/" className="ms-2 flex md:me-24">
+            <Link to="/dashboard" className="ms-2 flex md:me-24">
               <SanatoriumIcon className="me-3 size-10" />
               <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white sm:text-2xl">
                 Sanatorium
@@ -81,12 +91,7 @@ export const Header = ({
                     >
                       Mi perfil
                     </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        localStorage.removeItem("token")
-                        setAccessToken(null)
-                      }}
-                    >
+                    <DropdownMenuItem onClick={handleLogout}>
                       Cerrar sesión
                     </DropdownMenuItem>
                   </DropdownMenuGroup>

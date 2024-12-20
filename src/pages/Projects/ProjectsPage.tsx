@@ -8,7 +8,7 @@ import { useGetUsers } from "../Users/api/useGetUsers"
 
 export const ProjectsPage = () => {
   const { data: projects = [], isLoading: isLoadingProjects } = useGetProjects()
-  const { data: users = [], isLoading: isLoadingUsers } = useGetUsers()
+  const { data: managers = [], isLoading: isLoadingUsers } = useGetUsers()
   const isLoading = isLoadingProjects || isLoadingUsers
   const modalProject = useProjectModal()
 
@@ -31,7 +31,7 @@ export const ProjectsPage = () => {
         {isLoading ? (
           <SkeletonTable withSearchInput />
         ) : (
-          <ProjectsTable projects={projects} users={users} />
+          <ProjectsTable projects={projects} managers={managers} />
         )}
       </div>
       <ProjectModal />

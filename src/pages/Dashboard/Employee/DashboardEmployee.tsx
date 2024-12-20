@@ -47,7 +47,8 @@ export const DashboardEmployee = () => {
           <CardTitle>Proyectos asignados</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {projects.map((project) => (
+          {projects.length === 0 && <div>No hay proyectos asignados</div>}
+          {projects.slice(0, 3).map((project) => (
             <Card
               key={project.id}
               className="cursor-pointer rounded-sm hover:scale-105"
@@ -90,6 +91,14 @@ export const DashboardEmployee = () => {
               </CardContent>
             </Card>
           ))}
+
+          {projects.length > 3 && (
+            <div className="flex justify-center">
+              <Button onClick={() => navigate("/myprojects")}>
+                Ver todos los proyectos
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
       <Card className="w-full max-w-2xl">
@@ -97,7 +106,8 @@ export const DashboardEmployee = () => {
           <CardTitle>Tareas asignadas</CardTitle>
         </CardHeader>
         <CardContent>
-          {tasks.map((task) => (
+          {tasks.length === 0 && <div>No hay tareas asignadas</div>}
+          {tasks.slice(0, 5).map((task) => (
             <Card
               key={task.id}
               className="cursor-pointer rounded-sm"
