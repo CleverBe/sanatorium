@@ -7,6 +7,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
+  Table as ReactTable,
   useReactTable,
 } from "@tanstack/react-table"
 
@@ -20,13 +21,17 @@ import {
 } from "@/components/ui/table"
 import { Button } from "./button"
 import { useState } from "react"
-import { Input } from "./input"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   filterInputPlaceholder?: string
   filterInputValue?: string
+  DataTabletoolbar?: React.ComponentType<{
+    table: ReactTable<TData>
+    filterInputPlaceholder?: string
+    filterInputValue?: string
+  }>
 }
 
 export function DataTable<TData, TValue>({
@@ -34,6 +39,7 @@ export function DataTable<TData, TValue>({
   data,
   filterInputPlaceholder,
   filterInputValue,
+  DataTabletoolbar,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -41,6 +47,7 @@ export function DataTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
+    enableColumnFilters: true,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
@@ -55,23 +62,15 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      {filterInputValue && (
-        <div className="flex items-center py-4">
-          <Input
-            placeholder={filterInputPlaceholder ?? "Buscar..."}
-            value={
-              (table.getColumn(filterInputValue)?.getFilterValue() as string) ??
-              ""
-            }
-            onChange={(event) =>
-              table
-                .getColumn(filterInputValue)
-                ?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
+      <div className="py-4">
+        {DataTabletoolbar && (
+          <DataTabletoolbar
+            table={table}
+            filterInputPlaceholder={filterInputPlaceholder}
+            filterInputValue={filterInputValue}
           />
-        </div>
-      )}
+        )}
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

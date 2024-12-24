@@ -111,7 +111,7 @@ export const DashboardEmployee = () => {
             <Card
               key={task.id}
               className="cursor-pointer rounded-sm"
-              onClick={() => navigate(`/myprojects/${task.projectId}`)}
+              onClick={() => navigate(`/myprojects/${task.project.id}`)}
             >
               <CardHeader className="p-4">
                 <CardTitle>{task.title}</CardTitle>
