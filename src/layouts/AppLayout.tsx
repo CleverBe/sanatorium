@@ -26,7 +26,7 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
     <main className="">
       <div className="relative mx-auto bg-background lg:container">
         <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-        <Sidebar showSidebar={showSidebar} />
+        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <div className="p-4 sm:ml-60">
           {userRoles.find((role) => allowedRoles.includes(role)) ? (
             <Outlet />

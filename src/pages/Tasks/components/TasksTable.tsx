@@ -64,6 +64,13 @@ export const TasksTable = ({ tasks }: { tasks: Task[] }) => {
       accessorKey: "date",
       header: "Fecha",
       cell: ({ row }) => utcToLocalDate(row.original.expectedCompletionDate),
+      filterFn: (row, _, filterValue) => {
+        const taskDate = new Date(row.original.expectedCompletionDate)
+        const [startDate, endDate] = filterValue || [null, null]
+        if (startDate && taskDate < new Date(startDate)) return false
+        if (endDate && taskDate > new Date(endDate)) return false
+        return true
+      },
     },
     {
       accessorKey: "estimatedHours",

@@ -3,14 +3,25 @@ import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 import { RoleEnum } from "@/pages/Users/types"
 import { BookCheck, Clipboard, LucideIcon, Users } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
+import { useOnClickOutside } from "usehooks-ts"
+import { useRef } from "react"
 
-interface SidebarItemProps {
+interface RouteItem {
   title: string
   Icon: LucideIcon
   url: string
 }
 
-const SidebarItem = ({ title, Icon, url }: SidebarItemProps) => {
+interface SidebarItemProps extends RouteItem {
+  setShowSidebar: (showSidebar: boolean) => void
+}
+
+const SidebarItem = ({
+  title,
+  Icon,
+  url,
+  setShowSidebar,
+}: SidebarItemProps) => {
   const location = useLocation()
 
   const isActive = location.pathname.startsWith(url)
@@ -19,6 +30,9 @@ const SidebarItem = ({ title, Icon, url }: SidebarItemProps) => {
     <li>
       <Link
         to={url}
+        onClick={() => {
+          setShowSidebar(false)
+        }}
         className={cn(
           "group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700",
           isActive && "bg-gray-100 dark:bg-gray-700",
@@ -33,10 +47,18 @@ const SidebarItem = ({ title, Icon, url }: SidebarItemProps) => {
   )
 }
 
-export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
+export const Sidebar = ({
+  showSidebar,
+  setShowSidebar,
+}: {
+  showSidebar: boolean
+  setShowSidebar: (showSidebar: boolean) => void
+}) => {
+  const sidebarRef = useRef<HTMLDivElement>(null)
+
   const { data: user } = useGetCurrentUser()
 
-  const adminRoutes: SidebarItemProps[] = [
+  const adminRoutes: RouteItem[] = [
     {
       title: "Proyectos",
       Icon: BookCheck,
@@ -49,7 +71,7 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
     },
   ]
 
-  const managerRoutes: SidebarItemProps[] = [
+  const managerRoutes: RouteItem[] = [
     {
       title: "Proyectos",
       Icon: BookCheck,
@@ -62,7 +84,7 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
     },
   ]
 
-  const employeeRoutes: SidebarItemProps[] = [
+  const employeeRoutes: RouteItem[] = [
     {
       title: "Proyectos",
       Icon: BookCheck,
@@ -79,9 +101,8 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
           ? employeeRoutes
           : []
 
-  const menuItems: SidebarItemProps[] = [
+  const menuItems: RouteItem[] = [
     ...roleBasedRoutes,
-
     {
       title: "Reportes",
       Icon: Clipboard,
@@ -89,8 +110,15 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
     },
   ]
 
+  const handleClickOutside = () => {
+    setShowSidebar(false)
+  }
+
+  useOnClickOutside(sidebarRef, handleClickOutside)
+
   return (
     <aside
+      ref={sidebarRef}
       id="logo-sidebar"
       className={cn(
         "absolute left-0 top-0 z-40 h-screen w-60 -translate-x-full border-r border-gray-200 bg-white pt-20 transition-transform dark:border-gray-700 dark:bg-gray-800 sm:translate-x-0",
@@ -106,6 +134,7 @@ export const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
               title={item.title}
               Icon={item.Icon}
               url={item.url}
+              setShowSidebar={setShowSidebar}
             />
           ))}
         </ul>
