@@ -34,8 +34,8 @@ const SidebarItem = ({
           setShowSidebar(false)
         }}
         className={cn(
-          "group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700",
-          isActive && "bg-gray-100 dark:bg-gray-700",
+          "group flex items-center rounded-lg p-2 text-white hover:bg-secondary hover:text-secondary-foreground",
+          isActive && "bg-secondary text-secondary-foreground",
         )}
       >
         <Icon className="size-5" />
@@ -121,12 +121,12 @@ export const Sidebar = ({
       ref={sidebarRef}
       id="logo-sidebar"
       className={cn(
-        "absolute left-0 top-0 z-40 h-screen w-60 -translate-x-full border-r border-gray-200 bg-white pt-20 transition-transform dark:border-gray-700 dark:bg-gray-800 sm:translate-x-0",
+        "absolute left-0 top-0 z-40 h-screen w-60 -translate-x-full border-r bg-primary pt-20 transition-transform sm:translate-x-0",
         showSidebar && "transform-none",
       )}
       aria-label="Sidebar"
     >
-      <div className="h-full overflow-y-auto bg-white px-3 pb-4 dark:bg-gray-800">
+      <div className="h-full overflow-y-auto bg-primary px-3 pb-4">
         <ul className="space-y-2 font-medium">
           {menuItems.map((item) => (
             <SidebarItem

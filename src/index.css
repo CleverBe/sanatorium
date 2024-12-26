@@ -31,12 +31,12 @@ body {
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 355.7 100% 97.3%;
+    --primary: 225 66% 65%; /* Antes era --tertiary */
+    --primary-foreground: 355.7 100% 97.3%; /* Ajustado acorde a --tertiary-foreground */
+    --tertiary: 142.1 76.2% 36.3%; /* Antes era --primary */
+    --tertiary-foreground: 355.7 100% 97.3%; /* Ajustado acorde a --primary-foreground */
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
-    --tertiary: 225 66% 65%;
-    --tertiary-foreground: 355.7 100% 97.3%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
@@ -45,7 +45,7 @@ body {
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 142.1 76.2% 36.3%;
+    --ring: 225 66% 65%; /* Ajustado acorde al nuevo --primary */
     --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -61,8 +61,10 @@ body {
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
-    --primary: 142.1 70.6% 45.3%;
-    --primary-foreground: 144.9 80.4% 10%;
+    --primary: 220 70% 50%; /* Antes era --tertiary */
+    --primary-foreground: 340 75% 55%; /* Ajustado acorde a --tertiary-foreground */
+    --tertiary: 142.1 70.6% 45.3%; /* Antes era --primary */
+    --tertiary-foreground: 144.9 80.4% 10%; /* Ajustado acorde a --primary-foreground */
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 15%;
@@ -73,7 +75,7 @@ body {
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 142.4 71.8% 29.2%;
+    --ring: 220 70% 50%; /* Ajustado acorde al nuevo --primary */
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;

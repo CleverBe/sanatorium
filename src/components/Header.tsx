@@ -36,7 +36,7 @@ export const Header = ({
   }
 
   return (
-    <nav className="sticky top-0 z-50 mx-auto w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <nav className="sticky top-0 z-50 mx-auto w-full border-b bg-primary text-primary-foreground">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-start rtl:justify-end">
@@ -45,7 +45,7 @@ export const Header = ({
               data-drawer-toggle="logo-sidebar"
               aria-controls="logo-sidebar"
               type="button"
-              className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 sm:hidden"
+              className="inline-flex items-center rounded-lg p-2 text-sm text-primary-foreground hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 sm:hidden"
               onClick={() => setShowSidebar(!showSidebar)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -53,7 +53,7 @@ export const Header = ({
             </button>
             <Link to="/dashboard" className="ms-2 flex md:me-24">
               <SanatoriumIcon className="me-3 size-10" />
-              <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white sm:text-2xl">
+              <span className="self-center whitespace-nowrap text-xl font-semibold sm:text-2xl">
                 Sanatorium
               </span>
             </Link>
@@ -67,7 +67,7 @@ export const Header = ({
                     variant="ghost"
                     className="select-none rounded-full"
                   >
-                    <span className="sr-only">Abrir menu de usuario</span>
+                    <span className="sr-only">Open user menu</span>
                     <img
                       width={60}
                       height={60}
