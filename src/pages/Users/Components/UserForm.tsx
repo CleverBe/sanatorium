@@ -25,7 +25,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
 import { useUpdateUser } from "../api/useUpdateUser"
 
 export const UserForm = () => {
@@ -36,11 +35,9 @@ export const UserForm = () => {
   const form = useForm<CreateUserInput>({
     resolver: zodResolver(modalUser.item ? updateUserSchema : createUserSchema),
     defaultValues: {
-      firstname: modalUser.item?.firstname ?? "",
-      lastname: modalUser.item?.lastname ?? "",
+      name: modalUser.item?.name ?? "",
       email: modalUser.item?.email ?? "",
       password: "",
-      status: modalUser.item?.status ?? true,
       role: modalUser.item?.role ?? RoleEnum.ADMIN,
     },
   })
@@ -68,43 +65,12 @@ export const UserForm = () => {
         className="grid grid-cols-12 gap-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        {modalUser.item && (
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem className="col-span-12">
-                <div className="flex items-center justify-end space-x-2">
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                  <FormLabel>Activo</FormLabel>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        )}
         <FormField
           control={form.control}
-          name="firstname"
+          name="name"
           render={({ field }) => (
             <FormItem className="col-span-12">
               <FormLabel>Nombre</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="lastname"
-          render={({ field }) => (
-            <FormItem className="col-span-12">
-              <FormLabel>Apellido</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>

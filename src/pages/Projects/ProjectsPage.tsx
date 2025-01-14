@@ -14,7 +14,7 @@ export const ProjectsPage = () => {
 
   return (
     <div>
-      <div className="mt-4 flex flex-wrap items-center justify-between space-y-2">
+      <div className="flex flex-wrap items-center justify-between space-y-2">
         <h1 className="text-2xl font-bold">Administrar proyectos</h1>
 
         <Button

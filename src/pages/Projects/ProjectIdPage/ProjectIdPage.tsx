@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Navigate, useParams } from "react-router-dom"
 import { useGetMyProjectTasks } from "./api/useGetMyProjectTasks"
 import { useGetProject } from "../api/useGetProject"
 import { Button } from "@/components/ui/button"
@@ -51,12 +51,12 @@ export const ProjectIdPage = () => {
 
   const isLoading = isLoadingProject || isLoadingProjectTasks
 
-  if (isErrorProject || isErrorProjectTasks) {
-    return <div>Error</div>
+  if (isErrorProject || isErrorProjectTasks || !project) {
+    return <Navigate to="/projects" />
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Cargando...</div>
   }
 
   const handleDragEnd = (result: DropResult) => {

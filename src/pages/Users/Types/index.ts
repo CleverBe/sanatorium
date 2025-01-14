@@ -1,15 +1,21 @@
 export enum RoleEnum {
-  ADMIN = "Administrador",
-  MANAGER = "Gerente",
-  EMPLOYEE = "Empleado",
+  ADMIN = "administrador",
+  MANAGER = "encargado",
+  EMPLOYEE = "empleado",
+}
+
+export interface UserApi {
+  id: string
+  nombre: string
+  email: string
+  rol: RoleEnum
+  image?: string
 }
 
 export interface User {
   id: string
-  firstname: string
-  lastname: string
+  name: string
   email: string
-  status: boolean
   role: RoleEnum
-  image: string
+  image?: string
 }

@@ -36,9 +36,9 @@ export const Header = ({
   }
 
   return (
-    <nav className="sticky top-0 z-50 mx-auto w-full border-b bg-primary text-primary-foreground">
-      <div className="px-3 py-3 lg:px-5 lg:pl-3">
-        <div className="flex items-center justify-between">
+    <nav className="sticky top-0 z-50 mx-auto h-[3.5rem] w-full bg-primary text-primary-foreground">
+      <div className="h-full px-3 py-3 lg:px-5 lg:pl-3">
+        <div className="flex h-full items-center justify-between">
           <div className="flex items-center justify-start rtl:justify-end">
             <button
               data-drawer-target="logo-sidebar"

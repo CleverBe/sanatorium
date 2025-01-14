@@ -23,18 +23,26 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
   }
 
   return (
-    <main className="min-h-screen">
-      <div className="relative mx-auto flex h-full flex-col bg-background lg:container">
+    <main className="relative flex min-h-svh flex-col">
+      <div className="relative mx-auto flex flex-1 flex-col border-x bg-background lg:container">
         <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-        <div className="h-full flex-1 p-4 sm:ml-60">
-          {userRoles.find((role) => allowedRoles.includes(role)) ? (
-            <Outlet />
-          ) : user ? (
-            <Navigate to="/unauthorized" state={{ from: location }} replace />
-          ) : (
-            <Navigate to="/login" state={{ from: location }} replace />
-          )}
+        <div className="flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] lg:grid-cols-[240px_minmax(0,1fr)]">
+          <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+          <div className="relative px-4 py-6 lg:py-8">
+            <div className="mx-auto w-full min-w-0">
+              {userRoles.find((role) => allowedRoles.includes(role)) ? (
+                <Outlet />
+              ) : user ? (
+                <Navigate
+                  to="/unauthorized"
+                  state={{ from: location }}
+                  replace
+                />
+              ) : (
+                <Navigate to="/login" state={{ from: location }} replace />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </main>

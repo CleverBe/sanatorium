@@ -7,7 +7,7 @@ export const ReportsPage = () => {
 
   return (
     <div>
-      <div className="mt-4 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">
           Reporte de tareas realizadas por empleados
         </h1>

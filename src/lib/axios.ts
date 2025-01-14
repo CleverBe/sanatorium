@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = "http://localhost:4000/api/"
+const BASE_URL = "https://backend-sanatorium-business.onrender.com/api/"
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -9,4 +9,4 @@ const api = axios.create({
 
 api.defaults.headers.common["Content-Type"] = "application/json"
 
-export default api
+export { api }

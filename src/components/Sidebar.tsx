@@ -121,12 +121,12 @@ export const Sidebar = ({
       ref={sidebarRef}
       id="logo-sidebar"
       className={cn(
-        "absolute left-0 top-0 z-40 h-screen w-60 -translate-x-full border-r bg-primary pt-20 transition-transform sm:translate-x-0",
+        "sticky left-0 top-14 z-40 h-[calc(100vh-3.5rem)] w-60 shrink-0 -translate-x-full bg-primary transition-transform sm:translate-x-0",
         showSidebar && "transform-none",
       )}
       aria-label="Sidebar"
     >
-      <div className="h-full overflow-y-auto bg-primary px-3 pb-4">
+      <div className="h-full overflow-y-auto bg-primary px-3 py-4">
         <ul className="space-y-2 font-medium">
           {menuItems.map((item) => (
             <SidebarItem

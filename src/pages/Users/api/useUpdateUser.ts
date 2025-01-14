@@ -23,9 +23,7 @@ export const useUpdateUser = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: usersKeys.lists() })
 
-      toast.success(
-        `Usuario ${data.firstname} ${data.lastname} actualizado con exito`,
-      )
+      toast.success(`Usuario ${data.name} actualizado con exito`)
     },
     onError: () => {
       toast.error("Error al actualizar")

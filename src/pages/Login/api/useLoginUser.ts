@@ -3,7 +3,7 @@ import { LoginInput } from "../schemas/LoginSchema"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { useAuth } from "@/hooks/useAuth"
-import api from "@/lib/axios"
+import { api } from "@/lib/axios"
 import { mockedUsers } from "@/db/db"
 
 export interface ILoginResponse {

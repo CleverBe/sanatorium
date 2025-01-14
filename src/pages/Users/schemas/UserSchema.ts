@@ -2,22 +2,14 @@ import { z } from "zod"
 import { RoleEnum } from "../types"
 
 export const createUserSchema = z.object({
-  firstname: z
+  name: z
     .string({
-      required_error: "Firstname is required",
-      invalid_type_error: "Firstname must be a string",
+      required_error: "Name is required",
+      invalid_type_error: "Name must be a string",
     })
     .trim()
     .min(1, "El nombre es requerido")
     .min(4, "El nombre debe tener al menos 4 caracteres"),
-  lastname: z
-    .string({
-      required_error: "Lastname is required",
-      invalid_type_error: "Lastname must be a string",
-    })
-    .trim()
-    .min(1, "El apellido es requerido")
-    .min(4, "El apellido debe tener al menos 4 caracteres"),
   email: z
     .string({
       required_error: "Email is required",
@@ -33,7 +25,6 @@ export const createUserSchema = z.object({
     })
     .min(1, "La contraseña es requerida")
     .min(4, "La contraseña debe tener al menos 4 caracteres"),
-  status: z.boolean(),
   role: z.nativeEnum(RoleEnum),
 })
 
