@@ -23,7 +23,7 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
   }
 
   return (
-    <main className="relative flex min-h-svh flex-col">
+    <main className="relative flex min-h-svh flex-col bg-primary/10">
       <div className="relative mx-auto flex flex-1 flex-col border-x bg-background lg:container">
         <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <div className="flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] lg:grid-cols-[240px_minmax(0,1fr)]">

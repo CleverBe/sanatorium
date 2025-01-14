@@ -1,12 +1,12 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { projectsKeys } from "./querykeys"
 import { toast } from "sonner"
+import { api } from "@/lib/axios"
 
-export const deleteProjectFn = ({ id }: { id: string }) => {
-  return sleepAppWithData(1000, id).then((id) => {
-    return { id }
-  })
+export const deleteProjectFn = async ({ id }: { id: number }) => {
+  const { data } = await api.delete(`/proyectos/${id}`)
+
+  return data
 }
 
 export const useDeleteProject = () => {

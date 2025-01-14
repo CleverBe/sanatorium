@@ -17,10 +17,10 @@ export const EmployeeProjectsTable = ({
 }) => {
   const navigate = useNavigate()
 
-  const getUserName = (id: string) => {
+  const getUserName = (id: number) => {
     const manager = managers.find((manager) => manager.id === id)
 
-    return manager ? `${manager.firstname} ${manager.lastname}` : ""
+    return manager ? `${manager.name}` : ""
   }
 
   const columns: ColumnDef<Project>[] = [

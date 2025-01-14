@@ -4,7 +4,6 @@ import { ProjectStatusEnum } from "../types"
 export const createProjectSchema = z.object({
   name: z
     .string({
-      required_error: "name is required",
       invalid_type_error: "name must be a string",
     })
     .trim()
@@ -13,7 +12,6 @@ export const createProjectSchema = z.object({
   description: z.union([
     z
       .string({
-        required_error: "description is required",
         invalid_type_error: "description must be a string",
       })
       .min(4, "La descripción debe tener al menos 4 caracteres"),
@@ -21,10 +19,10 @@ export const createProjectSchema = z.object({
   ]),
   status: z.nativeEnum(ProjectStatusEnum),
   inCharge: z
-    .string({
-      required_error: "inCharge is required",
-      invalid_type_error: "inCharge must be a string",
+    .number({
+      invalid_type_error: "Seleccione un encargado",
     })
+    .int("Seleccione un encargado")
     .min(1, "Seleccione un encargado"),
   startDate: z
     .string({
@@ -38,7 +36,7 @@ export const createProjectSchema = z.object({
       invalid_type_error: "endDate must be a string",
     })
     .date("Selecciona una fecha"),
-  employees: z.array(z.string()).min(1, "Selecciona al menos un empleado"),
+  employees: z.array(z.number()).min(1, "Selecciona al menos un empleado"),
 })
 
 export type CreateProjectInput = z.infer<typeof createProjectSchema>

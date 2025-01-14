@@ -4,7 +4,6 @@ import { z } from "zod"
 export const updateProfileSchema = createUserSchema.omit({
   password: true,
   role: true,
-  status: true,
 })
 
 export type UpdateProfileInput = z.infer<typeof updateProfileSchema>

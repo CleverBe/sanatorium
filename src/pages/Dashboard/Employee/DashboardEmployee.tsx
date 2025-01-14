@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useGetUserProjects } from "./api/useGetUserProjects"
 import { utcToLocalDate } from "@/helpers/dates"
-import { getProjectStatus, getTaskPriority } from "@/pages/Projects/helpers"
+import { getProjectStatus } from "@/pages/Projects/helpers"
 import { Badge } from "@/components/ui/badge"
 import { ProjectStatusEnum } from "@/pages/Projects/types"
 import { ProjectDetail } from "./components/ProjectDetail"
@@ -11,7 +11,6 @@ import { ArrowRight } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useGetUserTasks } from "@/pages/Projects/ProjectIdPage/api/useGetUserTasks"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
-import { TaskPriorityEnum } from "@/db/db"
 
 export const DashboardEmployee = () => {
   const { onOpen: onOpenDetail } = useProjectDetail()
@@ -21,14 +20,14 @@ export const DashboardEmployee = () => {
 
   const { data: projects = [], isLoading: isLoadingProjects } =
     useGetUserProjects({
-      userId: user?.id as string,
+      userId: user?.id as number,
       options: {
         enabled: !!user?.id,
       },
     })
 
   const { data: tasks = [], isLoading: isLoadingTasks } = useGetUserTasks({
-    userId: user?.id as string,
+    userId: user?.id as number,
     options: {
       enabled: !!user?.id,
     },
@@ -125,19 +124,6 @@ export const DashboardEmployee = () => {
                     </span>
                   </div>
                   <div>Proyecto: {task.project.name}</div>
-                </div>
-                <div className="flex w-full flex-col items-center justify-center space-y-2 md:w-[35%]">
-                  <Badge
-                    variant={
-                      task.priority === TaskPriorityEnum.HIGH
-                        ? "destructive"
-                        : task.priority === TaskPriorityEnum.MEDIUM
-                          ? "default"
-                          : "tertiary"
-                    }
-                  >
-                    {getTaskPriority(task.priority)}
-                  </Badge>
                 </div>
               </CardContent>
             </Card>

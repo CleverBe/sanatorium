@@ -4,10 +4,10 @@ import { useGetProject } from "../api/useGetProject"
 import { Button } from "@/components/ui/button"
 import { TaskModal } from "./components/TaskModal"
 import { useTaskModal } from "./hooks/useTaskModal"
-import { TaskStatusEnum } from "@/db/db"
 import { TaskColumn } from "./components/TaskColumn"
 import { DragDropContext, DropResult } from "@hello-pangea/dnd"
 import { useState } from "react"
+import { TaskStatusEnum } from "@/pages/Tasks/types"
 
 export const ProjectIdPage = () => {
   const params = useParams()

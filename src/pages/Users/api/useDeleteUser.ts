@@ -1,12 +1,12 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { usersKeys } from "./querykeys"
 import { toast } from "sonner"
+import { api } from "@/lib/axios"
 
-export const deleteUserFn = ({ id }: { id: string }) => {
-  return sleepAppWithData(1000, id).then((id) => {
-    return { id }
-  })
+export const deleteUserFn = async ({ id }: { id: number }) => {
+  const { data: response } = await api.delete(`/usuarios/${id}`)
+
+  return response
 }
 
 export const useDeleteUser = () => {
@@ -14,9 +14,9 @@ export const useDeleteUser = () => {
 
   return useMutation({
     mutationFn: deleteUserFn,
-    onSuccess: (data) => {
+    onSuccess: (_, variables) => {
       queryClient.removeQueries({
-        queryKey: usersKeys.list(data.id),
+        queryKey: usersKeys.list(variables.id),
         exact: true,
       })
 

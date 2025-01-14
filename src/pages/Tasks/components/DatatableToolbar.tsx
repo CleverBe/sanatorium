@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Table } from "@tanstack/react-table"
 import { DataTableSelectFilter } from "./DataTableSelectFilter"
-import { TaskStatusEnum } from "@/db/db"
 import { getTaskStatus } from "@/pages/Projects/helpers"
 import { useGetProjects } from "@/pages/Projects/api/useGetProjects"
 import { useEffect, useState } from "react"
@@ -16,6 +15,7 @@ import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 import { es } from "date-fns/locale"
+import { TaskStatusEnum } from "../types"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -74,7 +74,7 @@ export function DataTableToolbar<TData>({
           title="Proyecto"
           options={projects.map((project) => ({
             label: project.name,
-            value: project.id,
+            value: project.id.toString(),
           }))}
           showSearch
           className="w-full max-w-sm md:w-48"

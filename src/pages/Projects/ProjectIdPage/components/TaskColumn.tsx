@@ -1,8 +1,8 @@
-import { Task, TaskStatusEnum } from "@/db/db"
 import { cn } from "@/lib/utils"
 import { getTaskStatus } from "../../helpers"
 import { Draggable, Droppable } from "@hello-pangea/dnd"
 import { TaskItemActions } from "./TaskItemActions"
+import { Task, TaskStatusEnum } from "@/pages/Tasks/types"
 
 export const TaskColumn = ({
   title,
@@ -41,7 +41,11 @@ export const TaskColumn = ({
           </div>
           <div className={cn("mt-2 flex flex-col px-4")}>
             {items.map((task, index) => (
-              <Draggable draggableId={task.id} index={index} key={task.id}>
+              <Draggable
+                draggableId={task.id.toString()}
+                index={index}
+                key={task.id}
+              >
                 {(provided, snapshot) => (
                   <div
                     {...provided.draggableProps}

@@ -1,12 +1,12 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { employeesKeys } from "./querykeys"
 import { toast } from "sonner"
+import { api } from "@/lib/axios"
 
-export const deleteEmployeeFn = ({ id }: { id: string }) => {
-  return sleepAppWithData(1000, id).then((id) => {
-    return { id }
-  })
+export const deleteEmployeeFn = async ({ id }: { id: number }) => {
+  const { data: response } = await api.delete(`/usuarios/${id}`)
+
+  return response
 }
 
 export const useDeleteEmployee = () => {

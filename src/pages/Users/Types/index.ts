@@ -5,7 +5,7 @@ export enum RoleEnum {
 }
 
 export interface UserApi {
-  id: string
+  id: number
   nombre: string
   email: string
   rol: RoleEnum
@@ -13,7 +13,7 @@ export interface UserApi {
 }
 
 export interface User {
-  id: string
+  id: number
   name: string
   email: string
   role: RoleEnum

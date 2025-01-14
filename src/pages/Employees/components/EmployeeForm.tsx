@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useEmployeeModal } from "../hooks/useEmployeeModal"
-import { Switch } from "@/components/ui/switch"
 import {
   CreateEmployeeInput,
   createEmployeeSchema,
@@ -19,20 +18,21 @@ import {
 } from "../schemas/EmployeeSchema"
 import { useCreateEmployee } from "../api/useCreateEmployee"
 import { useUpdateEmployee } from "../api/useUpdateEmployee"
+import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 
 export const EmployeeForm = () => {
   const modalEmployee = useEmployeeModal()
+
+  const { data: user } = useGetCurrentUser()
 
   const form = useForm<CreateEmployeeInput>({
     resolver: zodResolver(
       modalEmployee.item ? updateEmployeeSchema : createEmployeeSchema,
     ),
     defaultValues: {
-      firstname: modalEmployee.item?.firstname ?? "",
-      lastname: modalEmployee.item?.lastname ?? "",
+      name: modalEmployee.item?.name ?? "",
       email: modalEmployee.item?.email ?? "",
       password: "",
-      status: modalEmployee.item?.status ?? true,
     },
   })
 
@@ -49,7 +49,9 @@ export const EmployeeForm = () => {
         () => modalEmployee.onClose(),
       )
     } else {
-      mutateCreate({ data: values }).then(() => modalEmployee.onClose())
+      mutateCreate({ data: { ...values, managerId: user?.id as number } }).then(
+        () => modalEmployee.onClose(),
+      )
     }
   }
 
@@ -59,43 +61,12 @@ export const EmployeeForm = () => {
         className="grid grid-cols-12 gap-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        {modalEmployee.item && (
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem className="col-span-12">
-                <div className="flex items-center justify-end space-x-2">
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                  <FormLabel>Activo</FormLabel>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        )}
         <FormField
           control={form.control}
-          name="firstname"
+          name="name"
           render={({ field }) => (
             <FormItem className="col-span-12">
               <FormLabel>Nombre</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="lastname"
-          render={({ field }) => (
-            <FormItem className="col-span-12">
-              <FormLabel>Apellido</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>

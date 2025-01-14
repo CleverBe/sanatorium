@@ -1,21 +1,31 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { UpdateEmployeeInput } from "../schemas/EmployeeSchema"
 import { employeesKeys } from "./querykeys"
+import { api } from "@/lib/axios"
+import { EmployeeApi } from "../types"
 
 export type UpdateEmployeeApiInput = Partial<UpdateEmployeeInput> & {
-  id: string
+  id: number
 }
 
-export const updateEmployeeFn = ({
+export const updateEmployeeFn = async ({
   data,
 }: {
   data: UpdateEmployeeApiInput
 }) => {
-  return sleepAppWithData(1000, data).then((data) => {
-    return data
-  })
+  const dataToSend = {
+    nombre: data.name,
+    email: data.email,
+    password: data.password,
+  }
+
+  const { data: response } = await api.patch<EmployeeApi>(
+    "/usuarios",
+    dataToSend,
+  )
+
+  return response
 }
 
 export const useUpdateEmployee = () => {
@@ -26,9 +36,7 @@ export const useUpdateEmployee = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: employeesKeys.lists() })
 
-      toast.success(
-        `Empleado ${data.firstname} ${data.lastname} actualizado con exito`,
-      )
+      toast.success(`Empleado ${data.nombre} actualizado con exito`)
     },
     onError: () => {
       toast.error("Error al actualizar")

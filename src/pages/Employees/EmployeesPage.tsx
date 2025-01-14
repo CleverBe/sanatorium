@@ -4,9 +4,15 @@ import { SkeletonTable } from "@/components/SkeletonTable"
 import { useEmployeeModal } from "./hooks/useEmployeeModal"
 import { EmployeesTable } from "./components/EmployeesTable"
 import { EmployeeModal } from "./components/EmployeeModal"
+import { useGetCurrentUser } from "../Profile/api/useGetCurrentUser"
 
 export const EmployeesPage = () => {
-  const { data: employees = [], isLoading } = useGetEmployees()
+  const { data } = useGetCurrentUser()
+
+  const { data: employees = [], isLoading } = useGetEmployees({
+    encargadoId: data?.id as number,
+  })
+
   const modalEmployee = useEmployeeModal()
 
   return (

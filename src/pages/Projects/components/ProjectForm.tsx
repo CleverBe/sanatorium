@@ -47,7 +47,7 @@ export const ProjectForm = () => {
       name: modalProject.item?.name ?? "",
       description: modalProject.item?.description ?? "",
       status: modalProject.item?.status ?? ProjectStatusEnum.PENDING,
-      inCharge: modalProject.item?.inCharge ?? "",
+      inCharge: modalProject.item?.inCharge ?? 0,
       startDate: modalProject.item?.startDate ?? "",
       endDate: modalProject.item?.endDate ?? "",
       employees: modalProject.item?.employees ?? [],
@@ -148,10 +148,10 @@ export const ProjectForm = () => {
               <FormControl>
                 <CustomSelect
                   options={managers.map((user) => ({
-                    label: `${user.firstname} ${user.lastname}`,
-                    value: user.id,
+                    label: user.name,
+                    value: user.id.toString(),
                   }))}
-                  defaultValue={field.value}
+                  defaultValue={field.value !== 0 ? field.value.toString() : ""}
                   onValueChange={field.onChange}
                   placeholder="Seleccione un encargado"
                   showSearch
@@ -196,10 +196,10 @@ export const ProjectForm = () => {
               <FormControl>
                 <MultiSelect
                   options={employees.map((user) => ({
-                    label: `${user.firstname} ${user.lastname}`,
-                    value: user.id,
+                    label: user.name,
+                    value: user.id.toString(),
                   }))}
-                  defaultValue={field.value}
+                  defaultValue={field.value.map((id) => id.toString())}
                   onValueChange={field.onChange}
                   placeholder="Seleccione los empleados"
                   showSearch

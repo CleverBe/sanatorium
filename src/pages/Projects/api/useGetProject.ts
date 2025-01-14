@@ -1,23 +1,27 @@
-import { sleepApp } from "@/helpers/sleep"
 import { useQuery } from "@tanstack/react-query"
 import { projectsKeys } from "./querykeys"
-import { Project } from "../types"
-import { mockedProjects } from "@/db/db"
+import { Project, ProjectApi } from "../types"
+import { api } from "@/lib/axios"
 
 export const getProjectFn = async ({
   projectId,
 }: {
   projectId: string
 }): Promise<Project> => {
-  return sleepApp(1000).then(() => {
-    const project = mockedProjects.find((project) => project.id === projectId)
+  const { data } = await api.get<ProjectApi>(`/proyectos/${projectId}`)
 
-    if (!project) {
-      throw new Error("Project not found")
-    }
-
-    return project
-  })
+  return {
+    id: data.id,
+    name: data.nombre,
+    description: data.descripcion,
+    status: data.estado,
+    inCharge: data.encargado,
+    startDate: data.fecha_inicio,
+    endDate: data.fecha_fin,
+    employees: data.empleados,
+    createdAt: data.created_at,
+    updatedAt: data.updated_at,
+  }
 }
 
 export const useGetProject = ({ projectId }: { projectId: string }) => {

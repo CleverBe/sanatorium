@@ -11,7 +11,7 @@ export const EmployeeProjects = () => {
 
   const { data: projects = [], isLoading: isLoadingProjects } =
     useGetUserProjects({
-      userId: user?.id as string,
+      userId: user?.id as number,
       options: {
         enabled: !!user?.id,
       },

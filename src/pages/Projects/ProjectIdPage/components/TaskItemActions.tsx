@@ -9,8 +9,8 @@ import {
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
 import { useState } from "react"
 import { useDeleteTask } from "../api/useDeleteTask"
-import { Task } from "@/db/db"
 import { useTaskModal } from "../hooks/useTaskModal"
+import { Task } from "@/pages/Tasks/types"
 
 export const TaskItemActions = ({ task }: { task: Task }) => {
   const modalTask = useTaskModal()

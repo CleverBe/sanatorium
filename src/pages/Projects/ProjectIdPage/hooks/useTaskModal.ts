@@ -1,4 +1,4 @@
-import { Task } from "@/db/db"
+import { Task } from "@/pages/Tasks/types"
 import { ModalT } from "@/types"
 import { create } from "zustand"
 

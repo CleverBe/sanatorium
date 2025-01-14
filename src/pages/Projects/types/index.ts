@@ -1,18 +1,31 @@
 export enum ProjectStatusEnum {
-  PENDING = "PENDING",
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
+  PENDING = "pendiente",
+  IN_PROGRESS = "progreso",
+  COMPLETED = "completado",
 }
 
 export interface Project {
-  id: string
+  id: number
   name: string
   description: string
   status: ProjectStatusEnum
-  inCharge: string
+  inCharge: number
   startDate: string
   endDate: string
-  employees: string[]
+  employees: number[]
   createdAt: string
   updatedAt: string
+}
+
+export interface ProjectApi {
+  id: number
+  nombre: string
+  descripcion: string
+  fecha_inicio: string
+  fecha_fin: string
+  estado: ProjectStatusEnum
+  empleados: number[]
+  encargado: number
+  created_at: string
+  updated_at: string
 }

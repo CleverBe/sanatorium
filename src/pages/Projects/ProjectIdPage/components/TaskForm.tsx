@@ -12,33 +12,28 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useTaskModal } from "../hooks/useTaskModal"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
   CreateTaskInput,
   createTaskSchema,
   updateTaskSchema,
 } from "../schemas/TaskSchema"
-import { TaskPriorityEnum } from "@/db/db"
 import { Textarea } from "@/components/ui/textarea"
 import { useCreateTask } from "../api/useCreateTask"
 import { useUpdateTask } from "../api/useUpdateTask"
-import { getTaskPriority } from "../../helpers"
 import { utcToLocalDateYYYYMMDD } from "@/helpers/dates"
+import { useParams } from "react-router-dom"
 
 export const TaskForm = () => {
   const modalTask = useTaskModal()
+
+  const params = useParams()
+
+  const projectId = params.projectId as string
 
   const form = useForm<CreateTaskInput>({
     resolver: zodResolver(modalTask.item ? updateTaskSchema : createTaskSchema),
     defaultValues: {
       title: modalTask.item?.title || "",
       description: modalTask.item?.description || "",
-      priority: modalTask.item?.priority || TaskPriorityEnum.MEDIUM,
       expectedCompletionDate: modalTask.item?.expectedCompletionDate
         ? utcToLocalDateYYYYMMDD(modalTask.item.expectedCompletionDate)
         : "",
@@ -55,11 +50,17 @@ export const TaskForm = () => {
 
   const onSubmit: SubmitHandler<CreateTaskInput> = async (values) => {
     if (modalTask.item) {
-      mutateUpdate({ data: { ...values, id: modalTask.item.id } }).then(() =>
-        modalTask.onClose(),
-      )
+      mutateUpdate({
+        data: {
+          ...values,
+          id: modalTask.item.id,
+          projectId: Number(projectId),
+        },
+      }).then(() => modalTask.onClose())
     } else {
-      mutateCreate({ data: values }).then(() => modalTask.onClose())
+      mutateCreate({ data: { ...values, projectId: Number(projectId) } }).then(
+        () => modalTask.onClose(),
+      )
     }
   }
 
@@ -95,38 +96,6 @@ export const TaskForm = () => {
                   placeholder="Descripción de la tarea"
                 />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="priority"
-          render={({ field }) => (
-            <FormItem className="col-span-6">
-              <FormLabel>Prioridad</FormLabel>
-              <Select
-                disabled={isPending}
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      defaultValue={field.value}
-                      placeholder="Seleccione una prioridad"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.values(TaskPriorityEnum).map((val) => (
-                    <SelectItem key={val} value={val}>
-                      {getTaskPriority(val)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
               <FormMessage />
             </FormItem>
           )}

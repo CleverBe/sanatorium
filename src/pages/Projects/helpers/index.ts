@@ -2,11 +2,11 @@ import { ProjectStatusEnum } from "../types"
 
 export const getProjectStatus = (status: ProjectStatusEnum) => {
   switch (status) {
-    case "PENDING":
+    case "pendiente":
       return "Pendiente"
-    case "IN_PROGRESS":
+    case "progreso":
       return "En progreso"
-    case "COMPLETED":
+    case "completado":
       return "Completado"
     default:
       return ""
@@ -15,25 +15,12 @@ export const getProjectStatus = (status: ProjectStatusEnum) => {
 
 export const getTaskStatus = (status: string) => {
   switch (status) {
-    case "PENDING":
+    case "pendiente":
       return "Pendiente"
-    case "IN_PROGRESS":
+    case "progreso":
       return "En progreso"
-    case "COMPLETED":
+    case "completada":
       return "Completado"
-    default:
-      return ""
-  }
-}
-
-export const getTaskPriority = (priority: string) => {
-  switch (priority) {
-    case "HIGH":
-      return "Alta"
-    case "MEDIUM":
-      return "Media"
-    case "LOW":
-      return "Baja"
     default:
       return ""
   }

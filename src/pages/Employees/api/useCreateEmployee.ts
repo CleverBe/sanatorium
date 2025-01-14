@@ -1,13 +1,28 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { CreateEmployeeInput } from "../schemas/EmployeeSchema"
 import { employeesKeys } from "./querykeys"
+import { api } from "@/lib/axios"
+import { EmployeeApi } from "../types"
 
-export const createEmployeeFn = ({ data }: { data: CreateEmployeeInput }) => {
-  return sleepAppWithData(1000, data).then((data) => {
-    return data
-  })
+export const createEmployeeFn = async ({
+  data,
+}: {
+  data: CreateEmployeeInput & { managerId: number }
+}) => {
+  const dataToSend = {
+    nombre: data.name,
+    email: data.email,
+    password: data.password,
+    encargado: data.managerId,
+  }
+
+  const { data: response } = await api.post<EmployeeApi>(
+    "/registro-empleado",
+    dataToSend,
+  )
+
+  return response
 }
 
 export const useCreateEmployee = () => {
@@ -18,9 +33,7 @@ export const useCreateEmployee = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: employeesKeys.lists() })
 
-      toast.success(
-        `Empleado ${data.firstname} ${data.lastname} creado con exito`,
-      )
+      toast.success(`Empleado ${data.nombre} creado con exito`)
     },
     onError: () => {
       toast.error("Error al crear")

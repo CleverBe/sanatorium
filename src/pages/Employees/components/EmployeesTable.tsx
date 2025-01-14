@@ -1,5 +1,4 @@
 import { Employee } from "../types"
-import { Badge } from "@/components/ui/badge"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button"
@@ -11,7 +10,7 @@ export const EmployeesTable = ({ employees }: { employees: Employee[] }) => {
     {
       accessorKey: "fullname",
       filterFn: (row, _, value) => {
-        const fullname = `${row.original.firstname} ${row.original.lastname}`
+        const fullname = `${row.original.name}`
         return fullname.toLowerCase().includes(value.toLowerCase())
       },
       header: ({ column }) => {
@@ -25,9 +24,9 @@ export const EmployeesTable = ({ employees }: { employees: Employee[] }) => {
           </Button>
         )
       },
-      cell: ({ row }) => `${row.original.firstname} ${row.original.lastname}`,
+      cell: ({ row }) => `${row.original.name}`,
       sortingFn: (rowA, rowB) => {
-        return rowA.original.firstname.localeCompare(rowB.original.firstname)
+        return rowA.original.name.localeCompare(rowB.original.name)
       },
     },
     {
@@ -48,15 +47,6 @@ export const EmployeesTable = ({ employees }: { employees: Employee[] }) => {
       accessorKey: "role",
       header: "Rol",
       cell: ({ row }) => row.original.role,
-    },
-    {
-      accessorKey: "status",
-      header: "Estado",
-      cell: ({ row }) => (
-        <Badge variant={`${row.original.status ? "default" : "destructive"}`}>
-          {row.original.status ? "Activo" : "Inactivo"}
-        </Badge>
-      ),
     },
     {
       id: "actions",

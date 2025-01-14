@@ -15,10 +15,10 @@ export const ProjectsTable = ({
   projects: Project[]
   managers: User[]
 }) => {
-  const getUserName = (id: string) => {
+  const getUserName = (id: number) => {
     const manager = managers.find((manager) => manager.id === id)
 
-    return manager ? `${manager.firstname} ${manager.lastname}` : ""
+    return manager ? `${manager.name}` : ""
   }
 
   const columns: ColumnDef<Project>[] = [
@@ -46,7 +46,10 @@ export const ProjectsTable = ({
       cell: ({ row }) => {
         const projectStatus = row.original.status
         return (
-          <div className="flex items-center">
+          <div
+            className="flex items-center"
+            title={getProjectStatus(projectStatus)}
+          >
             {projectStatus === ProjectStatusEnum.PENDING ? (
               <Circle className="mr-2 size-4" />
             ) : projectStatus === ProjectStatusEnum.IN_PROGRESS ? (

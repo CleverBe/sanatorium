@@ -1,12 +1,12 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { userTasksKeys } from "./querykeys"
 import { toast } from "sonner"
+import { api } from "@/lib/axios"
 
-export const deleteTaskFn = ({ id }: { id: string }) => {
-  return sleepAppWithData(1000, id).then((id) => {
-    return { id }
-  })
+export const deleteTaskFn = async ({ id }: { id: number }) => {
+  const { data } = await api.delete(`/tareas/${id}`)
+
+  return data
 }
 
 export const useDeleteTask = () => {
@@ -22,7 +22,7 @@ export const useDeleteTask = () => {
 
       queryClient.invalidateQueries({ queryKey: userTasksKeys.all })
 
-      toast.success(`Eliminado con exito`)
+      toast.success(`Eliminada con exito`)
     },
     onError: () => {
       toast.error("Error al eliminar")

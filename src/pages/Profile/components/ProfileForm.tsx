@@ -24,8 +24,7 @@ export const ProfileForm = () => {
   const form = useForm<UpdateProfileInput>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
-      firstname: user?.firstname ?? "",
-      lastname: user?.lastname ?? "",
+      name: user?.name ?? "",
       email: user?.email ?? "",
     },
   })
@@ -56,23 +55,10 @@ export const ProfileForm = () => {
           >
             <FormField
               control={form.control}
-              name="firstname"
+              name="name"
               render={({ field }) => (
                 <FormItem className="col-span-12">
                   <FormLabel>Nombre</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastname"
-              render={({ field }) => (
-                <FormItem className="col-span-12">
-                  <FormLabel>Apellido</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>

@@ -1,17 +1,35 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { UpdateProjectInput } from "../schemas/ProjectSchema"
 import { projectsKeys } from "./querykeys"
+import { api } from "@/lib/axios"
+import { ProjectApi } from "../types"
 
 export type UpdateProjectApiInput = Partial<UpdateProjectInput> & {
-  id: string
+  id: number
 }
 
-export const updateProjectFn = ({ data }: { data: UpdateProjectApiInput }) => {
-  return sleepAppWithData(1000, data).then((data) => {
-    return data
-  })
+export const updateProjectFn = async ({
+  data,
+}: {
+  data: UpdateProjectApiInput
+}) => {
+  const dataToSend = {
+    nombre: data.name,
+    descripcion: data.description,
+    fecha_inicio: data.startDate,
+    fecha_fin: data.endDate,
+    estado: data.status,
+    encargado: data.inCharge,
+    empleados: data.employees,
+  }
+
+  const { data: response } = await api.patch<ProjectApi>(
+    "/usuarios",
+    dataToSend,
+  )
+
+  return response
 }
 
 export const useUpdateProject = () => {
@@ -22,7 +40,7 @@ export const useUpdateProject = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: projectsKeys.lists() })
 
-      toast.success(`Proyecto ${data.name} actualizado con exito`)
+      toast.success(`Proyecto ${data.nombre} actualizado con exito`)
     },
     onError: () => {
       toast.error("Error al actualizar")

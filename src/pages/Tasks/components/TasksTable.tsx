@@ -2,17 +2,17 @@ import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
-import { Task } from "@/db/db"
 import { getTaskStatus } from "@/pages/Projects/helpers"
 import { utcToLocalDate } from "@/helpers/dates"
 import { DataTableToolbar } from "./DatatableToolbar"
+import { Task } from "../types"
 
 export const TasksTable = ({ tasks }: { tasks: Task[] }) => {
   const columns: ColumnDef<Task>[] = [
     {
       accessorKey: "employee",
       filterFn: (row, _, value) => {
-        const fullname = `${row.original.user.firstname} ${row.original.user.lastname}`
+        const fullname = row.original.user.name
         return fullname.toLowerCase().includes(value.toLowerCase())
       },
       header: ({ column }) => {
@@ -27,12 +27,9 @@ export const TasksTable = ({ tasks }: { tasks: Task[] }) => {
         )
       },
       sortingFn: (rowA, rowB) => {
-        return rowA.original.user.firstname.localeCompare(
-          rowB.original.user.firstname,
-        )
+        return rowA.original.user.name.localeCompare(rowB.original.user.name)
       },
-      cell: ({ row }) =>
-        `${row.original.user.firstname} ${row.original.user.lastname}`,
+      cell: ({ row }) => `${row.original.user.name}`,
     },
     {
       accessorKey: "title",

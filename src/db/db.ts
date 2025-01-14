@@ -1,4 +1,5 @@
 import { Project, ProjectStatusEnum } from "@/pages/Projects/types"
+import { Task, TaskStatusEnum } from "@/pages/Tasks/types"
 import { RoleEnum, User } from "@/pages/Users/types"
 
 export const defaultImageUrl =
@@ -112,39 +113,12 @@ export const mockedProjects: Project[] = [
   },
 ]
 
-export enum TaskStatusEnum {
-  PENDING = "PENDING",
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
-}
-
-export enum TaskPriorityEnum {
-  LOW = "LOW",
-  MEDIUM = "MEDIUM",
-  HIGH = "HIGH",
-}
-
-export interface Task {
-  id: string
-  title: string
-  description: string
-  status: TaskStatusEnum
-  priority: TaskPriorityEnum
-  expectedCompletionDate: string
-  estimatedHours: number
-  project: Project
-  user: User
-  createdAt: string
-  updatedAt: string
-}
-
 export const mockedTasks: Task[] = [
   {
     id: "be83948f-4a5f-43f8-a0fd-fc94b471c4d1",
     title: "Tarea 1",
     description: "descripción 1",
     status: TaskStatusEnum.PENDING,
-    priority: TaskPriorityEnum.LOW,
     expectedCompletionDate: "2024-11-30",
     estimatedHours: 8,
     project: mockedProjects[0],
@@ -157,7 +131,6 @@ export const mockedTasks: Task[] = [
     title: "Tarea 2",
     description: "descripción 2",
     status: TaskStatusEnum.IN_PROGRESS,
-    priority: TaskPriorityEnum.MEDIUM,
     expectedCompletionDate: "2024-12-01",
     estimatedHours: 4,
     project: mockedProjects[0],
@@ -170,7 +143,6 @@ export const mockedTasks: Task[] = [
     title: "Tarea 3",
     description: "descripción 3",
     status: TaskStatusEnum.COMPLETED,
-    priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01",
     estimatedHours: 12,
     project: mockedProjects[0],
@@ -183,7 +155,6 @@ export const mockedTasks: Task[] = [
     title: "Tarea 4",
     description: "descripción 4",
     status: TaskStatusEnum.PENDING,
-    priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01",
     estimatedHours: 8,
     project: mockedProjects[0],
@@ -196,7 +167,6 @@ export const mockedTasks: Task[] = [
     title: "Tarea 5",
     description: "descripción 5",
     status: TaskStatusEnum.PENDING,
-    priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01",
     estimatedHours: 8,
     project: mockedProjects[0],
@@ -209,7 +179,6 @@ export const mockedTasks: Task[] = [
     title: "Tarea 6",
     description: "descripción 6",
     status: TaskStatusEnum.IN_PROGRESS,
-    priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-01",
     estimatedHours: 8,
     project: mockedProjects[0],
@@ -222,7 +191,6 @@ export const mockedTasks: Task[] = [
     title: "Tarea 7 otro usuario",
     description: "descripción 7 otro usuario",
     status: TaskStatusEnum.IN_PROGRESS,
-    priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-02",
     estimatedHours: 8,
     project: mockedProjects[0],
@@ -235,7 +203,6 @@ export const mockedTasks: Task[] = [
     title: "Tarea 8 otro usuario",
     description: "descripción 8 otro usuario",
     status: TaskStatusEnum.IN_PROGRESS,
-    priority: TaskPriorityEnum.HIGH,
     expectedCompletionDate: "2024-12-03",
     estimatedHours: 12,
     project: mockedProjects[1],
