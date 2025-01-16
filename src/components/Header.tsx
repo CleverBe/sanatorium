@@ -81,7 +81,7 @@ export const Header = ({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="center">
-                  <DropdownMenuLabel>{`${user?.firstname} ${user?.lastname}`}</DropdownMenuLabel>
+                  <DropdownMenuLabel>{`${user?.name}`}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem

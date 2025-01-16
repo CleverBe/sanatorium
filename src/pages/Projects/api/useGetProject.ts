@@ -8,7 +8,7 @@ export const getProjectFn = async ({
 }: {
   projectId: string
 }): Promise<Project> => {
-  const { data } = await api.get<ProjectApi>(`/proyectos/${projectId}`)
+  const { data } = await api.get<ProjectApi>(`/proyectos/${projectId}/`)
 
   return {
     id: data.id,

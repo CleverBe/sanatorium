@@ -7,14 +7,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
-import { useProjectModal } from "../hooks/useProjectModal"
 import { AlertModal } from "@/components/modals/alertModal"
 import { useState } from "react"
-import { useDeleteProject } from "../api/useDeleteProject"
-import { Project } from "../types"
+import { useDeleteProject } from "../../api/useDeleteProject"
+import { ProjectWithoutInCharge } from "../../types"
+import { useManagerProjectModal } from "../hooks/useManagerProjectModal"
 
-export const CellActions = ({ project }: { project: Project }) => {
-  const modalProject = useProjectModal()
+export const CellActions = ({
+  project,
+}: {
+  project: ProjectWithoutInCharge
+}) => {
+  const modalProject = useManagerProjectModal()
 
   const [open, setOpen] = useState(false)
 

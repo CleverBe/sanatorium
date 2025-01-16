@@ -9,7 +9,7 @@ export const getMyProjectTasksFn = async ({
 }: {
   projectId: string
 }): Promise<Task[]> => {
-  const { data } = await api.get<TaskApi[]>(`/tareas-proyecto/${projectId}`)
+  const { data } = await api.get<TaskApi[]>(`/tareas-proyecto/${projectId}/`)
 
   return data.map((task) => ({
     id: task.id,

@@ -4,7 +4,7 @@ import { toast } from "sonner"
 import { api } from "@/lib/axios"
 
 export const deleteUserFn = async ({ id }: { id: number }) => {
-  const { data: response } = await api.delete(`/usuarios/${id}`)
+  const { data: response } = await api.delete(`/usuarios/${id}/`)
 
   return response
 }

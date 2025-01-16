@@ -1,3 +1,5 @@
+import { UserApi } from "@/pages/Users/types"
+
 export enum ProjectStatusEnum {
   PENDING = "pendiente",
   IN_PROGRESS = "progreso",
@@ -28,4 +30,31 @@ export interface ProjectApi {
   encargado: number
   created_at: string
   updated_at: string
+}
+
+interface ProyectoFromManagerProjectApi
+  extends Omit<ProjectApi, "encargado" | "empleados"> {
+  empleados: UserApi[]
+}
+
+export interface ManagerProjectsApi {
+  encargado: {
+    id: number
+    nombre: string
+    email: string
+  }
+  total_proyectos: number
+  proyectos: ProyectoFromManagerProjectApi[]
+}
+
+export type ProjectWithoutInCharge = Omit<Project, "inCharge">
+
+export interface ManagerProjects {
+  manager: {
+    id: number
+    name: string
+    email: string
+  }
+  totalProjects: number
+  projects: ProjectWithoutInCharge[]
 }

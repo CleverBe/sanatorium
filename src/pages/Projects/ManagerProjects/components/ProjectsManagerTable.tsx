@@ -1,27 +1,18 @@
-import { Project, ProjectStatusEnum } from "../types"
-import { CellActions } from "./CellActions"
-import { User } from "@/pages/Users/types"
+import { ProjectStatusEnum, ProjectWithoutInCharge } from "../../types"
 import { utcToLocalDate } from "@/helpers/dates"
-import { getProjectStatus } from "../helpers"
+import { getProjectStatus } from "../../helpers"
 import { DataTable } from "@/components/ui/data-table"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, CheckCircle, Circle, Timer } from "lucide-react"
+import { CellActions } from "./CellActions"
 
-export const ProjectsTable = ({
+export const ProjectsManagerTable = ({
   projects,
-  managers,
 }: {
-  projects: Project[]
-  managers: User[]
+  projects: ProjectWithoutInCharge[]
 }) => {
-  const getUserName = (id: number) => {
-    const manager = managers.find((manager) => manager.id === id)
-
-    return manager ? `${manager.name}` : ""
-  }
-
-  const columns: ColumnDef<Project>[] = [
+  const columns: ColumnDef<ProjectWithoutInCharge>[] = [
     {
       accessorKey: "name",
       header: ({ column }) => {
@@ -61,11 +52,6 @@ export const ProjectsTable = ({
           </div>
         )
       },
-    },
-    {
-      accessorKey: "inCharge",
-      header: "A cargo",
-      cell: ({ row }) => getUserName(row.original.inCharge),
     },
     {
       accessorKey: "startDate",

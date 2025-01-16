@@ -19,7 +19,7 @@ export const createTaskFn = async ({
     // "empleado": data, // TODO:
   }
 
-  const { data: response } = await api.post<TaskApi>("/tareas", dataToSend)
+  const { data: response } = await api.post<TaskApi>("/tareas/", dataToSend)
 
   return response
 }

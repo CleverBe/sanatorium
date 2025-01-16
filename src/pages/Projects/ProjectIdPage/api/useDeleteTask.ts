@@ -4,7 +4,7 @@ import { toast } from "sonner"
 import { api } from "@/lib/axios"
 
 export const deleteTaskFn = async ({ id }: { id: number }) => {
-  const { data } = await api.delete(`/tareas/${id}`)
+  const { data } = await api.delete(`/tareas/${id}/`)
 
   return data
 }

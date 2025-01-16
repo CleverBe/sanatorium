@@ -18,7 +18,7 @@ export const updateUserFn = async ({ data }: { data: UpdateUserApiInput }) => {
     rol: data.role,
   }
 
-  const { data: response } = await api.patch<UserApi>("/usuarios", dataToSend)
+  const { data: response } = await api.patch<UserApi>("/usuarios/", dataToSend)
 
   return response
 }

@@ -4,11 +4,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { ProjectForm } from "./ProjectForm"
-import { useProjectModal } from "../hooks/useProjectModal"
+import { ProjectForm } from "../../components/ProjectForm"
+import { useAdminProjectModal } from "../hooks/useAdminProjectModal"
 
-export const ProjectModal = () => {
-  const modalProject = useProjectModal()
+export const ProjectAdminModal = () => {
+  const modalProject = useAdminProjectModal()
 
   return (
     <Dialog open={modalProject.isOpen} onOpenChange={modalProject.onClose}>

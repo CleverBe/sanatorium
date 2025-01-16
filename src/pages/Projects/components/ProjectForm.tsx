@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useProjectModal } from "../hooks/useProjectModal"
+import { useAdminProjectModal } from "../AdminProjects/hooks/useAdminProjectModal"
 import {
   CreateProjectInput,
   createProjectSchema,
@@ -34,7 +34,7 @@ import { getProjectStatus } from "../helpers"
 import { CustomSelect } from "@/components/ui/customSelect"
 
 export const ProjectForm = () => {
-  const modalProject = useProjectModal()
+  const modalProject = useAdminProjectModal()
   const { data: users = [] } = useGetUsers()
   const managers = users.filter((user) => user.role === RoleEnum.MANAGER)
   const employees = users.filter((user) => user.role === RoleEnum.EMPLOYEE)
@@ -152,7 +152,9 @@ export const ProjectForm = () => {
                     value: user.id.toString(),
                   }))}
                   defaultValue={field.value !== 0 ? field.value.toString() : ""}
-                  onValueChange={field.onChange}
+                  onValueChange={(e) => {
+                    field.onChange(Number(e))
+                  }}
                   placeholder="Seleccione un encargado"
                   showSearch
                 />
@@ -200,7 +202,7 @@ export const ProjectForm = () => {
                     value: user.id.toString(),
                   }))}
                   defaultValue={field.value.map((id) => id.toString())}
-                  onValueChange={field.onChange}
+                  onValueChange={(val) => field.onChange(val.map(Number))}
                   placeholder="Seleccione los empleados"
                   showSearch
                 />

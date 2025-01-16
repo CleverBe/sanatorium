@@ -3,18 +3,11 @@ import { LoginInput } from "../schemas/LoginSchema"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { useAuth } from "@/hooks/useAuth"
-import { api } from "@/lib/axios"
 import { mockedUsers } from "@/db/db"
 
 export interface ILoginResponse {
   status: string
   accessToken: string
-}
-
-export const refreshAccessTokenFn = async () => {
-  const response = await api.get<ILoginResponse>("auth/refresh")
-
-  return response.data
 }
 
 export const loginUserFn = async (user: LoginInput) => {

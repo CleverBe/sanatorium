@@ -13,7 +13,7 @@ export const createUserFn = async ({ data }: { data: CreateUserInput }) => {
     rol: data.role,
   }
 
-  const { data: response } = await api.post<UserApi>("/usuarios", dataToSend)
+  const { data: response } = await api.post<UserApi>("/usuarios/", dataToSend)
 
   return response
 }

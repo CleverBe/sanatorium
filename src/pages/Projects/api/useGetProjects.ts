@@ -4,7 +4,7 @@ import { Project, ProjectApi } from "../types"
 import { api } from "@/lib/axios"
 
 export const getProjectsFn = async (): Promise<Project[]> => {
-  const { data } = await api.get<ProjectApi[]>("/proyectos")
+  const { data } = await api.get<ProjectApi[]>("/proyectos/")
 
   return data.map((project) => ({
     id: project.id,

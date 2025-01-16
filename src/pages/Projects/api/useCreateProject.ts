@@ -20,7 +20,10 @@ export const createProjectFn = async ({
     empleados: data.employees,
   }
 
-  const { data: response } = await api.post<ProjectApi>("/usuarios", dataToSend)
+  const { data: response } = await api.post<ProjectApi>(
+    "/proyectos/",
+    dataToSend,
+  )
 
   return response
 }

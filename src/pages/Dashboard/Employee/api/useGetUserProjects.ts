@@ -5,7 +5,7 @@ import { api } from "@/lib/axios"
 
 export const getUserProjectsFn = async ({ userId }: { userId: number }) => {
   const { data } = await api.get<ProjectApi[]>(
-    `/proyectos-asignados-empleado/${userId}`,
+    `/proyectos-asignados-empleado/${userId}/`,
   )
 
   return data.map((project) => ({

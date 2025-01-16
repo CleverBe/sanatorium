@@ -4,7 +4,7 @@ import { User, UserApi } from "../types"
 import { api } from "@/lib/axios"
 
 export const getUsersFn = async (): Promise<User[]> => {
-  const { data } = await api.get<UserApi[]>("/usuarios")
+  const { data } = await api.get<UserApi[]>("/usuarios/")
 
   return data.map((user) => ({
     id: user.id,

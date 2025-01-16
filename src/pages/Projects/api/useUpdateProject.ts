@@ -24,8 +24,8 @@ export const updateProjectFn = async ({
     empleados: data.employees,
   }
 
-  const { data: response } = await api.patch<ProjectApi>(
-    "/usuarios",
+  const { data: response } = await api.put<ProjectApi>(
+    "/proyectos/",
     dataToSend,
   )
 

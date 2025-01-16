@@ -4,7 +4,7 @@ import { api } from "@/lib/axios"
 import { Task, TaskApi } from "../types"
 
 export const getTasksFn = async (): Promise<Task[]> => {
-  const { data } = await api.get<TaskApi[]>("/proyectos")
+  const { data } = await api.get<TaskApi[]>("/tareas/")
 
   return data.map((task) => ({
     id: task.id,
