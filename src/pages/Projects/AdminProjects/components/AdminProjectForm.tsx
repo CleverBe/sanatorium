@@ -10,13 +10,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useAdminProjectModal } from "../AdminProjects/hooks/useAdminProjectModal"
-import {
-  CreateProjectInput,
-  createProjectSchema,
-  updateProjectSchema,
-} from "../schemas/ProjectSchema"
-import { useCreateProject } from "../api/useCreateProject"
+import { useAdminProjectModal } from "../hooks/useAdminProjectModal"
+import { useCreateProject } from "../../api/useCreateProject"
 import {
   Select,
   SelectContent,
@@ -24,16 +19,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useUpdateProject } from "../api/useUpdateProject"
-import { ProjectStatusEnum } from "../types"
+import { useUpdateProject } from "../../api/useUpdateProject"
+import { ProjectStatusEnum } from "../../types"
 import { Textarea } from "@/components/ui/textarea"
 import { useGetUsers } from "@/pages/Users/api/useGetUsers"
 import { RoleEnum } from "@/pages/Users/types"
 import { MultiSelect } from "@/components/ui/multiselect"
-import { getProjectStatus } from "../helpers"
+import { getProjectStatus } from "../../helpers"
 import { CustomSelect } from "@/components/ui/customSelect"
+import {
+  CreateProjectInput,
+  createProjectSchema,
+  updateProjectSchema,
+} from "../../schemas/ProjectSchema"
 
-export const ProjectForm = () => {
+export const AdminProjectForm = () => {
   const modalProject = useAdminProjectModal()
   const { data: users = [] } = useGetUsers()
   const managers = users.filter((user) => user.role === RoleEnum.MANAGER)

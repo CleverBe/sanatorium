@@ -1,5 +1,4 @@
-import { Project } from "@/pages/Projects/types"
-import { User } from "@/pages/Users/types"
+import { RoleEnum } from "@/pages/Users/types"
 
 export enum TaskStatusEnum {
   PENDING = "pendiente",
@@ -14,8 +13,22 @@ export interface Task {
   status: TaskStatusEnum
   expectedCompletionDate: string
   estimatedHours: number
-  project: Project
-  user: User
+  project: {
+    id: number
+    name: string
+    status: TaskStatusEnum
+    inCharge: {
+      id: number
+      name: string
+      email: string
+      role: RoleEnum
+    }
+  }
+  user: {
+    id: number
+    name: string
+    email: string
+  }
   createdAt: string
   updatedAt: string
 }
@@ -24,10 +37,25 @@ export interface TaskApi {
   id: number
   titulo: string
   descripcion: string
-  proyecto: number
+  proyecto: {
+    id: number
+    nombre: string
+    descripcion: string
+    estado: TaskStatusEnum
+    encargado: {
+      id: number
+      nombre: string
+      email: string
+      rol: RoleEnum
+    }
+  }
   fecha: string
   horas_invertidas: number
-  empleado: number
+  empleado: {
+    id: number
+    nombre: string
+    email: string
+  }
   archivo: string
   estado: TaskStatusEnum
   orden: number

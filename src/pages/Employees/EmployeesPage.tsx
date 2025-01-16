@@ -1,17 +1,19 @@
 import { Button } from "@/components/ui/button"
-import { useGetEmployees } from "./api/useGetEmployees"
 import { SkeletonTable } from "@/components/SkeletonTable"
 import { useEmployeeModal } from "./hooks/useEmployeeModal"
 import { EmployeesTable } from "./components/EmployeesTable"
 import { EmployeeModal } from "./components/EmployeeModal"
 import { useGetCurrentUser } from "../Profile/api/useGetCurrentUser"
+import { useGetManagerEmployees } from "./api/useGetManagerEmployees"
 
 export const EmployeesPage = () => {
-  const { data } = useGetCurrentUser()
+  const { data: user } = useGetCurrentUser()
 
-  const { data: employees = [], isLoading } = useGetEmployees({
-    encargadoId: data?.id as number,
+  const { data, isLoading } = useGetManagerEmployees({
+    encargadoId: user?.id as number,
   })
+
+  const employees = data?.employees || []
 
   const modalEmployee = useEmployeeModal()
 

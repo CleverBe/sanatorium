@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { CreateProjectInput } from "../schemas/ProjectSchema"
+import { CreateProjectInput } from "../AdminProjects/schemas/ProjectSchema"
 import { projectsKeys } from "./querykeys"
 import { api } from "@/lib/axios"
 import { ProjectApi } from "../types"

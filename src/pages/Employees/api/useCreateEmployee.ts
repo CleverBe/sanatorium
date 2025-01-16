@@ -18,7 +18,7 @@ export const createEmployeeFn = async ({
   }
 
   const { data: response } = await api.post<EmployeeApi>(
-    "/registro-empleado",
+    "/registro-empleado/",
     dataToSend,
   )
 
@@ -31,7 +31,7 @@ export const useCreateEmployee = () => {
   return useMutation({
     mutationFn: createEmployeeFn,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: employeesKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: employeesKeys.all })
 
       toast.success(`Empleado ${data.nombre} creado con exito`)
     },

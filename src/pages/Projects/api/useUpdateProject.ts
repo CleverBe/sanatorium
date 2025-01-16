@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { UpdateProjectInput } from "../schemas/ProjectSchema"
 import { projectsKeys } from "./querykeys"
 import { api } from "@/lib/axios"
 import { ProjectApi } from "../types"
+import { UpdateProjectInput } from "../schemas/ProjectSchema"
 
 export type UpdateProjectApiInput = Partial<UpdateProjectInput> & {
   id: number
@@ -25,7 +25,7 @@ export const updateProjectFn = async ({
   }
 
   const { data: response } = await api.put<ProjectApi>(
-    "/proyectos/",
+    `/proyectos/${data.id}/`,
     dataToSend,
   )
 

@@ -36,6 +36,6 @@ export const getManagerProjectsFn = async ({
 export const useGetManagerProjects = ({ managerId }: { managerId: number }) => {
   return useQuery({
     queryFn: () => getManagerProjectsFn({ managerId }),
-    queryKey: projectsKeys.lists(),
+    queryKey: projectsKeys.manager(managerId),
   })
 }

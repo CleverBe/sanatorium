@@ -45,13 +45,19 @@ export const EmployeeForm = () => {
 
   const onSubmit: SubmitHandler<CreateEmployeeInput> = async (values) => {
     if (modalEmployee.item) {
-      mutateUpdate({ data: { ...values, id: modalEmployee.item.id } }).then(
-        () => modalEmployee.onClose(),
-      )
+      mutateUpdate({
+        data: {
+          ...values,
+          id: modalEmployee.item.id,
+        },
+      }).then(() => modalEmployee.onClose())
     } else {
-      mutateCreate({ data: { ...values, managerId: user?.id as number } }).then(
-        () => modalEmployee.onClose(),
-      )
+      mutateCreate({
+        data: {
+          ...values,
+          managerId: user?.id as number,
+        },
+      }).then(() => modalEmployee.onClose())
     }
   }
 

@@ -4,7 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { ProjectForm } from "../../components/ProjectForm"
+import { AdminProjectForm } from "./AdminProjectForm"
 import { useAdminProjectModal } from "../hooks/useAdminProjectModal"
 
 export const ProjectAdminModal = () => {
@@ -18,7 +18,7 @@ export const ProjectAdminModal = () => {
             {modalProject.item ? "Editar proyecto" : "Crear proyecto"}
           </DialogTitle>
         </DialogHeader>
-        <ProjectForm />
+        <AdminProjectForm />
       </DialogContent>
     </Dialog>
   )

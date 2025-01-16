@@ -21,7 +21,7 @@ export const updateEmployeeFn = async ({
   }
 
   const { data: response } = await api.patch<EmployeeApi>(
-    "/usuarios",
+    `/usuarios/${data.id}/`,
     dataToSend,
   )
 
