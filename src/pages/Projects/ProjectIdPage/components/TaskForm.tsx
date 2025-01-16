@@ -21,8 +21,13 @@ import { useCreateTask } from "../api/useCreateTask"
 import { useUpdateTask } from "../api/useUpdateTask"
 import { utcToLocalDateYYYYMMDD } from "@/helpers/dates"
 import { useParams } from "react-router-dom"
+import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 
 export const TaskForm = () => {
+  const { data: user } = useGetCurrentUser()
+
+  const userId = user?.id as number
+
   const modalTask = useTaskModal()
 
   const params = useParams()
@@ -36,8 +41,8 @@ export const TaskForm = () => {
       description: modalTask.item?.description || "",
       expectedCompletionDate: modalTask.item?.expectedCompletionDate
         ? utcToLocalDateYYYYMMDD(modalTask.item.expectedCompletionDate)
-        : "",
-      estimatedHours: modalTask.item?.estimatedHours || 0,
+        : new Date().toISOString().split("T")[0],
+      estimatedHours: modalTask.item?.estimatedHours.toString() || "",
     },
   })
 
@@ -53,14 +58,21 @@ export const TaskForm = () => {
       mutateUpdate({
         data: {
           ...values,
+          estimatedHours: Number(values.estimatedHours),
           id: modalTask.item.id,
           projectId: Number(projectId),
+          userId,
         },
       }).then(() => modalTask.onClose())
     } else {
-      mutateCreate({ data: { ...values, projectId: Number(projectId) } }).then(
-        () => modalTask.onClose(),
-      )
+      mutateCreate({
+        data: {
+          ...values,
+          estimatedHours: Number(values.estimatedHours),
+          projectId: Number(projectId),
+          userId,
+        },
+      }).then(() => modalTask.onClose())
     }
   }
 
@@ -127,7 +139,7 @@ export const TaskForm = () => {
             <FormItem className="col-span-6">
               <FormLabel>Horas estimadas</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type="number" />
               </FormControl>
               <FormMessage />
             </FormItem>

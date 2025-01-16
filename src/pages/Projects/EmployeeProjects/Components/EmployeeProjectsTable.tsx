@@ -1,29 +1,20 @@
-import { User } from "@/pages/Users/types"
 import { utcToLocalDate } from "@/helpers/dates"
 import { DataTable } from "@/components/ui/data-table"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, CheckCircle, Circle, Timer } from "lucide-react"
-import { Project, ProjectStatusEnum } from "../../types"
+import { ProjectStatusEnum, ProjectWithoutEmployees } from "../../types"
 import { getProjectStatus } from "../../helpers"
 import { useNavigate } from "react-router-dom"
 
 export const EmployeeProjectsTable = ({
   projects,
-  managers,
 }: {
-  projects: Project[]
-  managers: User[]
+  projects: ProjectWithoutEmployees[]
 }) => {
   const navigate = useNavigate()
 
-  const getUserName = (id: number) => {
-    const manager = managers.find((manager) => manager.id === id)
-
-    return manager ? `${manager.name}` : ""
-  }
-
-  const columns: ColumnDef<Project>[] = [
+  const columns: ColumnDef<ProjectWithoutEmployees>[] = [
     {
       accessorKey: "name",
       header: ({ column }) => {
@@ -76,7 +67,7 @@ export const EmployeeProjectsTable = ({
     {
       accessorKey: "inCharge",
       header: "A cargo",
-      cell: ({ row }) => getUserName(row.original.inCharge),
+      cell: ({ row }) => row.original.inCharge.name,
     },
     {
       accessorKey: "startDate",

@@ -8,7 +8,11 @@ import { api } from "@/lib/axios"
 export const createTaskFn = async ({
   data,
 }: {
-  data: CreateTaskInput & { projectId: number }
+  data: Omit<CreateTaskInput, "estimatedHours"> & {
+    projectId: number
+    userId: number
+    estimatedHours: number
+  }
 }) => {
   const dataToSend = {
     titulo: data.title,
@@ -16,7 +20,7 @@ export const createTaskFn = async ({
     proyecto: data.projectId,
     fecha: data.expectedCompletionDate,
     horas_invertidas: data.estimatedHours,
-    // "empleado": data, // TODO:
+    empleado: data.userId,
   }
 
   const { data: response } = await api.post<TaskApi>("/tareas/", dataToSend)

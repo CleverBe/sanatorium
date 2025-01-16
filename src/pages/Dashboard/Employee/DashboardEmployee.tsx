@@ -18,20 +18,23 @@ export const DashboardEmployee = () => {
 
   const { data: user } = useGetCurrentUser()
 
-  const { data: projects = [], isLoading: isLoadingProjects } =
-    useGetUserProjects({
-      userId: user?.id as number,
-      options: {
-        enabled: !!user?.id,
-      },
-    })
-
-  const { data: tasks = [], isLoading: isLoadingTasks } = useGetUserTasks({
+  const { data, isLoading: isLoadingProjects } = useGetUserProjects({
     userId: user?.id as number,
     options: {
       enabled: !!user?.id,
     },
   })
+
+  const projects = data?.projects || []
+
+  const { data: dataTasks, isLoading: isLoadingTasks } = useGetUserTasks({
+    userId: user?.id as number,
+    options: {
+      enabled: !!user?.id,
+    },
+  })
+
+  const tasks = dataTasks?.tasks || []
 
   const isLoading = isLoadingProjects || isLoadingTasks
 
@@ -50,7 +53,7 @@ export const DashboardEmployee = () => {
           {projects.slice(0, 3).map((project) => (
             <Card
               key={project.id}
-              className="cursor-pointer rounded-sm hover:scale-105"
+              className="cursor-pointer rounded-sm duration-200 hover:scale-105"
               onClick={() => onOpenDetail(project)}
             >
               <CardHeader>

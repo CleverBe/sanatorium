@@ -6,11 +6,11 @@ import {
 } from "@tanstack/react-query"
 import { userProfileKeys } from "./querykeys"
 import { User } from "@/pages/Users/types"
-import { managerUsers } from "@/db/db"
+import { employeeUsers } from "@/db/db"
 
 export const getCurrentUserFn = async () => {
   return await sleepApp(1000).then(() => {
-    return managerUsers[0]
+    return employeeUsers[0]
   })
 }
 

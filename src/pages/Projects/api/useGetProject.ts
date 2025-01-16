@@ -6,7 +6,7 @@ import { api } from "@/lib/axios"
 export const getProjectFn = async ({
   projectId,
 }: {
-  projectId: string
+  projectId: number
 }): Promise<Project> => {
   const { data } = await api.get<ProjectApi>(`/proyectos/${projectId}/`)
 
@@ -24,7 +24,7 @@ export const getProjectFn = async ({
   }
 }
 
-export const useGetProject = ({ projectId }: { projectId: string }) => {
+export const useGetProject = ({ projectId }: { projectId: number }) => {
   return useQuery({
     queryFn: () => getProjectFn({ projectId }),
     queryKey: projectsKeys.lists(),

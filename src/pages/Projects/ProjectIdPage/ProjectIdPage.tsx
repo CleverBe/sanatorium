@@ -16,7 +16,7 @@ export const ProjectIdPage = () => {
 
   const modalTask = useTaskModal()
 
-  const projectId = params.projectId as string
+  const projectId = Number(params.projectId)
 
   const {
     data: project,
@@ -52,7 +52,7 @@ export const ProjectIdPage = () => {
   const isLoading = isLoadingProject || isLoadingProjectTasks
 
   if (isErrorProject || isErrorProjectTasks || !project) {
-    return <Navigate to="/projects" />
+    return <Navigate to="/dashboard" />
   }
 
   if (isLoading) {

@@ -19,7 +19,15 @@ export const createTaskSchema = z.object({
     z.literal(""),
   ]),
   expectedCompletionDate: z.string().date("Selecciona una fecha"),
-  estimatedHours: z.number().int().positive(),
+  estimatedHours: z
+    .string({
+      required_error: "estimatedHours is required",
+      invalid_type_error: "estimatedHours must be a string",
+    })
+    .refine((val) => {
+      const num = Number(val)
+      return !isNaN(num) && num > 0
+    }, "estimatedHours must be a positive integer"),
 })
 
 export type CreateTaskInput = z.infer<typeof createTaskSchema>

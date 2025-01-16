@@ -12,7 +12,11 @@ export type UpdateTaskApiInput = Partial<UpdateTaskInput> & {
 export const updateTaskFn = async ({
   data,
 }: {
-  data: UpdateTaskApiInput & { projectId: number }
+  data: Omit<UpdateTaskApiInput, "estimatedHours"> & {
+    projectId: number
+    userId: number
+    estimatedHours: number
+  }
 }) => {
   const dataToSend = {
     titulo: data.title,
@@ -20,10 +24,13 @@ export const updateTaskFn = async ({
     proyecto: data.projectId,
     fecha: data.expectedCompletionDate,
     horas_invertidas: data.estimatedHours,
-    // "empleado": data, // TODO:
+    empleado: data.userId,
   }
 
-  const { data: response } = await api.post<TaskApi>("/tareas/", dataToSend)
+  const { data: response } = await api.put<TaskApi>(
+    `/tareas/${data.id}/`,
+    dataToSend,
+  )
 
   return response
 }

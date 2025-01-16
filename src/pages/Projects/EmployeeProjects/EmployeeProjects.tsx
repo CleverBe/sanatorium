@@ -2,22 +2,20 @@ import { SkeletonTable } from "@/components/SkeletonTable"
 import { useGetUserProjects } from "@/pages/Dashboard/Employee/api/useGetUserProjects"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 import { EmployeeProjectsTable } from "./Components/EmployeeProjectsTable"
-import { useGetUsers } from "@/pages/Users/api/useGetUsers"
 
 export const EmployeeProjects = () => {
   const { data: user } = useGetCurrentUser()
 
-  const { data: managers = [], isLoading: isLoadingUsers } = useGetUsers()
+  const { data, isLoading: isLoadingProjects } = useGetUserProjects({
+    userId: user?.id as number,
+    options: {
+      enabled: !!user?.id,
+    },
+  })
 
-  const { data: projects = [], isLoading: isLoadingProjects } =
-    useGetUserProjects({
-      userId: user?.id as number,
-      options: {
-        enabled: !!user?.id,
-      },
-    })
+  const projects = data?.projects || []
 
-  const isLoading = isLoadingProjects || isLoadingUsers
+  const isLoading = isLoadingProjects
 
   return (
     <div>
@@ -29,7 +27,7 @@ export const EmployeeProjects = () => {
         {isLoading ? (
           <SkeletonTable withSearchInput />
         ) : (
-          <EmployeeProjectsTable projects={projects} managers={managers} />
+          <EmployeeProjectsTable projects={projects} />
         )}
       </div>
     </div>

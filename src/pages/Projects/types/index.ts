@@ -1,4 +1,4 @@
-import { UserApi } from "@/pages/Users/types"
+import { RoleEnum, UserApi } from "@/pages/Users/types"
 
 export enum ProjectStatusEnum {
   PENDING = "pendiente",
@@ -57,4 +57,48 @@ export interface ManagerProjects {
   }
   totalProjects: number
   projects: ProjectWithoutInCharge[]
+}
+
+export interface EmployeeProjectsApi {
+  empleado: {
+    id: number
+    nombre: string
+    email: string
+  }
+  total_proyectos: number
+  proyectos: {
+    id: number
+    nombre: string
+    descripcion: string
+    fecha_inicio: string
+    fecha_fin: string
+    estado: ProjectStatusEnum
+    encargado: {
+      id: number
+      nombre: string
+      email: string
+      rol: RoleEnum
+    }
+    created_at: string
+    updated_at: string
+  }[]
+}
+
+export interface ProjectWithoutEmployees
+  extends Omit<Project, "employees" | "inCharge"> {
+  inCharge: {
+    id: number
+    name: string
+    email: string
+  }
+}
+
+export interface EmployeeProjects {
+  manager: {
+    id: number
+    name: string
+    email: string
+  }
+  totalProjects: number
+  projects: ProjectWithoutEmployees[]
 }

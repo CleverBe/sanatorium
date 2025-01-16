@@ -1,3 +1,4 @@
+import { ProjectStatusEnum } from "@/pages/Projects/types"
 import { RoleEnum } from "@/pages/Users/types"
 
 export enum TaskStatusEnum {
@@ -16,7 +17,7 @@ export interface Task {
   project: {
     id: number
     name: string
-    status: TaskStatusEnum
+    status: ProjectStatusEnum
     inCharge: {
       id: number
       name: string
@@ -61,4 +62,63 @@ export interface TaskApi {
   orden: number
   created_at: string
   updated_at: string
+}
+
+export interface TaskFromProjectApi {
+  id: number
+  titulo: string
+  descripcion: string
+  fecha: string
+  horas_invertidas: number
+  estado: TaskStatusEnum
+  archivo: string
+  orden: number
+  created_at: string
+  updated_at: string
+}
+
+export interface ProjectWithTasksFromEmployeeResponseApi {
+  proyecto: {
+    id: number
+    nombre: string
+  }
+  tareas: {
+    pendiente: TaskFromProjectApi[]
+    progreso: TaskFromProjectApi[]
+    completada: TaskFromProjectApi[]
+  }
+}
+
+export interface EmployeeTasksApi {
+  empleado: {
+    id: number
+    nombre: string
+    email: string
+  }
+  total_tareas: number
+  proyectos: ProjectWithTasksFromEmployeeResponseApi[]
+}
+
+export interface EmployeeTasks {
+  employee: {
+    id: number
+    name: string
+    email: string
+  }
+  totalTasks: number
+  tasks: {
+    id: number
+    title: string
+    description: string
+    status: TaskStatusEnum
+    expectedCompletionDate: string
+    estimatedHours: number
+    project: {
+      id: number
+      name: string
+    }
+    order: number
+    createdAt: string
+    updatedAt: string
+  }[]
 }

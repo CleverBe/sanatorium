@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { userTasksKeys } from "./querykeys"
+import { myProjectTasksKeys, userTasksKeys } from "./querykeys"
 import { toast } from "sonner"
 import { api } from "@/lib/axios"
 
@@ -21,6 +21,7 @@ export const useDeleteTask = () => {
       })
 
       queryClient.invalidateQueries({ queryKey: userTasksKeys.all })
+      queryClient.invalidateQueries({ queryKey: myProjectTasksKeys.all })
 
       toast.success(`Eliminada con exito`)
     },
