@@ -11,6 +11,7 @@ import { ReportsPage } from "@/pages/Reports/ReportsPage"
 import { UnauthorizedPage } from "@/pages/Unauthorized/UnauthorizedPage"
 import { RoleEnum } from "@/pages/Users/types"
 import { UsersPage } from "@/pages/Users/UsersPage"
+import { WorkDistribution } from "@/pages/WorkDistributions/WorkDistribution"
 import { createBrowserRouter } from "react-router-dom"
 
 export const router = createBrowserRouter([
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
           {
             path: "dashboard",
             element: <Dashboard />,
+          },
+          {
+            path: "trabajos",
+            element: <WorkDistribution />,
           },
           {
             path: "perfil",

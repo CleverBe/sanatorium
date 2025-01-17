@@ -10,7 +10,7 @@ import { adminUsers, managerUsers, employeeUsers } from "@/db/db"
 
 export const getCurrentUserFn = async () => {
   return await sleepApp(1000).then(() => {
-    return managerUsers[0]
+    return adminUsers[0]
   })
 }
 
