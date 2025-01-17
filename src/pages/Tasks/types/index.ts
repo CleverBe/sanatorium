@@ -34,6 +34,10 @@ export interface Task {
   updatedAt: string
 }
 
+export interface TaskWithOrder extends Task {
+  order: number
+}
+
 export interface TaskApi {
   id: number
   titulo: string
@@ -42,7 +46,7 @@ export interface TaskApi {
     id: number
     nombre: string
     descripcion: string
-    estado: TaskStatusEnum
+    estado: ProjectStatusEnum
     encargado: {
       id: number
       nombre: string

@@ -1,9 +1,9 @@
 import { CreateTaskInput } from "../schemas/TaskSchema"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { myProjectTasksKeys, userTasksKeys } from "./querykeys"
 import { TaskApi } from "@/pages/Tasks/types"
 import { api } from "@/lib/axios"
+import { tasksKeys } from "@/pages/Tasks/api/querykeys"
 
 export const createTaskFn = async ({
   data,
@@ -34,8 +34,7 @@ export const useCreateTask = () => {
   return useMutation({
     mutationFn: createTaskFn,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: userTasksKeys.all })
-      queryClient.invalidateQueries({ queryKey: myProjectTasksKeys.all })
+      queryClient.invalidateQueries({ queryKey: tasksKeys.all })
 
       toast.success(`Tarea ${data.titulo} creada con exito`)
     },

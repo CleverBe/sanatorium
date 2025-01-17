@@ -1,9 +1,9 @@
 import { UpdateTaskInput } from "../schemas/TaskSchema"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { myProjectTasksKeys, userTasksKeys } from "./querykeys"
 import { api } from "@/lib/axios"
 import { TaskApi } from "@/pages/Tasks/types"
+import { tasksKeys } from "@/pages/Tasks/api/querykeys"
 
 export type UpdateTaskApiInput = Partial<UpdateTaskInput> & {
   id: number
@@ -24,7 +24,8 @@ export const updateTaskFn = async ({
     proyecto: data.projectId,
     fecha: data.expectedCompletionDate,
     horas_invertidas: data.estimatedHours,
-    empleado: data.userId,
+    empleado_id: data.userId,
+    archivo: "",
   }
 
   const { data: response } = await api.put<TaskApi>(
@@ -41,13 +42,12 @@ export const useUpdateTask = () => {
   return useMutation({
     mutationFn: updateTaskFn,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: userTasksKeys.all })
-      queryClient.invalidateQueries({ queryKey: myProjectTasksKeys.all })
+      queryClient.invalidateQueries({ queryKey: tasksKeys.all })
 
       toast.success(`Tarea ${data.titulo} actualizada con exito`)
     },
     onError: () => {
-      toast.error("Error al crear")
+      toast.error("Error al actualizar")
     },
   })
 }

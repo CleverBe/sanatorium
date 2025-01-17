@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { myProjectTasksKeys, userTasksKeys } from "./querykeys"
 import { toast } from "sonner"
 import { api } from "@/lib/axios"
+import { tasksKeys } from "@/pages/Tasks/api/querykeys"
 
 export const deleteTaskFn = async ({ id }: { id: number }) => {
   const { data } = await api.delete(`/tareas/${id}/`)
@@ -16,12 +16,11 @@ export const useDeleteTask = () => {
     mutationFn: deleteTaskFn,
     onSuccess: (data) => {
       queryClient.removeQueries({
-        queryKey: userTasksKeys.list(data.id),
+        queryKey: tasksKeys.byId(data.id),
         exact: true,
       })
 
-      queryClient.invalidateQueries({ queryKey: userTasksKeys.all })
-      queryClient.invalidateQueries({ queryKey: myProjectTasksKeys.all })
+      queryClient.invalidateQueries({ queryKey: tasksKeys.all })
 
       toast.success(`Eliminada con exito`)
     },

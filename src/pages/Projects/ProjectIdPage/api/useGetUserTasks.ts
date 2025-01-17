@@ -1,85 +1,42 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query"
 
-import { userTasksKeys } from "./querykeys"
 import { api } from "@/lib/axios"
-import { EmployeeTasks, EmployeeTasksApi } from "@/pages/Tasks/types"
+import { Task, TaskApi } from "@/pages/Tasks/types"
+import { tasksKeys } from "@/pages/Tasks/api/querykeys"
 
 export const getUserTasksFn = async ({
   userId,
 }: {
   userId: number
-}): Promise<EmployeeTasks> => {
-  const { data } = await api.get<EmployeeTasksApi>(
-    `/tareas-empleado/${userId}/`,
-  )
+}): Promise<Task[]> => {
+  const { data } = await api.get<TaskApi[]>(`/tareas-empleado/${userId}/`)
 
-  const pendingTasks = data.proyectos.map((project) => ({
-    tasks: project.tareas.pendiente.map((task) => ({
-      id: task.id,
-      title: task.titulo,
-      description: task.descripcion,
-      status: task.estado,
-      expectedCompletionDate: task.fecha,
-      estimatedHours: task.horas_invertidas,
-      project: {
-        id: project.proyecto.id,
-        name: project.proyecto.nombre,
+  return data.map((task) => ({
+    id: task.id,
+    title: task.titulo,
+    description: task.descripcion,
+    status: task.estado,
+    estimatedHours: task.horas_invertidas,
+    expectedCompletionDate: task.fecha,
+    createdAt: task.created_at,
+    updatedAt: task.updated_at,
+    project: {
+      id: task.proyecto.id,
+      name: task.proyecto.nombre,
+      inCharge: {
+        id: task.proyecto.encargado.id,
+        name: task.proyecto.encargado.nombre,
+        email: task.proyecto.encargado.email,
+        role: task.proyecto.encargado.rol,
       },
-      order: task.orden,
-      createdAt: task.created_at,
-      updatedAt: task.updated_at,
-    })),
-  }))
-
-  const progressTasks = data.proyectos.map((project) => ({
-    tasks: project.tareas.progreso.map((task) => ({
-      id: task.id,
-      title: task.titulo,
-      description: task.descripcion,
-      status: task.estado,
-      expectedCompletionDate: task.fecha,
-      estimatedHours: task.horas_invertidas,
-      project: {
-        id: project.proyecto.id,
-        name: project.proyecto.nombre,
-      },
-      order: task.orden,
-      createdAt: task.created_at,
-      updatedAt: task.updated_at,
-    })),
-  }))
-
-  const finishedTasks = data.proyectos.map((project) => ({
-    tasks: project.tareas.completada.map((task) => ({
-      id: task.id,
-      title: task.titulo,
-      description: task.descripcion,
-      status: task.estado,
-      expectedCompletionDate: task.fecha,
-      estimatedHours: task.horas_invertidas,
-      project: {
-        id: project.proyecto.id,
-        name: project.proyecto.nombre,
-      },
-      order: task.orden,
-      createdAt: task.created_at,
-      updatedAt: task.updated_at,
-    })),
-  }))
-
-  const tasks = [...pendingTasks, ...progressTasks, ...finishedTasks].flatMap(
-    (p) => p.tasks,
-  )
-
-  return {
-    employee: {
-      id: data.empleado.id,
-      name: data.empleado.nombre,
-      email: data.empleado.email,
+      status: task.proyecto.estado,
     },
-    totalTasks: data.total_tareas,
-    tasks,
-  }
+    user: {
+      id: task.empleado.id,
+      name: task.empleado.nombre,
+      email: task.empleado.email,
+    },
+  }))
 }
 
 export const useGetUserTasks = ({
@@ -87,11 +44,11 @@ export const useGetUserTasks = ({
   options,
 }: {
   userId: number
-  options?: Partial<UseQueryOptions<EmployeeTasks>>
+  options?: Partial<UseQueryOptions<Task[]>>
 }) => {
   return useQuery({
     queryFn: () => getUserTasksFn({ userId }),
-    queryKey: userTasksKeys.list(userId),
+    queryKey: tasksKeys.employee(userId),
     ...options,
   })
 }

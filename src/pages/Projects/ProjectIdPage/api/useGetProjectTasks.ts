@@ -2,23 +2,11 @@ import { useQuery, UseQueryOptions } from "@tanstack/react-query"
 
 import { TaskStatusEnum, TaskWithOrder } from "@/pages/Tasks/types"
 import { api } from "@/lib/axios"
-import { tasksKeys } from "@/pages/Tasks/api/querykeys"
 import { ProjectStatusEnum } from "../../types"
 import { RoleEnum } from "@/pages/Users/types"
+import { tasksKeys } from "@/pages/Tasks/api/querykeys"
 
-interface TasksResponse {
-  id: number
-  titulo: string
-  descripcion: string
-  fecha: string
-  horas_invertidas: number
-  estado: TaskStatusEnum
-  orden: number
-  empleado: {
-    id: number
-    nombre: string
-    email: string
-  }
+interface Response {
   proyecto: {
     id: number
     nombre: string
@@ -31,24 +19,33 @@ interface TasksResponse {
       rol: RoleEnum
     }
   }
-  created_at: string
-  updated_at: string
+  total_tareas: number
+  tareas: {
+    id: number
+    titulo: string
+    descripcion: string
+    fecha: string
+    horas_invertidas: number
+    estado: TaskStatusEnum
+    orden: number
+    empleado: {
+      id: number
+      nombre: string
+      email: string
+    }
+    created_at: string
+    updated_at: string
+  }[]
 }
 
-type Response = TasksResponse[]
-
-export const getMyProjectTasksFn = async ({
+export const getProjectTasksFn = async ({
   projectId,
-  employeeId,
 }: {
   projectId: number
-  employeeId: number
 }): Promise<TaskWithOrder[]> => {
-  const { data } = await api.get<Response>(
-    `/tareas-usuario-proyecto/${employeeId}/${projectId}/`,
-  )
+  const { data } = await api.get<Response>(`/tareas-proyecto/${projectId}/`)
 
-  return data.map((task) => ({
+  return data.tareas.map((task) => ({
     id: task.id,
     title: task.titulo,
     description: task.descripcion,
@@ -56,15 +53,15 @@ export const getMyProjectTasksFn = async ({
     estimatedHours: task.horas_invertidas,
     order: task.orden,
     project: {
-      id: task.proyecto.id,
-      name: task.proyecto.nombre,
+      id: data.proyecto.id,
+      name: data.proyecto.nombre,
       inCharge: {
-        id: task.proyecto.encargado.id,
-        name: task.proyecto.encargado.nombre,
-        email: task.proyecto.encargado.email,
-        role: task.proyecto.encargado.rol,
+        id: data.proyecto.encargado.id,
+        name: data.proyecto.encargado.nombre,
+        email: data.proyecto.encargado.email,
+        role: data.proyecto.encargado.rol,
       },
-      status: task.proyecto.estado,
+      status: data.proyecto.estado,
     },
     user: {
       id: task.empleado.id,
@@ -77,18 +74,16 @@ export const getMyProjectTasksFn = async ({
   }))
 }
 
-export const useGetMyProjectTasks = ({
+export const useGetProjectTasks = ({
   projectId,
-  employeeId,
   options,
 }: {
   projectId: number
-  employeeId: number
   options?: Partial<UseQueryOptions<TaskWithOrder[]>>
 }) => {
   return useQuery({
-    queryFn: () => getMyProjectTasksFn({ projectId, employeeId }),
-    queryKey: tasksKeys.projectAndEmployee(projectId, employeeId),
+    queryFn: () => getProjectTasksFn({ projectId }),
+    queryKey: tasksKeys.project(projectId),
     ...options,
   })
 }

@@ -27,14 +27,12 @@ export const DashboardEmployee = () => {
 
   const projects = data?.projects || []
 
-  const { data: dataTasks, isLoading: isLoadingTasks } = useGetUserTasks({
+  const { data: tasks = [], isLoading: isLoadingTasks } = useGetUserTasks({
     userId: user?.id as number,
     options: {
       enabled: !!user?.id,
     },
   })
-
-  const tasks = dataTasks?.tasks || []
 
   const isLoading = isLoadingProjects || isLoadingTasks
 

@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { getTaskStatus } from "../../helpers"
 import { Draggable, Droppable } from "@hello-pangea/dnd"
 import { TaskItemActions } from "./TaskItemActions"
-import { Task, TaskStatusEnum } from "@/pages/Tasks/types"
+import { TaskStatusEnum, TaskWithOrder } from "@/pages/Tasks/types"
 
 export const TaskColumn = ({
   title,
@@ -10,7 +10,7 @@ export const TaskColumn = ({
   isDragging,
 }: {
   title: TaskStatusEnum
-  items: Task[]
+  items: TaskWithOrder[]
   isDragging: boolean
 }) => {
   return (
@@ -58,7 +58,9 @@ export const TaskColumn = ({
                       },
                     )}
                   >
-                    <span className="truncate">{task.title}</span>
+                    <span className="truncate" title={task.order.toString()}>
+                      {task.title}
+                    </span>
                     {!snapshot.isDragging && <TaskItemActions task={task} />}
                   </div>
                 )}
@@ -69,5 +71,18 @@ export const TaskColumn = ({
         </div>
       )}
     </Droppable>
+  )
+}
+
+export const TaskColumnSkeleton = () => {
+  return (
+    <div className="rounded-md border bg-white p-4">
+      <div className="mb-5 h-8 w-full rounded bg-gray-200" />
+      <div className="mt-2 h-10 w-1/2 rounded bg-gray-200" />
+      <div className="mt-2 h-10 w-2/3 rounded bg-gray-200" />
+      <div className="mt-2 h-10 w-1/3 rounded bg-gray-200" />
+      <div className="mt-2 h-10 w-2/3 rounded bg-gray-200" />
+      <div className="mt-2 h-10 w-1/4 rounded bg-gray-200" />
+    </div>
   )
 }
