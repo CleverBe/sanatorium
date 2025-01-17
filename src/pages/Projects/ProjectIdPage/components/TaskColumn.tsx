@@ -58,9 +58,7 @@ export const TaskColumn = ({
                       },
                     )}
                   >
-                    <span className="truncate" title={task.order.toString()}>
-                      {task.title}
-                    </span>
+                    <span className="truncate">{task.title}</span>
                     {!snapshot.isDragging && <TaskItemActions task={task} />}
                   </div>
                 )}

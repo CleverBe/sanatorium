@@ -1,8 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Table } from "@tanstack/react-table"
-import { DataTableSelectFilter } from "./DataTableSelectFilter"
 import { getTaskStatus } from "@/pages/Projects/helpers"
-import { useGetProjects } from "@/pages/Projects/api/useGetProjects"
 import { useEffect, useState } from "react"
 import {
   Popover,
@@ -15,7 +13,10 @@ import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 import { es } from "date-fns/locale"
-import { TaskStatusEnum } from "../types"
+import { TaskStatusEnum } from "../../../Tasks/types"
+import { DataTableSelectFilter } from "../../components/DataTableSelectFilter"
+import { useGetManagerProjects } from "@/pages/Projects/api/useGetManagerProjects"
+import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -23,12 +24,15 @@ interface DataTableToolbarProps<TData> {
   filterInputValue?: string
 }
 
-export function DataTableToolbar<TData>({
+export function ManagerDataTableToolbar<TData>({
   filterInputPlaceholder,
   filterInputValue,
   table,
 }: DataTableToolbarProps<TData>) {
-  const { data: projects = [] } = useGetProjects()
+  const { data: user } = useGetCurrentUser()
+  const { data: projects = [] } = useGetManagerProjects({
+    managerId: user?.id as number,
+  })
 
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()

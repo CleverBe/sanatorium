@@ -8,10 +8,10 @@ import { useManagerProjectModal } from "./hooks/useManagerProjectModal"
 
 export const ProjectsManagerPage = () => {
   const { data: user } = useGetCurrentUser()
-  const { data, isLoading: isLoadingProjects } = useGetManagerProjects({
-    managerId: user?.id as number,
-  })
-  const projects = data?.projects || []
+  const { data: projects = [], isLoading: isLoadingProjects } =
+    useGetManagerProjects({
+      managerId: user?.id as number,
+    })
 
   const isLoading = isLoadingProjects
   const modalProject = useManagerProjectModal()

@@ -1,26 +1,16 @@
-import { SkeletonTable } from "@/components/SkeletonTable"
-import { useGetTasks } from "../Tasks/api/useGetTasks"
-import { TasksTable } from "../Tasks/components/TasksTable"
+import { useGetCurrentUser } from "../Profile/api/useGetCurrentUser"
+import { AdminReport } from "./Admin/AdminReport"
+import { ManagerReport } from "./Manager/ManagerReport"
+import { RoleEnum } from "../Users/types"
 
 export const ReportsPage = () => {
-  // TODO: only show tasks that belong my employees
-  const { data: tasks = [], isLoading } = useGetTasks()
+  const { data: user } = useGetCurrentUser()
 
-  return (
-    <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">
-          Reporte de tareas realizadas por empleados
-        </h1>
-      </div>
-
-      <div className="mt-4">
-        {isLoading ? (
-          <SkeletonTable withSearchInput />
-        ) : (
-          <TasksTable tasks={tasks} />
-        )}
-      </div>
-    </div>
-  )
+  if (user?.role === RoleEnum.ADMIN) {
+    return <AdminReport />
+  } else if (user?.role === RoleEnum.MANAGER) {
+    return <ManagerReport user={user} />
+  } else {
+    return null
+  }
 }

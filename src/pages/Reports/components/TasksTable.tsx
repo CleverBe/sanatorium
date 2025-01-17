@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
 import { getTaskStatus } from "@/pages/Projects/helpers"
 import { utcToLocalDate } from "@/helpers/dates"
-import { DataTableToolbar } from "./DatatableToolbar"
-import { Task } from "../types"
+import { ManagerDataTableToolbar } from "../Manager/components/ManagerDataTableToolbar"
+import { Task } from "../../Tasks/types"
+import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
+import { RoleEnum } from "@/pages/Users/types"
+import { AdminDataTableToolbar } from "../Admin/components/AdminDataTableToolbar"
 
 export const TasksTable = ({ tasks }: { tasks: Task[] }) => {
   const columns: ColumnDef<Task>[] = [
@@ -81,13 +84,19 @@ export const TasksTable = ({ tasks }: { tasks: Task[] }) => {
     },
   ]
 
+  const { data: user } = useGetCurrentUser()
+
   return (
     <DataTable
       columns={columns}
       data={tasks}
       filterInputPlaceholder="Buscar por nombre"
       filterInputValue="employee"
-      DataTabletoolbar={DataTableToolbar}
+      DataTabletoolbar={
+        user?.role === RoleEnum.ADMIN
+          ? AdminDataTableToolbar
+          : ManagerDataTableToolbar
+      }
     />
   )
 }

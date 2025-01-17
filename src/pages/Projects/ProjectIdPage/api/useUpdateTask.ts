@@ -24,7 +24,7 @@ export const updateTaskFn = async ({
     proyecto: data.projectId,
     fecha: data.expectedCompletionDate,
     horas_invertidas: data.estimatedHours,
-    empleado_id: data.userId,
+    empleado: data.userId,
     archivo: "",
   }
 

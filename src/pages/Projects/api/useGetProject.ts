@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, UseQueryOptions } from "@tanstack/react-query"
 import { projectsKeys } from "./querykeys"
 import { Project, ProjectApi } from "../types"
 import { api } from "@/lib/axios"
@@ -24,9 +24,16 @@ export const getProjectFn = async ({
   }
 }
 
-export const useGetProject = ({ projectId }: { projectId: number }) => {
+export const useGetProject = ({
+  projectId,
+  options,
+}: {
+  projectId: number
+  options?: Partial<UseQueryOptions<Project>>
+}) => {
   return useQuery({
     queryFn: () => getProjectFn({ projectId }),
-    queryKey: projectsKeys.lists(),
+    queryKey: projectsKeys.list(projectId),
+    ...options,
   })
 }
