@@ -1,4 +1,3 @@
-import { ProjectWithoutEmployees } from "@/pages/Projects/types"
 import { Task } from "@/pages/Tasks/types"
 import {
   Cell,
@@ -7,6 +6,11 @@ import {
   PieChart,
   ResponsiveContainer,
   Tooltip,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
 } from "recharts"
 
 interface CustomTooltipProps {
@@ -17,13 +21,7 @@ interface CustomTooltipProps {
   }[]
 }
 
-export const WorkDistributionCharts = ({
-  projects,
-  tasks,
-}: {
-  projects: ProjectWithoutEmployees[]
-  tasks: Task[]
-}) => {
+export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
   const COLORSFORPROJECTS = [
     "#0088fe",
     "#00c49f",
@@ -33,7 +31,14 @@ export const WorkDistributionCharts = ({
     "#76b5c5",
   ]
 
-  const projectsGroups = projects.map((project) => {
+  const uniqueProjects = Array.from(
+    new Set(tasks.map((task) => task.project.id)),
+  ).map((id) => ({
+    id,
+    name: tasks.find((task) => task.project.id === id)!.project.name,
+  }))
+
+  const projectsGroups = uniqueProjects.map((project) => {
     const taskByProject = tasks.filter((task) => task.project.id === project.id)
 
     const totalHours = taskByProject.reduce(
@@ -63,11 +68,12 @@ export const WorkDistributionCharts = ({
 
   return (
     <div className="mt-4 grid gap-4 lg:grid-cols-2">
+      {/* PIE CHART */}
       <div className="flex h-[400px] flex-col items-center justify-center rounded-md border p-4">
         <h1 className="text-lg">Progreso de tareas</h1>
         {tasks.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart width={400} height={400}>
+            <PieChart>
               <Pie data={projectsGroups} dataKey="value" fill="#8884d8">
                 {projectsGroups.map((_, index) => (
                   <Cell
@@ -82,11 +88,37 @@ export const WorkDistributionCharts = ({
           </ResponsiveContainer>
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            No hay tareas aun
+            No hay tareas aún
           </div>
         )}
       </div>
+
       {/* BAR CHART */}
+      <div className="flex h-[400px] flex-col items-center justify-center rounded-md border p-4">
+        <h1 className="text-lg">Distribución de horas por proyecto</h1>
+        {tasks.length > 0 ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={projectsGroups}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              {/* <Tooltip content={<CustomTooltip />} /> */}
+              <Bar dataKey="value">
+                {projectsGroups.map((_, index) => (
+                  <Cell
+                    key={`bar-${index}`}
+                    fill={COLORSFORPROJECTS[index % COLORSFORPROJECTS.length]}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            No hay tareas aún
+          </div>
+        )}
+      </div>
     </div>
   )
 }

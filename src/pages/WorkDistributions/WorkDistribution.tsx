@@ -3,7 +3,6 @@ import { useState } from "react"
 import { WorkDistributionCharts } from "./Admin/components/WorkDistributionCharts"
 import { useGetUsers } from "../Users/api/useGetUsers"
 import { RoleEnum } from "../Users/types"
-import { useGetUserProjects } from "../Dashboard/Employee/api/useGetUserProjects"
 import { useGetUserTasks } from "../Projects/ProjectIdPage/api/useGetUserTasks"
 import { TaskStatusEnum } from "../Tasks/types"
 
@@ -14,13 +13,6 @@ export const WorkDistribution = () => {
 
   const employees = users.filter((user) => user.role === RoleEnum.EMPLOYEE)
 
-  const { data: projects, isLoading: isLoadingProjects } = useGetUserProjects({
-    userId: Number(selectedEmployee),
-    options: {
-      enabled: !!selectedEmployee,
-    },
-  })
-
   const { data: tasks, isLoading: isLoadingTasks } = useGetUserTasks({
     userId: Number(selectedEmployee),
     options: {
@@ -28,12 +20,11 @@ export const WorkDistribution = () => {
     },
   })
 
-  const userProjects = projects?.projects || []
   const userTasks = (tasks || []).filter(
     (task) => task.status === TaskStatusEnum.COMPLETED,
   )
 
-  if (isLoadingUsers || isLoadingProjects || isLoadingTasks) {
+  if (isLoadingUsers || isLoadingTasks) {
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-900" />
@@ -58,14 +49,14 @@ export const WorkDistribution = () => {
           showSearch
         />
       </div>
-      {userProjects.length === 0 ? (
+      {userTasks.length === 0 ? (
         <div>
           <div className="mt-4 flex items-center justify-center text-xl font-semibold">
             Seleccione un proyecto
           </div>
         </div>
       ) : (
-        <WorkDistributionCharts projects={userProjects} tasks={userTasks} />
+        <WorkDistributionCharts tasks={userTasks} />
       )}
     </div>
   )
