@@ -1,29 +1,38 @@
-import { sleepAppWithData } from "@/helpers/sleep"
 import { LoginInput } from "../schemas/LoginSchema"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { useAuth } from "@/hooks/useAuth"
-import { mockedUsers } from "@/db/db"
+import { api } from "@/lib/axios"
+import { RoleEnum } from "@/pages/Users/types"
 
 export interface ILoginResponse {
-  status: string
-  accessToken: string
+  access: string
+  refresh: string
+  user: {
+    id: number
+    nombre: string
+    email: string
+    rol: RoleEnum
+    created_at: string
+    updated_at: string
+    encargado: {
+      id: number
+      nombre: string
+      email: string
+      rol: RoleEnum
+    }
+  }
 }
 
 export const loginUserFn = async (user: LoginInput) => {
-  return sleepAppWithData(1000, user).then((user) => {
-    const foundUser = mockedUsers.find((u) => u.email === user.email)
+  const dataToSend = { ...user }
 
-    if (foundUser) {
-      return {
-        status: "success",
-        accessToken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-      }
-    } else {
-      throw new Error("Credenciales incorrectas")
-    }
-  })
+  const { data: response } = await api.post<ILoginResponse>(
+    "/login/",
+    dataToSend,
+  )
+
+  return response
 }
 
 export const useLoginUser = () => {
@@ -31,9 +40,9 @@ export const useLoginUser = () => {
   return useMutation({
     mutationFn: loginUserFn,
     onSuccess: (data) => {
-      localStorage.setItem("token", data.accessToken)
+      localStorage.setItem("token", data.access)
 
-      setAccessToken(data.accessToken)
+      setAccessToken(data.access)
 
       toast.success("Ingresaste con exito")
     },
