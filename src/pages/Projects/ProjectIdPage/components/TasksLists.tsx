@@ -21,7 +21,6 @@ export interface ListWithTasks {
 
 export const TasksLists = ({ lists }: { lists: ListWithTasks[] }) => {
   const [columns, setColumns] = useState(lists)
-  const [isDragging, setIsDragging] = useState(false)
 
   const { mutateAsync: mutateMove } = useMoveTask()
 
@@ -30,8 +29,6 @@ export const TasksLists = ({ lists }: { lists: ListWithTasks[] }) => {
   }, [lists])
 
   const handleDragEnd = (result: DropResult) => {
-    setIsDragging(false)
-
     const { destination, source } = result
 
     if (!destination) {
@@ -125,18 +122,13 @@ export const TasksLists = ({ lists }: { lists: ListWithTasks[] }) => {
   }
 
   return (
-    <DragDropContext
-      onDragEnd={handleDragEnd}
-      onDragStart={() => setIsDragging(true)}
-    >
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <div
+        className="mt-4 flex h-full w-full flex-1 flex-col space-y-4 overflow-x-auto p-4 lg:flex-row lg:space-x-4 lg:space-y-0"
+        style={{ background: `url('/board_background.jpg')` }}
+      >
         {columns.map((column) => (
-          <TaskColumn
-            key={column.id}
-            title={column.id}
-            items={column.tasks}
-            isDragging={isDragging}
-          />
+          <TaskColumn key={column.id} title={column.id} items={column.tasks} />
         ))}
       </div>
     </DragDropContext>

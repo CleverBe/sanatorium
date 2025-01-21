@@ -49,8 +49,6 @@ export const ProfileForm = () => {
     }
   }
 
-  console.log({ imagePreview })
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files.length > 0) {

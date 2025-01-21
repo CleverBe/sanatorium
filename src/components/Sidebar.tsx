@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 import { RoleEnum } from "@/pages/Users/types"
-import { BookCheck, Clipboard, LucideIcon, Users } from "lucide-react"
+import { BookCheck, Clipboard, LucideIcon, User, Users } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { useOnClickOutside } from "usehooks-ts"
 import { useRef } from "react"
@@ -60,9 +60,9 @@ export const Sidebar = ({
 
   const adminRoutes: RouteItem[] = [
     {
-      title: "Proyectos",
-      Icon: BookCheck,
-      url: "/proyectos",
+      title: "Distribución de trabajo",
+      Icon: Users,
+      url: "/trabajos",
     },
     {
       title: "Usuarios",
@@ -70,22 +70,32 @@ export const Sidebar = ({
       url: "/usuarios",
     },
     {
-      title: "Distribución de trabajo",
-      Icon: Users,
-      url: "/trabajos",
+      title: "Proyectos",
+      Icon: BookCheck,
+      url: "/proyectos",
+    },
+    {
+      title: "Reportes",
+      Icon: Clipboard,
+      url: "/reportes",
     },
   ]
 
   const managerRoutes: RouteItem[] = [
+    {
+      title: "Empleados",
+      Icon: Users,
+      url: "/empleados",
+    },
     {
       title: "Proyectos",
       Icon: BookCheck,
       url: "/proyectos",
     },
     {
-      title: "Empleados",
-      Icon: Users,
-      url: "/empleados",
+      title: "Reportes",
+      Icon: Clipboard,
+      url: "/reportes",
     },
   ]
 
@@ -109,9 +119,9 @@ export const Sidebar = ({
   const menuItems: RouteItem[] = [
     ...roleBasedRoutes,
     {
-      title: "Reportes",
-      Icon: Clipboard,
-      url: "/reportes",
+      title: "Perfil",
+      Icon: User,
+      url: "/perfil",
     },
   ]
 

@@ -69,7 +69,7 @@ export const ProjectIdPage = () => {
   }
 
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <div className="flex flex-wrap items-center justify-between space-y-2">
         <h1 className="text-2xl font-bold">Proyecto: {project?.name}</h1>
         <Button

@@ -73,7 +73,7 @@ export const Header = ({
                       height={60}
                       className="size-10 rounded-full"
                       src={user?.image || defaultImageUrl}
-                      alt="user profile image"
+                      alt="User profile image"
                     />
                   </Button>
                 </DropdownMenuTrigger>
@@ -81,13 +81,6 @@ export const Header = ({
                   <DropdownMenuLabel>{`${user?.name}`}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        navigate("/perfil")
-                      }}
-                    >
-                      Mi perfil
-                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleLogout}>
                       Cerrar sesión
                     </DropdownMenuItem>

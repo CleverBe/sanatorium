@@ -7,28 +7,19 @@ import { TaskStatusEnum, TaskWithOrder } from "@/pages/Tasks/types"
 export const TaskColumn = ({
   title,
   items,
-  isDragging,
 }: {
   title: TaskStatusEnum
   items: TaskWithOrder[]
-  isDragging: boolean
 }) => {
   return (
     <Droppable droppableId={title} type="task">
-      {(provided, snapshot) => (
+      {(provided) => (
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
-          className={cn(
-            "rounded-md border",
-            snapshot.isDraggingOver
-              ? "bg-primary/5"
-              : isDragging
-                ? "bg-primary/10"
-                : "",
-          )}
+          className="min-h-[300px] w-full max-w-[360px] flex-shrink-0 select-none rounded-md border border-gray-200 bg-gray-200 shadow-sm sm:w-1/2 lg:w-1/3"
         >
-          <div className="rounded-t-md bg-white p-4">
+          <div className="rounded-t-md p-4 shadow-sm">
             <h1
               className={cn("text-xl font-bold", {
                 "text-red-500": title === TaskStatusEnum.PENDING,
@@ -52,7 +43,7 @@ export const TaskColumn = ({
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     className={cn(
-                      "mb-2 flex items-center justify-between truncate rounded-md border px-3 py-2 text-xl",
+                      "mb-2 flex items-center justify-between truncate rounded-md border-2 bg-white px-3 py-2 text-xl shadow-sm",
                       {
                         "border-primary bg-white": snapshot.isDragging,
                       },
