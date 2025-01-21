@@ -25,7 +25,6 @@ export const updateTaskFn = async ({
     fecha: data.expectedCompletionDate,
     horas_invertidas: data.estimatedHours,
     empleado: data.userId,
-    archivo: "",
   }
 
   const { data: response } = await api.put<TaskApi>(

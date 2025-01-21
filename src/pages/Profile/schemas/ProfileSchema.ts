@@ -1,9 +1,11 @@
-import { createUserSchema } from "@/pages/Users/schemas/UserSchema"
+import { updateUserSchema } from "@/pages/Users/schemas/UserSchema"
 import { z } from "zod"
 
-export const updateProfileSchema = createUserSchema.omit({
-  password: true,
-  role: true,
+export const updateProfileSchema = z.object({
+  ...updateUserSchema.omit({
+    password: true,
+    role: true,
+  }).shape,
 })
 
 export type UpdateProfileInput = z.infer<typeof updateProfileSchema>

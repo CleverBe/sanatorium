@@ -11,14 +11,36 @@ export type UpdateUserApiInput = Partial<UpdateUserInput> & {
 }
 
 export const updateUserFn = async ({ data }: { data: UpdateUserApiInput }) => {
-  const dataToSend = {
-    nombre: data.name,
-    email: data.email,
-    password: data.password,
-    rol: data.role,
+  const formData = new FormData()
+
+  if (data.name) {
+    formData.append("nombre", data.name)
+  }
+  if (data.email) {
+    formData.append("email", data.email)
+  }
+  if (data.password) {
+    formData.append("password", data.password)
+  }
+  if (data.role) {
+    formData.append("rol", data.role)
+  }
+  if (data.password) {
+    formData.append("password", data.password)
+  }
+  if (data.image) {
+    formData.append("image", data.image[0])
   }
 
-  const { data: response } = await api.patch<UserApi>("/usuarios/", dataToSend)
+  const { data: response } = await api.patch<UserApi>(
+    `/usuarios/${data.id}/`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  )
 
   return response
 }

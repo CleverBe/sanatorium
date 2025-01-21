@@ -9,8 +9,12 @@ import { Navigate, Outlet, useLocation } from "react-router-dom"
 
 export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
   const [showSidebar, setShowSidebar] = useState(false)
-  const { isLoggedIn } = useAuth()
-  const { data: user, isLoading } = useGetCurrentUser({ enabled: isLoggedIn })
+  const { accessToken } = useAuth()
+  const {
+    data: user,
+    isLoading,
+    isError,
+  } = useGetCurrentUser({ enabled: !!accessToken })
   const userRoles: RoleEnum[] = user?.role ? [user.role] : []
   const location = useLocation()
 
@@ -20,6 +24,10 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
         <Spinner className="h-12 w-12" />
       </main>
     )
+  }
+
+  if (!user || isError) {
+    return <Navigate to="/login" state={{ from: location }} replace />
   }
 
   return (
@@ -32,14 +40,12 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
             <div className="mx-auto w-full min-w-0">
               {userRoles.find((role) => allowedRoles.includes(role)) ? (
                 <Outlet />
-              ) : user ? (
+              ) : (
                 <Navigate
                   to="/unauthorized"
                   state={{ from: location }}
                   replace
                 />
-              ) : (
-                <Navigate to="/login" state={{ from: location }} replace />
               )}
             </div>
           </div>

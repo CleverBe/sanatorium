@@ -14,6 +14,7 @@ import { Button } from "./ui/button"
 import { useAuth } from "@/hooks/useAuth"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 import { useQueryClient } from "@tanstack/react-query"
+import { defaultImageUrl } from "@/constants"
 
 export const Header = ({
   showSidebar,
@@ -22,7 +23,7 @@ export const Header = ({
   showSidebar: boolean
   setShowSidebar: (showSidebar: boolean) => void
 }) => {
-  const { setAccessToken } = useAuth()
+  const { clearTokens } = useAuth()
   const { data: user } = useGetCurrentUser()
   const navigate = useNavigate()
 
@@ -30,8 +31,7 @@ export const Header = ({
 
   const handleLogout = () => {
     queryClient.clear()
-    localStorage.removeItem("token")
-    setAccessToken(null)
+    clearTokens()
     navigate("/login")
   }
 
@@ -72,10 +72,7 @@ export const Header = ({
                       width={60}
                       height={60}
                       className="size-10 rounded-full"
-                      src={
-                        user?.image ||
-                        "https://res.cloudinary.com/dldf8bt5g/image/upload/v1686697003/Users/default_user_jr8kfs.png"
-                      }
+                      src={user?.image || defaultImageUrl}
                       alt="user profile image"
                     />
                   </Button>

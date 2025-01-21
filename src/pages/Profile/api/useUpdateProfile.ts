@@ -13,7 +13,7 @@ export const useUpdateUserProfile = () => {
       queryClient.invalidateQueries({ queryKey: usersKeys.all })
       queryClient.invalidateQueries({ queryKey: userProfileKeys.current })
 
-      toast.success(`Se actualizo tu perfil con exito`)
+      toast.success(`Se actualizó tu perfil con exito`)
     },
     onError: () => {
       toast.error("Error al actualizar")

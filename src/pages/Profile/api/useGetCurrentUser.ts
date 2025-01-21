@@ -1,25 +1,54 @@
-import { sleepApp } from "@/helpers/sleep"
 import {
   useQuery,
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query"
 import { userProfileKeys } from "./querykeys"
-import { User } from "@/pages/Users/types"
-import { adminUsers, managerUsers, employeeUsers } from "@/db/db"
+import { RoleEnum, User } from "@/pages/Users/types"
+import { mockedUsers } from "@/db/db"
 
-export const getCurrentUserFn = async () => {
-  return await sleepApp(1000).then(() => {
-    return employeeUsers[0]
-  })
+export interface IGetMeResponse {
+  id: number
+  nombre: string
+  email: string
+  rol: RoleEnum
+  created_at: string
+  updated_at: string
+  encargado: {
+    id: number
+    nombre: string
+    email: string
+    rol: RoleEnum
+  } | null
+}
+
+export const getCurrentUserFn = async (): Promise<User> => {
+  // const { data: response } = await api.get<IGetMeResponse>("/me/")
+  const userId = localStorage.getItem("accessToken")
+  const foundUser = mockedUsers.find((u) => u.id === Number(userId))
+  if (!foundUser) throw new Error("no se encontro el usuario")
+  const response = {
+    id: foundUser.id,
+    nombre: foundUser.name,
+    email: foundUser.email,
+    rol: foundUser.role,
+    image: foundUser.image,
+  }
+
+  return {
+    id: response.id,
+    name: response.nombre,
+    email: response.email,
+    role: response.rol,
+    image: response.image,
+  }
 }
 
 //TODO
-// AÑADIR IMAGEN DE FONDO, ENVIAR IMAGEN DE PERFIL
+// AÑADIR IMAGEN DE FONDO
 // REMOVER REPORTES SIDEBAR EMPLEADO
 // PERFIL EN SIDEBAR
 // SACAR CAPTURA DE PANTALLA DE CHART
-// REMOVER ARCHIVO DE TASK
 // ARREGLAR RESPONSIVE
 // JWT Y CURRENT USER
 // COMENTARIOS

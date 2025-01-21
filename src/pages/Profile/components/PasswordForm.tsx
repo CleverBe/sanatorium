@@ -89,7 +89,7 @@ export const PasswordForm = () => {
               )}
             />
 
-            <div className="col-span-12 flex w-full items-center">
+            <div className="col-span-12 flex w-full items-center justify-end">
               <Button disabled={isPending} type="submit">
                 Actualizar contraseña
               </Button>

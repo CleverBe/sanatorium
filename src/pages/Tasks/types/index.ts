@@ -61,7 +61,6 @@ export interface TaskApi {
     nombre: string
     email: string
   }
-  archivo: string
   estado: TaskStatusEnum
   orden: number
   created_at: string
@@ -75,7 +74,6 @@ export interface TaskFromProjectApi {
   fecha: string
   horas_invertidas: number
   estado: TaskStatusEnum
-  archivo: string
   orden: number
   created_at: string
   updated_at: string

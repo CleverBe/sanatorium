@@ -1,6 +1,13 @@
 import { z } from "zod"
 import { RoleEnum } from "../types"
 
+export const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+]
+
 export const createUserSchema = z.object({
   name: z
     .string({
@@ -44,6 +51,25 @@ export const updateUserSchema = z.object({
       .min(4, "La contraseña debe tener al menos 4 caracteres")
       .optional(),
   ),
+  image: z
+    .any()
+    .superRefine((files, ctx) => {
+      if (files instanceof FileList === false) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Invalid value",
+        })
+      }
+      if (files?.length === 1) {
+        if (!ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Debe ser una imagen",
+          })
+        }
+      }
+    })
+    .optional(),
 })
 
 export type UpdateUserInput = z.infer<typeof updateUserSchema>
