@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query"
 import { userProfileKeys } from "./querykeys"
 import { RoleEnum, User } from "@/pages/Users/types"
-import { mockedUsers } from "@/db/db"
+import { api } from "@/lib/axios"
 
 export interface IGetMeResponse {
   id: number
@@ -23,31 +23,20 @@ export interface IGetMeResponse {
 }
 
 export const getCurrentUserFn = async (): Promise<User> => {
-  // const { data: response } = await api.get<IGetMeResponse>("/me/")
-  const userId = localStorage.getItem("accessToken")
-  const foundUser = mockedUsers.find((u) => u.id === Number(userId))
-  if (!foundUser) throw new Error("no se encontro el usuario")
-  const response = {
-    id: foundUser.id,
-    nombre: foundUser.name,
-    email: foundUser.email,
-    rol: foundUser.role,
-    image: foundUser.image,
-  }
+  const { data: response } = await api.get<IGetMeResponse>("/me/")
 
   return {
     id: response.id,
     name: response.nombre,
     email: response.email,
     role: response.rol,
-    image: response.image,
+    image: undefined,
   }
 }
 
 // TODO
 // SACAR CAPTURA DE PANTALLA DE CHART
 // ARREGLAR RESPONSIVE
-// JWT Y CURRENT USER
 // COMENTARIOS
 // FECHAS EN CHARTS
 

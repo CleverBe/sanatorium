@@ -4,7 +4,6 @@ import { toast } from "sonner"
 import { useAuth } from "@/hooks/useAuth"
 import { api } from "@/lib/axios"
 import { RoleEnum } from "@/pages/Users/types"
-import { mockedUsers } from "@/db/db"
 
 export interface IRefreshTokenResponse {
   access: string
@@ -16,7 +15,7 @@ export const refreshTokenFn = async ({
   refreshToken: string
 }): Promise<IRefreshTokenResponse> => {
   const { data: response } = await api.post<IRefreshTokenResponse>(
-    "/refresh/",
+    "/auth/refresh/",
     { refresh: refreshToken },
   )
 
@@ -43,20 +42,12 @@ export interface ILoginResponse {
 }
 
 export const loginUserFn = async (user: LoginInput) => {
-  // const dataToSend = { ...user }
+  const dataToSend = { ...user }
 
-  // const { data: response } = await api.post<ILoginResponse>(
-  //   "/login/",
-  //   dataToSend,
-  // )
-
-  const foundUser = mockedUsers.find((u) => u.email === user.email)
-  if (!foundUser) throw new Error("Credenciales incorrectas")
-  const response = {
-    access: foundUser.id.toString(),
-    refresh: foundUser.id.toString(),
-    user: foundUser,
-  }
+  const { data: response } = await api.post<ILoginResponse>(
+    "/auth/login/",
+    dataToSend,
+  )
 
   return response
 }
