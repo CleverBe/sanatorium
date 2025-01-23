@@ -111,7 +111,7 @@ export const AdminProjectForm = () => {
           control={form.control}
           name="status"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Estado</FormLabel>
               <Select
                 disabled={isPending}
@@ -143,7 +143,7 @@ export const AdminProjectForm = () => {
           control={form.control}
           name="inCharge"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Encargado</FormLabel>
               <FormControl>
                 <CustomSelect
@@ -167,7 +167,7 @@ export const AdminProjectForm = () => {
           control={form.control}
           name="startDate"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Fecha inicio</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />
@@ -180,7 +180,7 @@ export const AdminProjectForm = () => {
           control={form.control}
           name="endDate"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Fecha fin</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />

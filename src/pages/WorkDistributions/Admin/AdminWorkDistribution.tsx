@@ -1,14 +1,4 @@
-import { CustomSelect } from "@/components/ui/customSelect"
 import { useRef, useState } from "react"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
 import { es } from "date-fns/locale"
 import { format } from "date-fns"
 import jsPDF from "jspdf"
@@ -17,8 +7,9 @@ import { useGetUsers } from "@/pages/Users/api/useGetUsers"
 import { RoleEnum } from "@/pages/Users/types"
 import { useGetUserTasks } from "@/pages/Projects/ProjectIdPage/api/useGetUserTasks"
 import { TaskStatusEnum } from "@/pages/Tasks/types"
-import { WorkDistributionCharts } from "./components/WorkDistributionCharts"
+import { WorkDistributionCharts } from "../components/WorkDistributionCharts"
 import { Spinner } from "@/components/Spinner"
+import { WorkDistributionHeader } from "../components/WorkDistributionHeader"
 
 export const AdminWorkDistribution = () => {
   const [startDate, setStartDate] = useState<Date>()
@@ -113,80 +104,32 @@ export const AdminWorkDistribution = () => {
 
   return (
     <div>
-      <div className="flex flex-col flex-wrap items-center space-x-4 md:flex-row">
-        <div className="min-w-[300px] max-w-sm">
-          <CustomSelect
-            options={employees.map((user) => ({
-              label: user.name,
-              value: user.id.toString(),
-            }))}
-            defaultValue={selectedEmployee || ""}
-            onValueChange={setSelectedEmployee}
-            placeholder="Empleado"
-            showSearch
-          />
+      <WorkDistributionHeader
+        selectedEmployee={selectedEmployee || ""}
+        setSelectedEmployee={setSelectedEmployee}
+        employees={employees}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        handleExportToPDF={handleExportToPDF}
+        userTasks={userTasks}
+        currentMonth={currentMonth}
+        setCurrentMonth={setCurrentMonth}
+      />
+      {!selectedEmployee ? (
+        <div>
+          <div className="mt-9 flex items-center justify-center text-xl font-semibold">
+            <p className="max-w-[400px] rounded-md bg-gray-200 p-4 text-center">
+              Seleccione un empleado para ver el reporte de distribución de
+              trabajo
+            </p>
+          </div>
         </div>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "w-full max-w-sm justify-start text-left font-normal md:w-48",
-                !startDate && "text-muted-foreground",
-              )}
-            >
-              <CalendarIcon />
-              {startDate ? (
-                format(startDate, "dd-MM-yyyy", { locale: es })
-              ) : (
-                <span>Fecha de inicio</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={startDate}
-              onSelect={setStartDate}
-              initialFocus
-              month={currentMonth}
-              onMonthChange={setCurrentMonth}
-            />
-          </PopoverContent>
-        </Popover>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "w-full max-w-sm justify-start text-left font-normal md:w-48",
-                !endDate && "text-muted-foreground",
-              )}
-            >
-              <CalendarIcon />
-              {endDate ? (
-                format(endDate, "dd-MM-yyyy", { locale: es })
-              ) : (
-                <span>Fecha de fin</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={endDate}
-              onSelect={setEndDate}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-        <Button onClick={handleExportToPDF}>Exportar</Button>
-      </div>
-      {userTasks.length === 0 ? (
+      ) : userTasks.length === 0 ? (
         <div className="mt-9 flex items-center justify-center text-xl font-semibold">
           <p className="max-w-[400px] rounded-md bg-gray-200 p-4 text-center">
-            Seleccione un empleado para ver el reporte de distribución de
-            trabajo
+            No se encontraron tareas para el empleado seleccionado
           </p>
         </div>
       ) : (
@@ -210,7 +153,7 @@ export const AdminWorkDistribution = () => {
               {format(endDate, "dd-MM-yyyy", { locale: es })}
             </div>
           )}
-          <div className="mt-4">
+          <div className="mt-4 overflow-x-auto">
             <WorkDistributionCharts tasks={userTasks} />
           </div>
         </div>

@@ -96,13 +96,11 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
     }
   })
 
-  console.log({ projectsGroupsWithPercentage })
-
   return (
     <>
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid w-full items-center justify-center gap-4 xl:grid-cols-2">
         {/* PIE CHART */}
-        <div className="flex h-[300px] w-[500px] flex-col items-center justify-center rounded-md border p-4">
+        <div className="flex h-[300px] w-full flex-col items-center justify-center rounded-md border p-4 md:w-[480px]">
           <h1 className="text-lg">Progreso de tareas</h1>
           {tasks.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -127,7 +125,7 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
         </div>
 
         {/* BAR CHART */}
-        <div className="flex h-[300px] w-[500px] flex-col items-center justify-center rounded-md border p-4">
+        <div className="flex h-[300px] w-full flex-col items-center justify-center rounded-md border p-4 md:w-[480px]">
           <h1 className="text-lg">Distribución de horas por proyecto</h1>
           {tasks.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">

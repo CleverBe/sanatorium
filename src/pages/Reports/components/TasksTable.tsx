@@ -63,7 +63,11 @@ export const TasksTable = ({ tasks }: { tasks: Task[] }) => {
     {
       accessorKey: "date",
       header: "Fecha",
-      cell: ({ row }) => utcToLocalDate(row.original.expectedCompletionDate),
+      cell: ({ row }) => (
+        <div className="text-nowrap">
+          {utcToLocalDate(row.original.expectedCompletionDate)}
+        </div>
+      ),
       filterFn: (row, _, filterValue) => {
         const taskDate = new Date(row.original.expectedCompletionDate)
         const [startDate, endDate] = filterValue || [null, null]

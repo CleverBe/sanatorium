@@ -17,7 +17,7 @@ import { useGetManagerEmployees } from "@/pages/Employees/api/useGetManagerEmplo
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 import { useGetUserTasks } from "@/pages/Projects/ProjectIdPage/api/useGetUserTasks"
 import { TaskStatusEnum } from "@/pages/Tasks/types"
-import { WorkDistributionCharts } from "../Admin/components/WorkDistributionCharts"
+import { WorkDistributionCharts } from "../components/WorkDistributionCharts"
 import { Spinner } from "@/components/Spinner"
 
 export const ManagerWorkDistribution = () => {

@@ -117,7 +117,7 @@ export const TaskForm = () => {
             control={form.control}
             name="expectedCompletionDate"
             render={({ field }) => (
-              <FormItem className="col-span-6">
+              <FormItem className="col-span-12 md:col-span-6">
                 <FormLabel>Fecha de entrega estimada</FormLabel>
                 <FormControl>
                   <Input
@@ -136,7 +136,7 @@ export const TaskForm = () => {
           control={form.control}
           name="estimatedHours"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Horas estimadas</FormLabel>
               <FormControl>
                 <Input {...field} type="number" />

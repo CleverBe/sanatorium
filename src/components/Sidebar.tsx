@@ -3,8 +3,7 @@ import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 import { RoleEnum } from "@/pages/Users/types"
 import { BookCheck, Clipboard, LucideIcon, User, Users } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
-import { useOnClickOutside } from "usehooks-ts"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
 interface RouteItem {
   title: string
@@ -134,7 +133,10 @@ export const Sidebar = ({
     setShowSidebar(false)
   }
 
-  useOnClickOutside(sidebarRef, handleClickOutside)
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside)
+    return () => document.removeEventListener("click", handleClickOutside)
+  }, [])
 
   return (
     <aside

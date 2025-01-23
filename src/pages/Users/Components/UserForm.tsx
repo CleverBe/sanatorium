@@ -96,7 +96,7 @@ export const UserForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
                 <Input autoComplete="off" placeholder="****" {...field} />
@@ -110,7 +110,7 @@ export const UserForm = () => {
             control={form.control}
             name="role"
             render={({ field }) => (
-              <FormItem className="col-span-6">
+              <FormItem className="col-span-12 md:col-span-6">
                 <FormLabel>Rol</FormLabel>
                 <Select
                   disabled={isPending}

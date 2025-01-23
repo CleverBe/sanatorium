@@ -147,7 +147,7 @@ export const ManagerProjectForm = () => {
           control={form.control}
           name="startDate"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Fecha inicio</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />
@@ -160,7 +160,7 @@ export const ManagerProjectForm = () => {
           control={form.control}
           name="endDate"
           render={({ field }) => (
-            <FormItem className="col-span-6">
+            <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Fecha fin</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />

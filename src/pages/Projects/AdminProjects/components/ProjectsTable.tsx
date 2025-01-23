@@ -70,12 +70,20 @@ export const ProjectsTable = ({
     {
       accessorKey: "startDate",
       header: "Fecha de inicio",
-      cell: ({ row }) => utcToLocalDate(row.original.startDate),
+      cell: ({ row }) => (
+        <div className="text-nowrap">
+          {utcToLocalDate(row.original.startDate)}
+        </div>
+      ),
     },
     {
       accessorKey: "endDate",
       header: "Fecha de fin",
-      cell: ({ row }) => utcToLocalDate(row.original.endDate),
+      cell: ({ row }) => (
+        <div className="text-nowrap">
+          {utcToLocalDate(row.original.endDate)}
+        </div>
+      ),
     },
     {
       id: "actions",

@@ -17,11 +17,9 @@ import { useQueryClient } from "@tanstack/react-query"
 import { defaultImageUrl } from "@/constants"
 
 export const Header = ({
-  showSidebar,
   setShowSidebar,
 }: {
-  showSidebar: boolean
-  setShowSidebar: (showSidebar: boolean) => void
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   const { clearTokens } = useAuth()
   const { data: user } = useGetCurrentUser()
@@ -45,8 +43,12 @@ export const Header = ({
               data-drawer-toggle="logo-sidebar"
               aria-controls="logo-sidebar"
               type="button"
-              className="inline-flex items-center rounded-lg p-2 text-sm text-primary-foreground hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
-              onClick={() => setShowSidebar(!showSidebar)}
+              className="inline-flex items-center rounded-lg p-2 text-sm text-primary-foreground focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
+              onClick={(e) => {
+                e.stopPropagation()
+
+                setShowSidebar((prev) => !prev)
+              }}
             >
               <span className="sr-only">Open sidebar</span>
               <Menu className="h-6 w-6" />

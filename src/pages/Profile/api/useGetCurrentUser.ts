@@ -34,10 +34,6 @@ export const getCurrentUserFn = async (): Promise<User> => {
   }
 }
 
-// TODO
-// ARREGLAR RESPONSIVE
-// COMENTARIOS
-
 export const useGetCurrentUser = (
   options?: Partial<UseQueryOptions<User>>,
 ): UseQueryResult<User> => {

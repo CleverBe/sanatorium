@@ -29,9 +29,10 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
   if (!user || isError) {
     return <Navigate to="/login" state={{ from: location }} replace />
   }
+
   return (
     <main className="">
-      <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      <Header setShowSidebar={setShowSidebar} />
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <div
         className="h-[calc(100vh-3.5rem)] px-4 py-6 md:ml-64"

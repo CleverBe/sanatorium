@@ -107,7 +107,7 @@ export const ProfileForm = () => {
                   accept="image/*"
                 />
                 <Button
-                  className="mt-2 w-full sm:w-1/2"
+                  className="mt-2 w-1/2"
                   type="button"
                   onClick={handleFileButtonClick}
                 >
