@@ -17,6 +17,9 @@ export const getTasksFn = async (): Promise<Task[]> => {
       id: task.proyecto.id,
       name: task.proyecto.nombre,
       status: task.proyecto.estado,
+      description: task.proyecto.descripcion,
+      startDate: task.proyecto.fecha_inicio,
+      endDate: task.proyecto.fecha_fin,
       inCharge: {
         id: task.proyecto.encargado.id,
         name: task.proyecto.encargado.nombre,

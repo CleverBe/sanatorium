@@ -23,13 +23,16 @@ export const getUserTasksFn = async ({
     project: {
       id: task.proyecto.id,
       name: task.proyecto.nombre,
+      startDate: task.proyecto.fecha_inicio,
+      endDate: task.proyecto.fecha_fin,
+      status: task.proyecto.estado,
+      description: task.proyecto.descripcion,
       inCharge: {
         id: task.proyecto.encargado.id,
         name: task.proyecto.encargado.nombre,
         email: task.proyecto.encargado.email,
         role: task.proyecto.encargado.rol,
       },
-      status: task.proyecto.estado,
     },
     user: {
       id: task.empleado.id,

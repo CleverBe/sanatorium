@@ -18,6 +18,9 @@ export interface Task {
     id: number
     name: string
     status: ProjectStatusEnum
+    description: string
+    startDate: string
+    endDate: string
     inCharge: {
       id: number
       name: string
@@ -47,6 +50,8 @@ export interface TaskApi {
     nombre: string
     descripcion: string
     estado: ProjectStatusEnum
+    fecha_inicio: string
+    fecha_fin: string
     encargado: {
       id: number
       nombre: string

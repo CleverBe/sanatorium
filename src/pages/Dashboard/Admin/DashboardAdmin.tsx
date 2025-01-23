@@ -5,6 +5,7 @@ import { useGetProjects } from "@/pages/Projects/api/useGetProjects"
 import { useState } from "react"
 import { ProjectProgressCharts } from "../components/ProjectProgressCharts"
 import { useGetProjectTasks } from "@/pages/Projects/ProjectIdPage/api/useGetProjectTasks"
+import { Spinner } from "@/components/Spinner"
 
 export const DashboardAdmin = () => {
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
@@ -26,9 +27,9 @@ export const DashboardAdmin = () => {
 
   if (isLoadingTasks || isLoadingProjects || isLoadingProject) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-900" />
-      </div>
+      <main className="flex h-screen items-center justify-center">
+        <Spinner className="h-12 w-12" />
+      </main>
     )
   }
 
@@ -46,15 +47,15 @@ export const DashboardAdmin = () => {
           }))}
           defaultValue={selectedProject || ""}
           onValueChange={setSelectedProject}
-          placeholder="Seleccione un proyecto"
+          placeholder="Proyecto"
           showSearch
         />
       </div>
       {!project ? (
-        <div>
-          <div className="mt-4 flex items-center justify-center text-xl font-semibold">
-            Seleccione un proyecto
-          </div>
+        <div className="mt-9 flex items-center justify-center text-xl font-semibold">
+          <p className="max-w-[400px] rounded-md bg-gray-200 p-4 text-center">
+            Seleccione un proyecto para ver el reporte de progreso
+          </p>
         </div>
       ) : (
         <ProjectProgressCharts project={project} tasks={tasks} />

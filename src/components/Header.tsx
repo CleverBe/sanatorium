@@ -52,7 +52,7 @@ export const Header = ({
               <Menu className="h-6 w-6" />
             </button>
             <Link to="/dashboard" className="ms-2 flex md:me-24">
-              <SanatoriumIcon className="me-3 size-10" />
+              <SanatoriumIcon className="me-3 size-10 text-white" />
               <span className="self-center whitespace-nowrap text-xl font-semibold sm:text-2xl">
                 Sanatorium
               </span>

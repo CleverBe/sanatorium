@@ -35,10 +35,8 @@ export const getCurrentUserFn = async (): Promise<User> => {
 }
 
 // TODO
-// SACAR CAPTURA DE PANTALLA DE CHART
 // ARREGLAR RESPONSIVE
 // COMENTARIOS
-// FECHAS EN CHARTS
 
 export const useGetCurrentUser = (
   options?: Partial<UseQueryOptions<User>>,

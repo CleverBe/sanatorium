@@ -83,6 +83,11 @@ export const Sidebar = ({
 
   const managerRoutes: RouteItem[] = [
     {
+      title: "Distribución de trabajo",
+      Icon: Users,
+      url: "/trabajos",
+    },
+    {
       title: "Empleados",
       Icon: Users,
       url: "/empleados",

@@ -1,3 +1,13 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { formatDate } from "@/helpers/dates"
 import { Task } from "@/pages/Tasks/types"
 import {
   Cell,
@@ -49,6 +59,8 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
   ).map((id) => ({
     id,
     name: tasks.find((task) => task.project.id === id)!.project.name,
+    startDate: tasks.find((task) => task.project.id === id)!.project.startDate,
+    endDate: tasks.find((task) => task.project.id === id)!.project.endDate,
   }))
 
   const projectsGroups = uniqueProjects.map((project) => {
@@ -67,11 +79,30 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
 
   const total = projectsGroups.reduce((acc, p) => acc + p.value, 0)
 
+  const projectsGroupsWithPercentage = uniqueProjects.map((project) => {
+    const taskByProject = tasks.filter((task) => task.project.id === project.id)
+
+    const totalHours = taskByProject.reduce(
+      (acc, task) => acc + task.estimatedHours,
+      0,
+    )
+
+    return {
+      id: project.id,
+      name: project.name,
+      hours: totalHours,
+      percentage: `${((totalHours / total) * 100).toFixed(2)} %`,
+      period: `${formatDate(project.startDate)} - ${formatDate(project.endDate)}`,
+    }
+  })
+
+  console.log({ projectsGroupsWithPercentage })
+
   return (
     <>
       <div className="grid gap-4 lg:grid-cols-2">
         {/* PIE CHART */}
-        <div className="flex h-[400px] flex-col items-center justify-center rounded-md border p-4">
+        <div className="flex h-[300px] w-[500px] flex-col items-center justify-center rounded-md border p-4">
           <h1 className="text-lg">Progreso de tareas</h1>
           {tasks.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -96,7 +127,7 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
         </div>
 
         {/* BAR CHART */}
-        <div className="flex h-[400px] flex-col items-center justify-center rounded-md border p-4">
+        <div className="flex h-[300px] w-[500px] flex-col items-center justify-center rounded-md border p-4">
           <h1 className="text-lg">Distribución de horas por proyecto</h1>
           {tasks.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -122,24 +153,31 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
           )}
         </div>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Proyecto</th>
-            <th>Horas estimadas</th>
-            <th>Periodo</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr key={task.id}>
-              <td>{task.project.name}</td>
-              <td>{task.estimatedHours}</td>
-              <td>{task.expectedCompletionDate}</td>
-            </tr>
+      <Table className="mx-auto mt-9 w-[1000px]">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Proyecto</TableHead>
+            <TableHead>Horas estimadas</TableHead>
+            <TableHead>Periodo</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {projectsGroupsWithPercentage.map((project) => (
+            <TableRow key={project.id} className="border-b border-slate-300">
+              <TableCell>{project.name}</TableCell>
+              <TableCell>{project.percentage}</TableCell>
+              <TableCell>{project.period}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell>Total</TableCell>
+            <TableCell>100 %</TableCell>
+            <TableCell />
+          </TableRow>
+        </TableFooter>
+      </Table>
     </>
   )
 }

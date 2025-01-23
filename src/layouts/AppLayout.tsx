@@ -36,7 +36,10 @@ export const AppLayout = ({ allowedRoles }: { allowedRoles: RoleEnum[] }) => {
         <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <div className="flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] lg:grid-cols-[240px_minmax(0,1fr)]">
           <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-          <div className="relative h-full overflow-y-auto px-4 pt-6 lg:pt-8">
+          <div
+            className="relative h-full overflow-y-auto px-4 pt-6"
+            id="main-content"
+          >
             <div className="mx-auto h-full w-full min-w-0">
               {userRoles.find((role) => allowedRoles.includes(role)) ? (
                 <Outlet />

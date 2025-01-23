@@ -19,7 +19,13 @@ export interface ListWithTasks {
   tasks: TaskWithOrder[]
 }
 
-export const TasksLists = ({ lists }: { lists: ListWithTasks[] }) => {
+export const TasksLists = ({
+  lists,
+  onClickAddTask,
+}: {
+  lists: ListWithTasks[]
+  onClickAddTask: () => void
+}) => {
   const [columns, setColumns] = useState(lists)
 
   const { mutateAsync: mutateMove } = useMoveTask()
@@ -123,12 +129,14 @@ export const TasksLists = ({ lists }: { lists: ListWithTasks[] }) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div
-        className="mt-4 flex h-full w-full flex-1 flex-col space-y-4 overflow-x-auto p-4 lg:flex-row lg:space-x-4 lg:space-y-0"
-        style={{ background: `url('/board_background.jpg')` }}
-      >
+      <div className="mt-4 flex h-full w-full flex-1 flex-col space-y-4 overflow-x-auto p-4 lg:flex-row lg:space-x-4 lg:space-y-0">
         {columns.map((column) => (
-          <TaskColumn key={column.id} title={column.id} items={column.tasks} />
+          <TaskColumn
+            key={column.id}
+            title={column.id}
+            items={column.tasks}
+            onClickAddTask={onClickAddTask}
+          />
         ))}
       </div>
     </DragDropContext>

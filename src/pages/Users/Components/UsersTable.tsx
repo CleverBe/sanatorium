@@ -4,6 +4,7 @@ import { DataTable } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
 import { CellActions } from "./CellActions"
+import { getRoleFromEnum } from "@/pages/Projects/helpers"
 
 export const UsersTable = ({ users }: { users: User[] }) => {
   const columns: ColumnDef<User>[] = [
@@ -38,7 +39,7 @@ export const UsersTable = ({ users }: { users: User[] }) => {
     {
       accessorKey: "rol",
       header: "Rol",
-      cell: ({ row }) => row.original.role,
+      cell: ({ row }) => getRoleFromEnum(row.original.role),
     },
     {
       id: "actions",

@@ -1,3 +1,4 @@
+import { RoleEnum } from "@/pages/Users/types"
 import { ProjectStatusEnum } from "../types"
 
 export const getProjectStatus = (status: ProjectStatusEnum) => {
@@ -21,6 +22,19 @@ export const getTaskStatus = (status: string) => {
       return "En progreso"
     case "completada":
       return "Completado"
+    default:
+      return ""
+  }
+}
+
+export const getRoleFromEnum = (role: RoleEnum) => {
+  switch (role) {
+    case RoleEnum.ADMIN:
+      return "Administrador"
+    case RoleEnum.EMPLOYEE:
+      return "Empleado"
+    case RoleEnum.MANAGER:
+      return "Encargado"
     default:
       return ""
   }

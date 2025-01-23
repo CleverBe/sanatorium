@@ -11,6 +11,7 @@ import { ArrowRight } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useGetUserTasks } from "@/pages/Projects/ProjectIdPage/api/useGetUserTasks"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
+import { Spinner } from "@/components/Spinner"
 
 export const DashboardEmployee = () => {
   const { onOpen: onOpenDetail } = useProjectDetail()
@@ -37,7 +38,11 @@ export const DashboardEmployee = () => {
   const isLoading = isLoadingProjects || isLoadingTasks
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <main className="flex h-screen items-center justify-center">
+        <Spinner className="h-12 w-12" />
+      </main>
+    )
   }
 
   return (

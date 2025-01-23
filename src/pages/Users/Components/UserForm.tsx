@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useUpdateUser } from "../api/useUpdateUser"
+import { getRoleFromEnum } from "@/pages/Projects/helpers"
 
 export const UserForm = () => {
   const modalUser = useUserModal()
@@ -131,7 +132,7 @@ export const UserForm = () => {
 
                       return (
                         <SelectItem key={val} value={val}>
-                          {val}
+                          {getRoleFromEnum(val)}
                         </SelectItem>
                       )
                     })}
