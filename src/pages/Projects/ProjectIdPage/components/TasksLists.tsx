@@ -129,7 +129,7 @@ export const TasksLists = ({
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div className="flex h-full flex-row overflow-x-auto p-4 lg:space-x-4">
+      <div className="flex h-full space-x-2 overflow-x-auto p-4 lg:space-x-4">
         {columns.map((column) => (
           <TaskColumn
             key={column.id}
@@ -138,6 +138,7 @@ export const TasksLists = ({
             onClickAddTask={onClickAddTask}
           />
         ))}
+        <div className="w-1 flex-shrink-0" />
       </div>
     </DragDropContext>
   )
