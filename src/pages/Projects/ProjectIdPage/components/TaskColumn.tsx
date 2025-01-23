@@ -16,7 +16,7 @@ export const TaskColumn = ({
   onClickAddTask: () => void
 }) => {
   return (
-    <div className="flex min-h-[300px] w-full max-w-[360px] flex-shrink-0 select-none flex-col rounded-md border border-gray-200 bg-[#f1f2f4] shadow-sm sm:w-1/2 lg:w-1/3">
+    <div className="flex w-[360px] flex-shrink-0 select-none flex-col self-start rounded-md border border-gray-200 bg-[#f1f2f4] shadow-sm">
       <div className="rounded-t-md p-4 shadow-sm">
         <h1
           className={cn("text-xl font-bold", {
@@ -28,9 +28,9 @@ export const TaskColumn = ({
           {getTaskStatus(title)}
         </h1>
       </div>
-      <div className={cn("mt-2 flex flex-1 flex-col px-4")}>
+      <div className={cn("mt-2 flex min-h-[60px] flex-1 flex-col px-4")}>
         {title === TaskStatusEnum.PENDING && (
-          <div className="mb-2 rounded-md border-2 bg-slate-200 shadow-sm">
+          <div className="mb-2 h-[52px] rounded-md border-2 bg-slate-200 shadow-sm">
             <Button
               className="flex h-auto w-full items-center justify-start rounded-md px-3 py-2 text-xl"
               variant={"ghost"}

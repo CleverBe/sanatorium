@@ -129,7 +129,7 @@ export const TasksLists = ({
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div className="mt-4 flex h-full w-full flex-1 flex-col space-y-4 overflow-x-auto p-4 lg:flex-row lg:space-x-4 lg:space-y-0">
+      <div className="flex h-full flex-row overflow-x-auto p-4 lg:space-x-4">
         {columns.map((column) => (
           <TaskColumn
             key={column.id}

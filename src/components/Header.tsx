@@ -36,16 +36,16 @@ export const Header = ({
   }
 
   return (
-    <nav className="sticky top-0 z-50 mx-auto h-[3.5rem] w-full bg-primary text-primary-foreground">
-      <div className="h-full px-3 py-3 lg:px-5 lg:pl-3">
-        <div className="flex h-full items-center justify-between">
+    <nav className="fixed top-0 z-50 w-full border-b border-gray-200 bg-primary text-primary-foreground">
+      <div className="px-3 py-3 lg:px-5 lg:pl-3">
+        <div className="flex items-center justify-between">
           <div className="flex items-center justify-start rtl:justify-end">
             <button
               data-drawer-target="logo-sidebar"
               data-drawer-toggle="logo-sidebar"
               aria-controls="logo-sidebar"
               type="button"
-              className="inline-flex items-center rounded-lg p-2 text-sm text-primary-foreground hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 sm:hidden"
+              className="inline-flex items-center rounded-lg p-2 text-sm text-primary-foreground hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
               onClick={() => setShowSidebar(!showSidebar)}
             >
               <span className="sr-only">Open sidebar</span>
