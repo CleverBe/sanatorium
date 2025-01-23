@@ -33,6 +33,20 @@ interface Response {
       nombre: string
       email: string
     }
+    proyecto: {
+      id: number
+      nombre: string
+      descripcion: string
+      estado: ProjectStatusEnum
+      fecha_inicio: string
+      fecha_fin: string
+      encargado: {
+        id: number
+        nombre: string
+        email: string
+        rol: RoleEnum
+      }
+    }
     created_at: string
     updated_at: string
   }[]
@@ -53,15 +67,18 @@ export const getProjectTasksFn = async ({
     estimatedHours: task.horas_invertidas,
     order: task.orden,
     project: {
-      id: data.proyecto.id,
-      name: data.proyecto.nombre,
+      id: task.proyecto.id,
+      name: task.proyecto.nombre,
+      description: task.proyecto.descripcion,
+      startDate: task.proyecto.fecha_inicio,
+      endDate: task.proyecto.fecha_fin,
       inCharge: {
-        id: data.proyecto.encargado.id,
-        name: data.proyecto.encargado.nombre,
-        email: data.proyecto.encargado.email,
-        role: data.proyecto.encargado.rol,
+        id: task.proyecto.encargado.id,
+        name: task.proyecto.encargado.nombre,
+        email: task.proyecto.encargado.email,
+        role: task.proyecto.encargado.rol,
       },
-      status: data.proyecto.estado,
+      status: task.proyecto.estado,
     },
     user: {
       id: task.empleado.id,

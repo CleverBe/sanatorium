@@ -24,6 +24,8 @@ interface TasksResponse {
     nombre: string
     descripcion: string
     estado: ProjectStatusEnum
+    fecha_inicio: string
+    fecha_fin: string
     encargado: {
       id: number
       nombre: string
@@ -58,6 +60,9 @@ export const getMyProjectTasksFn = async ({
     project: {
       id: task.proyecto.id,
       name: task.proyecto.nombre,
+      description: task.proyecto.descripcion,
+      startDate: task.proyecto.fecha_inicio,
+      endDate: task.proyecto.fecha_fin,
       inCharge: {
         id: task.proyecto.encargado.id,
         name: task.proyecto.encargado.nombre,

@@ -1,7 +1,7 @@
 import { SkeletonTable } from "@/components/SkeletonTable"
 import { useGetUserProjects } from "@/pages/Dashboard/Employee/api/useGetUserProjects"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
-import { EmployeeProjectsTable } from "./Components/EmployeeProjectsTable"
+import { EmployeeProjectsTable } from "./components/EmployeeProjectsTable"
 
 export const EmployeeProjects = () => {
   const { data: user } = useGetCurrentUser()
