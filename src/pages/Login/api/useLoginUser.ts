@@ -7,6 +7,7 @@ import { RoleEnum } from "@/pages/Users/types"
 
 export interface IRefreshTokenResponse {
   access: string
+  refresh: string
 }
 
 export const refreshTokenFn = async ({
