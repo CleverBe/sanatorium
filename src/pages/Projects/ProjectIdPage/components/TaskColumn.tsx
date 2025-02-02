@@ -10,10 +10,12 @@ export const TaskColumn = ({
   title,
   items,
   onClickAddTask,
+  isProjectFinished,
 }: {
   title: TaskStatusEnum
   items: TaskWithOrder[]
   onClickAddTask: () => void
+  isProjectFinished: boolean
 }) => {
   return (
     <div className="h-full w-[360px] shrink-0 select-none">
@@ -36,6 +38,7 @@ export const TaskColumn = ({
                 className="flex h-auto w-full items-center justify-start rounded-md px-3 py-2 text-xl"
                 variant={"ghost"}
                 onClick={onClickAddTask}
+                disabled={isProjectFinished}
               >
                 <Plus className="mr-1 h-4 w-4" />
                 Agregar
@@ -54,6 +57,7 @@ export const TaskColumn = ({
                     draggableId={task.id.toString()}
                     index={index}
                     key={task.id}
+                    isDragDisabled={isProjectFinished}
                   >
                     {(provided, snapshot) => (
                       <div
@@ -69,7 +73,10 @@ export const TaskColumn = ({
                       >
                         <span className="truncate">{task.title}</span>
                         {!snapshot.isDragging && (
-                          <TaskItemActions task={task} />
+                          <TaskItemActions
+                            task={task}
+                            isProjectFinished={isProjectFinished}
+                          />
                         )}
                       </div>
                     )}

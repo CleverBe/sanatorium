@@ -12,12 +12,6 @@ export type UpdateProfileInput = z.infer<typeof updateProfileSchema>
 
 export const updatePasswordSchema = z
   .object({
-    password: z
-      .string({
-        required_error: "Current password is required",
-        invalid_type_error: "Current password must be a string",
-      })
-      .min(1, "La contraseña actual es requerida"),
     newPassword: z
       .string({
         required_error: "Password is required",

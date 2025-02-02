@@ -11,7 +11,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export const TaskItemActions = ({ task }: { task: Task }) => {
+export const TaskItemActions = ({
+  task,
+  isProjectFinished,
+}: {
+  task: Task
+  isProjectFinished: boolean
+}) => {
   const modalTask = useTaskModal()
 
   const [open, setOpen] = useState(false)
@@ -49,16 +55,18 @@ export const TaskItemActions = ({ task }: { task: Task }) => {
             <Edit className="mr-2 size-4" />
             Actualizar
           </Button>
-          <Button
-            onClick={() => {
-              setOpen(true)
-            }}
-            className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
-            variant="ghost"
-          >
-            <Trash className="mr-2 size-4" />
-            Eliminar
-          </Button>
+          {!isProjectFinished && (
+            <Button
+              onClick={() => {
+                setOpen(true)
+              }}
+              className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
+              variant="ghost"
+            >
+              <Trash className="mr-2 size-4" />
+              Eliminar
+            </Button>
+          )}
         </PopoverContent>
       </Popover>
     </>

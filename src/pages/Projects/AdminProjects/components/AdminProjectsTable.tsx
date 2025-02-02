@@ -7,8 +7,9 @@ import { DataTable } from "@/components/ui/data-table"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, CheckCircle, Circle, Timer } from "lucide-react"
+import { SearchInputDataTableToolbar } from "@/components/SearchInputDataTableToolbar"
 
-export const ProjectsTable = ({
+export const AdminProjectsTable = ({
   projects,
   managers,
 }: {
@@ -97,6 +98,7 @@ export const ProjectsTable = ({
       data={projects}
       filterInputPlaceholder="Buscar por nombre"
       filterInputValue="name"
+      DataTabletoolbar={SearchInputDataTableToolbar}
     />
   )
 }

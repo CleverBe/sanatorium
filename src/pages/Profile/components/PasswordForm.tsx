@@ -24,7 +24,6 @@ export const PasswordForm = () => {
   const form = useForm<UpdatePasswordInput>({
     resolver: zodResolver(updatePasswordSchema),
     defaultValues: {
-      password: "",
       newPassword: "",
       passwordConfirmation: "",
     },
@@ -34,7 +33,7 @@ export const PasswordForm = () => {
 
   const onSubmit: SubmitHandler<UpdatePasswordInput> = async (values) => {
     if (user?.id) {
-      mutateUpdate({ data: { ...values, id: user.id } })
+      mutateUpdate({ data: { id: user.id, password: values.newPassword } })
     }
   }
 
@@ -49,19 +48,6 @@ export const PasswordForm = () => {
             className="grid grid-cols-12 gap-2"
             onSubmit={form.handleSubmit(onSubmit)}
           >
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="col-span-12">
-                  <FormLabel>Contraseña actual</FormLabel>
-                  <FormControl>
-                    <Input autoComplete="off" placeholder="****" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="newPassword"

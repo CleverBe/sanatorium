@@ -8,6 +8,8 @@ import { ListWithTasks, TasksLists } from "./components/TasksLists"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
 import { useEffect } from "react"
 import { Spinner } from "@/components/Spinner"
+import { ProjectStatusEnum } from "../types"
+import { toast } from "sonner"
 
 export const ProjectIdPage = () => {
   const { data: user } = useGetCurrentUser()
@@ -25,6 +27,8 @@ export const ProjectIdPage = () => {
   } = useGetProject({
     projectId,
   })
+
+  const isProjectFinished = project?.status === ProjectStatusEnum.COMPLETED
 
   const {
     data: projectTasks = [],
@@ -104,7 +108,14 @@ export const ProjectIdPage = () => {
       </div>
       <TasksLists
         lists={lists}
+        isProjectFinished={isProjectFinished}
         onClickAddTask={() => {
+          if (isProjectFinished) {
+            toast.warning("No puedes agregar tareas a un proyecto finalizado")
+
+            return
+          }
+
           modalTask.onOpen()
         }}
       />

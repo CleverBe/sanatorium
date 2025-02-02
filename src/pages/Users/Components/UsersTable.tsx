@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
 import { CellActions } from "./CellActions"
 import { getRoleFromEnum } from "@/pages/Projects/helpers"
+import { SearchInputDataTableToolbar } from "@/components/SearchInputDataTableToolbar"
 
 export const UsersTable = ({ users }: { users: User[] }) => {
   const columns: ColumnDef<User>[] = [
@@ -52,7 +53,8 @@ export const UsersTable = ({ users }: { users: User[] }) => {
       columns={columns}
       data={users}
       filterInputPlaceholder="Buscar por nombre"
-      filterInputValue="fullname"
+      filterInputValue="name"
+      DataTabletoolbar={SearchInputDataTableToolbar}
     />
   )
 }

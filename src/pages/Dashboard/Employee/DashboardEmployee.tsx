@@ -124,7 +124,7 @@ export const DashboardEmployee = () => {
               <CardContent className="flex flex-col text-sm md:flex-row">
                 <div className="w-full md:w-[65%]">
                   <div>
-                    {`Fecha vencimiento: `}
+                    {`Fecha de finalizado entregado: `}
                     <span className="whitespace-nowrap font-semibold">
                       {utcToLocalDate(task.expectedCompletionDate)}
                     </span>

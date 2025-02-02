@@ -14,8 +14,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { LoginInput, loginSchema } from "./schemas/LoginSchema"
 import { useNavigate } from "react-router-dom"
 import { useLoginUser } from "./api/useLoginUser"
+import { Eye, EyeOff } from "lucide-react"
+import { useState } from "react"
 
 export const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false)
+
   const navigate = useNavigate()
 
   const form = useForm<LoginInput>({
@@ -69,7 +73,19 @@ export const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Contraseña</FormLabel>
                     <FormControl>
-                      <Input type="password" {...field} />
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((prev) => !prev)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent"
+                        >
+                          {showPassword ? <EyeOff /> : <Eye />}
+                        </button>
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          {...field}
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

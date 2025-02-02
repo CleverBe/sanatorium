@@ -4,15 +4,12 @@ import { DataTable } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
 import { CellActions } from "./CellActions"
+import { SearchInputDataTableToolbar } from "@/components/SearchInputDataTableToolbar"
 
 export const EmployeesTable = ({ employees }: { employees: Employee[] }) => {
   const columns: ColumnDef<Employee>[] = [
     {
-      accessorKey: "fullname",
-      filterFn: (row, _, value) => {
-        const fullname = `${row.original.name}`
-        return fullname.toLowerCase().includes(value.toLowerCase())
-      },
+      accessorKey: "name",
       header: ({ column }) => {
         return (
           <Button
@@ -25,9 +22,6 @@ export const EmployeesTable = ({ employees }: { employees: Employee[] }) => {
         )
       },
       cell: ({ row }) => `${row.original.name}`,
-      sortingFn: (rowA, rowB) => {
-        return rowA.original.name.localeCompare(rowB.original.name)
-      },
     },
     {
       accessorKey: "email",
@@ -59,7 +53,8 @@ export const EmployeesTable = ({ employees }: { employees: Employee[] }) => {
       columns={columns}
       data={employees}
       filterInputPlaceholder="Buscar por nombre"
-      filterInputValue="fullname"
+      filterInputValue="name"
+      DataTabletoolbar={SearchInputDataTableToolbar}
     />
   )
 }

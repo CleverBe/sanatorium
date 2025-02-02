@@ -52,6 +52,10 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
     "#ff8042",
     "#063970",
     "#76b5c5",
+    "#f53b57",
+    "#9bc53d",
+    "#795548",
+    "#607d8b",
   ]
 
   const uniqueProjects = Array.from(
@@ -72,7 +76,10 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
     )
 
     return {
-      name: project.name,
+      name:
+        project.name.length > 11
+          ? `${project.name.slice(0, 9)}..`
+          : project.name.slice(0, 11),
       value: totalHours,
     }
   })
@@ -97,8 +104,8 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
   })
 
   return (
-    <>
-      <div className="grid w-full items-center justify-center gap-4 xl:grid-cols-2">
+    <div className="flex w-full flex-col items-center justify-center gap-4">
+      <div className="grid w-full max-w-[1200px] grid-cols-1 place-items-center gap-4 xl:grid-cols-2">
         {/* PIE CHART */}
         <div className="flex h-[300px] w-full flex-col items-center justify-center rounded-md border p-4 md:w-[480px]">
           <h1 className="text-lg">Progreso de tareas</h1>
@@ -133,7 +140,6 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
-                {/* <Tooltip content={<CustomTooltip />} /> */}
                 <Bar dataKey="value">
                   {projectsGroups.map((_, index) => (
                     <Cell
@@ -176,6 +182,6 @@ export const WorkDistributionCharts = ({ tasks }: { tasks: Task[] }) => {
           </TableRow>
         </TableFooter>
       </Table>
-    </>
+    </div>
   )
 }

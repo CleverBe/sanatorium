@@ -3,6 +3,7 @@ import { TaskColumn } from "./TaskColumn"
 import { TaskStatusEnum, TaskWithOrder } from "@/pages/Tasks/types"
 import { useEffect, useState } from "react"
 import { useMoveTask } from "../api/useMoveTask"
+import { toast } from "sonner"
 
 function reorder<T>(list: T[], sourceIndex: number, destinationIndex: number) {
   const result = Array.from(list)
@@ -19,13 +20,17 @@ export interface ListWithTasks {
   tasks: TaskWithOrder[]
 }
 
+interface TasksListsProps {
+  lists: ListWithTasks[]
+  onClickAddTask: () => void
+  isProjectFinished: boolean
+}
+
 export const TasksLists = ({
   lists,
   onClickAddTask,
-}: {
-  lists: ListWithTasks[]
-  onClickAddTask: () => void
-}) => {
+  isProjectFinished,
+}: TasksListsProps) => {
   const [columns, setColumns] = useState(lists)
 
   const { mutateAsync: mutateMove } = useMoveTask()
@@ -35,6 +40,11 @@ export const TasksLists = ({
   }, [lists])
 
   const handleDragEnd = (result: DropResult) => {
+    if (isProjectFinished) {
+      toast.warning("No puedes hacer cambios en un proyecto finalizado")
+      return
+    }
+
     const { destination, source } = result
 
     if (!destination) {
@@ -136,6 +146,7 @@ export const TasksLists = ({
             title={column.id}
             items={column.tasks}
             onClickAddTask={onClickAddTask}
+            isProjectFinished={isProjectFinished}
           />
         ))}
         <div className="w-1 flex-shrink-0" />

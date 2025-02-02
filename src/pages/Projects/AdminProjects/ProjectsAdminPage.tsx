@@ -2,7 +2,7 @@ import { useGetProjects } from "../api/useGetProjects"
 import { useAdminProjectModal } from "./hooks/useAdminProjectModal"
 import { Button } from "@/components/ui/button"
 import { SkeletonTable } from "@/components/SkeletonTable"
-import { ProjectsTable } from "./components/ProjectsTable"
+import { AdminProjectsTable } from "./components/AdminProjectsTable"
 import { ProjectAdminModal } from "./components/ProjectAdminModal"
 import { useGetUsers } from "../../Users/api/useGetUsers"
 
@@ -31,7 +31,7 @@ export const ProjectsAdminPage = () => {
         {isLoading ? (
           <SkeletonTable withSearchInput />
         ) : (
-          <ProjectsTable projects={projects} managers={managers} />
+          <AdminProjectsTable projects={projects} managers={managers} />
         )}
       </div>
       <ProjectAdminModal />

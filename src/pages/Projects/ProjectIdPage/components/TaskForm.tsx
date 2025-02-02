@@ -22,6 +22,7 @@ import { useUpdateTask } from "../api/useUpdateTask"
 import { utcToLocalDateYYYYMMDD } from "@/helpers/dates"
 import { useParams } from "react-router-dom"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
+import { ProjectStatusEnum } from "../../types"
 
 export const TaskForm = () => {
   const { data: user } = useGetCurrentUser()
@@ -29,6 +30,9 @@ export const TaskForm = () => {
   const userId = user?.id as number
 
   const modalTask = useTaskModal()
+
+  const isProjectFinished =
+    modalTask.item?.project.status === ProjectStatusEnum.COMPLETED
 
   const params = useParams()
 
@@ -89,7 +93,7 @@ export const TaskForm = () => {
             <FormItem className="col-span-12">
               <FormLabel>Título</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} disabled={isProjectFinished} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,6 +110,7 @@ export const TaskForm = () => {
                   {...field}
                   className="resize-none"
                   placeholder="Descripción de la tarea"
+                  disabled={isProjectFinished}
                 />
               </FormControl>
               <FormMessage />
@@ -125,6 +130,7 @@ export const TaskForm = () => {
                     {...field}
                     value={field.value}
                     onChange={field.onChange}
+                    disabled={isProjectFinished}
                   />
                 </FormControl>
                 <FormMessage />
@@ -139,7 +145,7 @@ export const TaskForm = () => {
             <FormItem className="col-span-12 md:col-span-6">
               <FormLabel>Horas estimadas</FormLabel>
               <FormControl>
-                <Input {...field} type="number" />
+                <Input {...field} type="number" disabled={isProjectFinished} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -147,7 +153,7 @@ export const TaskForm = () => {
         />
 
         <div className="col-span-12 flex w-full items-center justify-end">
-          <Button disabled={isPending} type="submit">
+          <Button disabled={isPending || isProjectFinished} type="submit">
             {modalTask.item ? "Actualizar" : "Crear"}
           </Button>
         </div>
