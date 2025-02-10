@@ -16,6 +16,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { es } from "date-fns/locale"
 import { DataTableSelectFilter } from "../../components/DataTableSelectFilter"
 import { TaskStatusEnum } from "@/pages/Tasks/types"
+import { useFilters } from "../../context/FiltersContext"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -28,11 +29,20 @@ export function AdminDataTableToolbar<TData>({
   filterInputValue,
   table,
 }: DataTableToolbarProps<TData>) {
+  const { setFilters } = useFilters()
+
   const { data: projects = [] } = useGetProjects()
 
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
   const [currentMonth, setCurrentMonth] = useState(new Date())
+
+  const handleFilterChange = (columnId: string, value: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      [columnId]: value,
+    }))
+  }
 
   useEffect(() => {
     if (startDate) {
@@ -47,7 +57,11 @@ export function AdminDataTableToolbar<TData>({
         ? format(startDate, "yyyy-MM-dd")
         : null
       const formattedEndDate = endDate ? format(endDate, "yyyy-MM-dd") : null
+
       dateColumn.setFilterValue([formattedStartDate, formattedEndDate])
+
+      handleFilterChange("startDate", formattedStartDate || "")
+      handleFilterChange("endDate", formattedEndDate || "")
     }
   }, [startDate, endDate])
 
@@ -60,11 +74,13 @@ export function AdminDataTableToolbar<TData>({
             (table.getColumn(filterInputValue)?.getFilterValue() as string) ??
             ""
           }
-          onChange={(event) =>
+          onChange={(event) => {
+            handleFilterChange(filterInputValue, event.target.value)
+
             table
               .getColumn(filterInputValue)
               ?.setFilterValue(event.target.value)
-          }
+          }}
           className="max-w-sm"
         />
       )}
@@ -78,6 +94,7 @@ export function AdminDataTableToolbar<TData>({
           }))}
           showSearch
           className="w-full max-w-sm md:w-48"
+          handleFilterChange={handleFilterChange}
         />
       )}
       <Popover>
@@ -143,6 +160,7 @@ export function AdminDataTableToolbar<TData>({
             value: val,
           }))}
           className="w-full max-w-sm md:w-48"
+          handleFilterChange={handleFilterChange}
         />
       )}
     </div>

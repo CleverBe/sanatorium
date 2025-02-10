@@ -1,18 +1,14 @@
 import { SkeletonTable } from "@/components/SkeletonTable"
 import { useGetTasks } from "@/pages/Tasks/api/useGetTasks"
 import { TasksTable } from "@/pages/Reports/components/TasksTable"
+import { ReportsHeader } from "../components/ReportsHeader"
 
 export const AdminReport = () => {
   const { data: tasks = [], isLoading } = useGetTasks()
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">
-          Reporte de tareas realizadas por empleados
-        </h1>
-      </div>
-
+      <ReportsHeader userType="admin" />
       <div className="mt-4">
         {isLoading ? (
           <SkeletonTable withSearchInput />

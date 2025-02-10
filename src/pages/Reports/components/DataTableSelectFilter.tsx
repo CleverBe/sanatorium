@@ -10,6 +10,7 @@ interface DataTableSelectFilterProps<TData, TValue> {
   }[]
   showSearch?: boolean
   className?: string
+  handleFilterChange: (columnId: string, value: string) => void
 }
 
 export function DataTableSelectFilter<TData, TValue>({
@@ -18,6 +19,7 @@ export function DataTableSelectFilter<TData, TValue>({
   options,
   showSearch,
   className,
+  handleFilterChange,
 }: DataTableSelectFilterProps<TData, TValue>) {
   const selectedValue = column?.getFilterValue() as string
 
@@ -29,6 +31,7 @@ export function DataTableSelectFilter<TData, TValue>({
       value={selectedValue || ""}
       onValueChange={(val) => {
         column?.setFilterValue(val || undefined)
+        handleFilterChange(column?.id || "", val || "")
       }}
       className={className}
     />

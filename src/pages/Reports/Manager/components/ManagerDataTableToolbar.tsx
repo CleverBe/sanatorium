@@ -17,6 +17,7 @@ import { TaskStatusEnum } from "../../../Tasks/types"
 import { DataTableSelectFilter } from "../../components/DataTableSelectFilter"
 import { useGetManagerProjects } from "@/pages/Projects/api/useGetManagerProjects"
 import { useGetCurrentUser } from "@/pages/Profile/api/useGetCurrentUser"
+import { useFilters } from "../../context/FiltersContext"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -29,6 +30,8 @@ export function ManagerDataTableToolbar<TData>({
   filterInputValue,
   table,
 }: DataTableToolbarProps<TData>) {
+  const { setFilters } = useFilters()
+
   const { data: user } = useGetCurrentUser()
   const { data: projects = [] } = useGetManagerProjects({
     managerId: user?.id as number,
@@ -37,6 +40,13 @@ export function ManagerDataTableToolbar<TData>({
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
   const [currentMonth, setCurrentMonth] = useState(new Date())
+
+  const handleFilterChange = (columnId: string, value: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      [columnId]: value,
+    }))
+  }
 
   useEffect(() => {
     if (startDate) {
@@ -51,7 +61,11 @@ export function ManagerDataTableToolbar<TData>({
         ? format(startDate, "yyyy-MM-dd")
         : null
       const formattedEndDate = endDate ? format(endDate, "yyyy-MM-dd") : null
+
       dateColumn.setFilterValue([formattedStartDate, formattedEndDate])
+
+      handleFilterChange("startDate", formattedStartDate || "")
+      handleFilterChange("endDate", formattedEndDate || "")
     }
   }, [startDate, endDate])
 
@@ -64,11 +78,13 @@ export function ManagerDataTableToolbar<TData>({
             (table.getColumn(filterInputValue)?.getFilterValue() as string) ??
             ""
           }
-          onChange={(event) =>
+          onChange={(event) => {
+            handleFilterChange(filterInputValue, event.target.value)
+
             table
               .getColumn(filterInputValue)
               ?.setFilterValue(event.target.value)
-          }
+          }}
           className="max-w-sm"
         />
       )}
@@ -82,6 +98,7 @@ export function ManagerDataTableToolbar<TData>({
           }))}
           showSearch
           className="w-full max-w-sm md:w-48"
+          handleFilterChange={handleFilterChange}
         />
       )}
       <Popover>
@@ -147,6 +164,7 @@ export function ManagerDataTableToolbar<TData>({
             value: val,
           }))}
           className="w-full max-w-sm md:w-48"
+          handleFilterChange={handleFilterChange}
         />
       )}
     </div>

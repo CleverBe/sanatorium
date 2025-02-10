@@ -2,6 +2,7 @@ import { SkeletonTable } from "@/components/SkeletonTable"
 import { useGetManagerEmployeesTasks } from "@/pages/Tasks/api/useGetManagerEmployeesTasks"
 import { TasksTable } from "@/pages/Reports/components/TasksTable"
 import { User } from "@/pages/Users/types"
+import { ReportsHeader } from "../components/ReportsHeader"
 
 export const ManagerReport = ({ user }: { user: User }) => {
   const { data: tasks = [], isLoading } = useGetManagerEmployeesTasks({
@@ -10,12 +11,7 @@ export const ManagerReport = ({ user }: { user: User }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">
-          Reporte de tareas realizadas por empleados
-        </h1>
-      </div>
-
+      <ReportsHeader userType="encargado" />
       <div className="mt-4">
         {isLoading ? (
           <SkeletonTable withSearchInput />
